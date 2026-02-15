@@ -8,9 +8,100 @@
     <meta name="description"
         content="Revolutionize your Caribbean business with Island Connect AI - specializing in Tourism and Real Estate automation.">
 
-    <!-- Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Performance Optimization: Preconnect to Font Servers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <!-- Critical CSS (Inlined for First Paint) -->
+    <style>
+        :root {
+            --bg-primary: #0A0A0B;
+            --bg-secondary: #121214;
+            --accent-gold: #FFD700;
+            --accent-green: #00C853;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .fixed-nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 4rem);
+            max-width: 1240px;
+            z-index: 1000;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 160px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 10;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+    </style>
+
+    <!-- Defer Non-Critical Styles -->
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
+
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    </noscript>
 </head>
 
 <body>
@@ -126,7 +217,7 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@36604084eea85922eb151ce779823b30e141f017/uploads/2026-02-15T21-55-57-582Z-6qbg5e3c3.png"
-                        alt="Ultra-modern luxury villa at sunset" class="portfolio-img">
+                        alt="Ultra-modern luxury villa at sunset" class="portfolio-img" loading="lazy" decoding="async">
                     <div class="portfolio-overlay">
                         <span>Tourism</span>
                         <h3>The Booking Engine AI</h3>
@@ -134,7 +225,7 @@
                 </div>
                 <div class="portfolio-item">
                     <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@e2354ba21f3f91e02cf02d2788d61315aa03b5f4/uploads/2026-02-15T21-55-37-833Z-khjyagvix.png"
-                        alt="Caribbean tour boat in turquoise water" class="portfolio-img">
+                        alt="Caribbean tour boat in turquoise water" class="portfolio-img" loading="lazy" decoding="async">
                     <div class="portfolio-overlay">
                         <span>Hospitality</span>
                         <h3>Cake Planner AI</h3>
@@ -142,7 +233,7 @@
                 </div>
                 <div class="portfolio-item">
                     <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@fbae42c0e7d0d1dc4f7062773455e5f3a317fb5b/uploads/2026-02-15T21-56-13-913Z-ixoqt5xp4.png"
-                        alt="Serene boutique hotel interior" class="portfolio-img">
+                        alt="Serene boutique hotel interior" class="portfolio-img" loading="lazy" decoding="async">
                     <div class="portfolio-overlay">
                         <span>Radio Station</span>
                         <h3>AI Automation on Song Request</h3>
@@ -178,7 +269,7 @@
                         <div class="testimonial-footer">
                             <div class="testimonial-avatar">
                                 <img src="assets/images/a_professional_middle_aged_man_4fb7016488c9ae61ab5c0fc63ed8db97.png"
-                                    alt="Ricardo Myers">
+                                    alt="Ricardo Myers" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonial-meta">
                                 <h4>Ricardo Myers</h4>
@@ -204,7 +295,7 @@
                         <div class="testimonial-footer">
                             <div class="testimonial-avatar">
                                 <img src="assets/images/a_professional_middle_aged_wom_79bd62bd01bd0df92f394eee50b6cac2.png"
-                                    alt="Simone Patterson">
+                                    alt="Simone Patterson" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonial-meta">
                                 <h4>Simone Patterson</h4>
@@ -230,7 +321,7 @@
                         <div class="testimonial-footer">
                             <div class="testimonial-avatar">
                                 <img src="assets/images/a_young_successful_male_entrep_cc9c78051b5bed09dcdcca6a73614518.png"
-                                    alt="Michael Chen">
+                                    alt="Michael Chen" loading="lazy" decoding="async">
                             </div>
                             <div class="testimonial-meta">
                                 <h4>Michael Chen</h4>
