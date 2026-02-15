@@ -55,7 +55,7 @@ h4 {
 }
 
 section {
-    padding: 100px 0;
+    padding: 150px 0;
 }
 
 /* --- Components --- */
@@ -662,7 +662,7 @@ section {
 
 .form-control {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.07);
     border: 1px solid var(--glass-border);
     padding: 1rem 1.5rem;
     border-radius: 12px;
@@ -671,10 +671,20 @@ section {
     transition: all 0.3s var(--transition);
 }
 
+select.form-control {
+    background-color: #2a2c2e;
+    /* Distinct gray background */
+}
+
+select.form-control option {
+    background-color: #121214;
+    color: #fff;
+}
+
 .form-control:focus {
     outline: none;
     border-color: var(--accent-gold);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .contact-title {
