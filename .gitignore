@@ -1,0 +1,15 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Project dependencies
+node_modules/
+dist/
+.env
+
+# Agent artifacts
+.gemini/
+.agent/
+tmp/
+*.zip
+*.log
