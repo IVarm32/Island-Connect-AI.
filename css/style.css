@@ -235,6 +235,7 @@ section {
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
+    padding-top: 3rem;
 }
 
 .section-header h2 {
