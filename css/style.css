@@ -189,6 +189,8 @@ section {
 
 .nav-links a:not(.btn):hover {
     color: var(--accent-gold);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 .nav-links .btn {
@@ -241,6 +243,8 @@ section {
 .section-header h2 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    font-weight: 800;
 }
 
 .section-header p {
@@ -513,9 +517,9 @@ section {
 }
 
 .service-card:hover {
-    border-color: var(--accent-green);
+    border-color: var(--accent-gold);
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.1);
 }
 
 .service-icon {
