@@ -46,7 +46,7 @@ h4 {
 }
 
 section {
-    padding: 150px 0;
+    padding: 150px 0 200px 0;
     content-visibility: auto;
     contain-intrinsic-size: 500px;
 }
