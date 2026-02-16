@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+/* Font import moved to index.html for better performance */
 
 :root {
     --bg-primary: #0A0A0B;
@@ -279,6 +279,7 @@ section {
     max-width: 850px;
     margin: 0 auto;
     overflow: hidden;
+    min-height: 450px; /* Reserves space to prevent CLS during JS init */
 }
 
 .testimonial-track {

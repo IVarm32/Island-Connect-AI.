@@ -11,7 +11,10 @@
     <!-- Performance Optimization: Preconnect to Font Servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap"
+        media="print" onload="this.media='all'">
 
     <!-- Critical CSS (Inlined for First Paint) -->
     <style>
@@ -217,7 +220,8 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@36604084eea85922eb151ce779823b30e141f017/uploads/2026-02-15T21-55-57-582Z-6qbg5e3c3.png"
-                        alt="Ultra-modern luxury villa at sunset" class="portfolio-img" loading="lazy" decoding="async">
+                        alt="Ultra-modern luxury villa at sunset" class="portfolio-img" loading="lazy" decoding="async"
+                        width="800" height="1000">
                     <div class="portfolio-overlay">
                         <span>Tourism</span>
                         <h3>The Booking Engine AI</h3>
@@ -225,7 +229,8 @@
                 </div>
                 <div class="portfolio-item">
                     <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@e2354ba21f3f91e02cf02d2788d61315aa03b5f4/uploads/2026-02-15T21-55-37-833Z-khjyagvix.png"
-                        alt="Caribbean tour boat in turquoise water" class="portfolio-img" loading="lazy" decoding="async">
+                        alt="Caribbean tour boat in turquoise water" class="portfolio-img" loading="lazy"
+                        decoding="async" width="800" height="1000">
                     <div class="portfolio-overlay">
                         <span>Hospitality</span>
                         <h3>Cake Planner AI</h3>
@@ -233,7 +238,8 @@
                 </div>
                 <div class="portfolio-item">
                     <img src="https://cdn.jsdelivr.net/gh/free-whiteboard-online/Free-Erasorio-Alternative-for-Collaborative-Design@fbae42c0e7d0d1dc4f7062773455e5f3a317fb5b/uploads/2026-02-15T21-56-13-913Z-ixoqt5xp4.png"
-                        alt="Serene boutique hotel interior" class="portfolio-img" loading="lazy" decoding="async">
+                        alt="Serene boutique hotel interior" class="portfolio-img" loading="lazy" decoding="async"
+                        width="800" height="1000">
                     <div class="portfolio-overlay">
                         <span>Radio Station</span>
                         <h3>AI Automation on Song Request</h3>
@@ -269,7 +275,7 @@
                         <div class="testimonial-footer">
                             <div class="testimonial-avatar">
                                 <img src="assets/images/a_professional_middle_aged_man_4fb7016488c9ae61ab5c0fc63ed8db97.png"
-                                    alt="Ricardo Myers" loading="lazy" decoding="async">
+                                    alt="Ricardo Myers" loading="lazy" decoding="async" width="65" height="65">
                             </div>
                             <div class="testimonial-meta">
                                 <h4>Ricardo Myers</h4>
@@ -295,7 +301,7 @@
                         <div class="testimonial-footer">
                             <div class="testimonial-avatar">
                                 <img src="assets/images/a_professional_middle_aged_wom_79bd62bd01bd0df92f394eee50b6cac2.png"
-                                    alt="Simone Patterson" loading="lazy" decoding="async">
+                                    alt="Simone Patterson" loading="lazy" decoding="async" width="65" height="65">
                             </div>
                             <div class="testimonial-meta">
                                 <h4>Simone Patterson</h4>
@@ -321,7 +327,7 @@
                         <div class="testimonial-footer">
                             <div class="testimonial-avatar">
                                 <img src="assets/images/a_young_successful_male_entrep_cc9c78051b5bed09dcdcca6a73614518.png"
-                                    alt="Michael Chen" loading="lazy" decoding="async">
+                                    alt="Michael Chen" loading="lazy" decoding="async" width="65" height="65">
                             </div>
                             <div class="testimonial-meta">
                                 <h4>Michael Chen</h4>
