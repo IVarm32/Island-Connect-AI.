@@ -1,0 +1,52 @@
+/* Main CSS file for Island Connect AI Voice Agent */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --cyan-primary: #06b6d4;
+    --blue-primary: #3b82f6;
+    --purple-primary: #8b5cf6;
+}
+
+/* Custom animations if needed beyond Tailwind */
+@keyframes pulse-gentle {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-gentle 4s ease-in-out infinite;
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar matching the theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+}
