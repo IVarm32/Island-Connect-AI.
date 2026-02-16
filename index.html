@@ -89,6 +89,7 @@
         .text-gradient {
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-green) 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
@@ -198,10 +199,8 @@
                     all platforms.</p>
             </div>
 
-            <!-- Fortress-Level Security -->
             <div class="service-card glass-panel">
-                <div class="service-icon" style="color: var(--accent-gold); background: rgba(255,215,0,0.1);"><i
-                        class="bi bi-shield-lock"></i></div>
+                <div class="service-icon service-icon-gold"><i class="bi bi-shield-lock"></i></div>
                 <h3>Fortress-Level Security</h3>
                 <p>Uncompromising data protection for your client's most sensitive information. Enterprise-grade
                     encryption and monitoring.</p>
@@ -392,34 +391,46 @@
                 </div>
             </div>
             <div class="contact-form glass-panel">
-                <form id="lead-form">
+                <form id="lead-form" action="https://formspree.io/f/maqdogdw" method="POST">
+                    <!-- Formspree Config -->
+                    <input type="hidden" name="_subject" value="New Lead from Island Connect AI">
+
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" class="form-control" placeholder="John Doe" required>
+                        <input type="text" name="name" class="form-control" placeholder="John Doe" required>
                     </div>
                     <div class="form-group">
                         <label>Business Email</label>
-                        <input type="email" class="form-control" placeholder="john@company.com" required>
+                        <input type="email" name="email" class="form-control" placeholder="john@company.com" required>
                     </div>
                     <div class="form-group">
-                        <label>Industry</label>
-                        <select class="form-control">
-                            <option>Tourism</option>
-                            <option>Real Estate</option>
-                            <option>Other</option>
-                        </select>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label>Industry</label>
+                                <select name="industry" class="form-control">
+                                    <option>Tourism</option>
+                                    <option>Real Estate</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Desired Service</label>
+                                <select name="service" class="form-control">
+                                    <option>Custom AI Agents</option>
+                                    <option>Smart Website</option>
+                                    <option>Business Automation</option>
+                                    <option>AI Chatbots</option>
+                                    <option>Security Audit</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Desired Service</label>
-                        <select class="form-control">
-                            <option>Custom AI Agents</option>
-                            <option>Smart Website</option>
-                            <option>Business Automation</option>
-                            <option>AI Chatbots</option>
-                            <option>Security Audit</option>
-                        </select>
+                        <label>Your Message</label>
+                        <textarea name="message" class="form-control" rows="4"
+                            placeholder="How can we help your business?" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-gold" style="width: 100%;">Claim Your AI Audit</button>
+                    <button type="submit" class="btn btn-gold form-submit-btn">Claim Your AI Audit</button>
                 </form>
             </div>
         </div>

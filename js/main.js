@@ -119,22 +119,63 @@ revealElements.forEach(el => {
 // Form Submission handling
 const leadForm = document.getElementById('lead-form');
 if (leadForm) {
-    leadForm.addEventListener('submit', (e) => {
+    leadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = leadForm.querySelector('button');
         const originalText = btn.innerHTML;
 
-        btn.innerHTML = '<i class="bi bi-check2-circle"></i> Request Sent';
-        btn.style.background = 'var(--accent-green)';
+        // Convert FormData to a plain object for JSON submission
+        const formData = new FormData(leadForm);
+        const data = Object.fromEntries(formData.entries());
+
+        // Visual feedback
+        btn.innerHTML = '<i class="bi bi-send"></i> Sending...';
         btn.disabled = true;
 
-        setTimeout(() => {
-            leadForm.reset();
+        try {
+            const response = await fetch(leadForm.action, {
+                method: leadForm.method,
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                btn.innerHTML = '<i class="bi bi-check2-circle"></i> Request Sent';
+                btn.style.background = 'var(--accent-green)';
+                leadForm.reset();
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'var(--accent-gold)';
+                    btn.disabled = false;
+                    alert('Thank you! Your inquiry has been sent to Island Connect AI.');
+                }, 3000);
+            } else {
+                console.error('Formspree Error:', result);
+                const errorMessage = result.errors ? result.errors.map(err => err.message).join(', ') : 'Submission failed.';
+                alert('Submission Error: ' + errorMessage);
+
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        } catch (error) {
+            console.error('Submission Exception:', error);
+
+            // Check if user is testing locally via file://
+            if (window.location.protocol === 'file:') {
+                alert('Local Testing Notice: Browsers often block form submissions when opening HTML files directly (file://). Please try using a local server (like Live Server in VS Code) or upload the files to a preview site to test the contact form.');
+            } else {
+                alert('Connection error. Please check your internet or Formspree setup and try again.');
+            }
+
             btn.innerHTML = originalText;
-            btn.style.background = 'var(--accent-gold)';
             btn.disabled = false;
-            alert('Thank you! Our AI strategist will contact you shortly.');
-        }, 2000);
+        }
     });
 }
 
