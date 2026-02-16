@@ -3,11 +3,16 @@ const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
 
 let particles = [];
-const particleCount = 80;
+const particleCount = 40; // Reduced from 80 for better performance
+
+let canvasWidth = window.innerWidth;
+let canvasHeight = window.innerHeight;
 
 function initCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
 }
 
 class Particle {
@@ -16,11 +21,11 @@ class Particle {
     }
 
     reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
         this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.3; // Slower for less distraction
+        this.speedY = (Math.random() - 0.5) * 0.3;
         this.opacity = Math.random() * 0.5 + 0.2;
     }
 
@@ -28,7 +33,7 @@ class Particle {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+        if (this.x < 0 || this.x > canvasWidth || this.y < 0 || this.y > canvasHeight) {
             this.reset();
         }
     }
@@ -49,7 +54,7 @@ function createParticles() {
 }
 
 function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     particles.forEach(p => {
         p.update();
         p.draw();
@@ -60,7 +65,7 @@ function animateParticles() {
             const dy = p.y - p2.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < 150) {
+            if (distance < 100) { // Reduced connect distance from 150
                 ctx.strokeStyle = `rgba(255, 215, 0, ${0.1 * (1 - distance / 150)})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();

@@ -10,6 +10,9 @@ export default defineConfig({
     },
     build: {
         outDir: 'dist',
+        target: 'esnext',
+        minify: 'esbuild',
+        cssMinify: true,
         rollupOptions: {
             input: {
                 main: './index.html'

@@ -17,28 +17,7 @@
         media="print" onload="this.media='all'">
 
     <!-- Chatbot Widget Dependencies -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'blob': 'blob 7s infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        }
-                    }
-                },
-            },
-        };
-    </script>
+    <!-- Tailwind configured via index.css and Vite build -->
     <script type="importmap">
     {
       "imports": {
@@ -102,8 +81,8 @@
 
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
         }
@@ -441,10 +420,10 @@
                         <input type="email" name="email" class="form-control" placeholder="john@company.com" required>
                     </div>
                     <div class="form-group">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="industry-service-grid">
                             <div>
                                 <label>Industry</label>
-                                <select name="industry" class="form-control">
+                                <select name="industry" class="form-control" title="Select Industry">
                                     <option>Tourism</option>
                                     <option>Real Estate</option>
                                     <option>Other</option>
@@ -452,7 +431,7 @@
                             </div>
                             <div>
                                 <label>Desired Service</label>
-                                <select name="service" class="form-control">
+                                <select name="service" class="form-control" title="Select Desired Service">
                                     <option>Custom AI Agents</option>
                                     <option>Smart Website</option>
                                     <option>Business Automation</option>
@@ -479,8 +458,8 @@
     <!-- 2. Your Application Script (Point this to your built JS file) -->
     <script type="module" src="/index.tsx"></script>
 
-    <!-- Main Project Scripts -->
-    <script src="js/main.js"></script>
+    <!-- Main Project Scripts (Deferred) -->
+    <script src="js/main.js" defer></script>
 
     <footer class="site-footer">
         <div class="container footer-content">

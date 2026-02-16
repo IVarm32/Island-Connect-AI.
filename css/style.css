@@ -1,16 +1,6 @@
 /* Font import moved to index.html for better performance */
 
-:root {
-    --bg-primary: #0A0A0B;
-    --bg-secondary: #121214;
-    --accent-gold: #FFD700;
-    --accent-green: #00C853;
-    --text-primary: #FFFFFF;
-    --text-secondary: #A1A1AA;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --transition: cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Redundant variables removed; handled in index.css */
 
 * {
     margin: 0;
@@ -57,6 +47,12 @@ h4 {
 
 section {
     padding: 150px 0;
+    content-visibility: auto;
+    contain-intrinsic-size: 500px;
+}
+
+#hero {
+    content-visibility: visible;
 }
 
 /* --- Components --- */
@@ -651,6 +647,12 @@ section {
 }
 
 /* --- Form --- */
+.industry-service-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
 .contact-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
