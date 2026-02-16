@@ -124,9 +124,8 @@ if (leadForm) {
         const btn = leadForm.querySelector('button');
         const originalText = btn.innerHTML;
 
-        // Convert FormData to a plain object for JSON submission
+        // Use FormData directly (more robust for Formspree)
         const formData = new FormData(leadForm);
-        const data = Object.fromEntries(formData.entries());
 
         // Visual feedback
         btn.innerHTML = '<i class="bi bi-send"></i> Sending...';
@@ -135,14 +134,20 @@ if (leadForm) {
         try {
             const response = await fetch(leadForm.action, {
                 method: leadForm.method,
-                body: JSON.stringify(data),
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }
             });
 
-            const result = await response.json();
+            // Try to parse as JSON, but handle cases where it's not
+            let result;
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                result = await response.json();
+            } else {
+                result = { message: await response.text() };
+            }
 
             if (response.ok) {
                 btn.innerHTML = '<i class="bi bi-check2-circle"></i> Request Sent';
@@ -156,9 +161,22 @@ if (leadForm) {
                     alert('Thank you! Your inquiry has been sent to Island Connect AI.');
                 }, 3000);
             } else {
-                console.error('Formspree Error:', result);
-                const errorMessage = result.errors ? result.errors.map(err => err.message).join(', ') : 'Submission failed.';
-                alert('Submission Error: ' + errorMessage);
+                // Formspree error
+                console.error('Formspree Error Status:', response.status);
+                console.error('Formspree Result:', result);
+
+                let errorMessage = 'Submission failed.';
+                if (result.errors) {
+                    errorMessage = result.errors.map(err => err.message).join(', ');
+                } else if (result.error) {
+                    errorMessage = result.error;
+                } else if (response.status === 404) {
+                    errorMessage = 'Form not found. Please check your Formspree ID.';
+                } else if (response.status === 401) {
+                    errorMessage = 'Form requires activation. Please check your email and confirm the form.';
+                }
+
+                alert(`Submission Error (${response.status}): ${errorMessage}`);
 
                 btn.innerHTML = originalText;
                 btn.disabled = false;
