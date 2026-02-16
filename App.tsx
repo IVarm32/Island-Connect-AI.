@@ -1,69 +1,40 @@
-import React from 'react';
-import Header from './components/Header';
+import React, { useState } from 'react';
 import VoiceAgent from './components/VoiceAgent';
-import Features from './components/Features';
+import { MessageSquare, X } from 'lucide-react';
 
 const App: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <div className="min-h-screen bg-zinc-950 text-white selection:bg-cyan-500/30 selection:text-cyan-200">
-            <Header />
-
-            <main className="pt-32 pb-12 px-4 relative overflow-hidden">
-                {/* Background Gradients */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[800px] opacity-20 pointer-events-none">
-                    <div className="absolute top-20 left-20 w-96 h-96 bg-purple-600 rounded-full blur-[128px] animate-blob"></div>
-                    <div className="absolute top-20 right-20 w-96 h-96 bg-cyan-600 rounded-full blur-[128px] animate-blob" style={{ animationDelay: '2s' }}></div>
-                </div>
-
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-
-                    {/* Hero Text */}
-                    <div className="space-y-8 text-center lg:text-left">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 backdrop-blur-sm">
-                            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                            <span className="text-xs font-medium text-cyan-400 tracking-wide">AI-FIRST DEVELOPMENT</span>
-                        </div>
-
-                        <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-                            The Future is <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
-                                Conversational.
-                            </span>
-                        </h1>
-
-                        <p className="text-xl text-zinc-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                            Island Connect AI builds smart websites and voice agents that transform how you interact with customers. Experience our tech live right here.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <a
-                                href="https://islandconnectai.com"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="px-8 py-4 bg-white text-zinc-950 rounded-full font-bold hover:bg-cyan-50 transition-colors shadow-lg shadow-white/10"
-                            >
-                                Book Consultation
-                            </a>
-                            <button className="px-8 py-4 bg-zinc-900 text-white border border-zinc-800 rounded-full font-medium hover:bg-zinc-800 transition-colors">
-                                View Portfolio
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Voice Agent Demo */}
-                    <div className="w-full">
+        <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-4 pointer-events-none">
+            {/* Chat Window */}
+            {isOpen && (
+                <div className="w-[380px] md:w-[400px] pointer-events-auto animate-in slide-in-from-bottom-4 duration-300">
+                    <div className="relative group">
+                        {/* Close button for the widget */}
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            title="Close chat"
+                            className="absolute -top-12 right-0 p-2 bg-zinc-900 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors pointer-events-auto shadow-xl"
+                        >
+                            <X size={20} />
+                        </button>
                         <VoiceAgent />
                     </div>
                 </div>
-            </main>
+            )}
 
-            <Features />
-
-            <footer className="border-t border-zinc-900 bg-zinc-950 py-12">
-                <div className="max-w-7xl mx-auto px-6 text-center text-zinc-500 text-sm">
-                    <p>&copy; 2024 Island Connect AI. All rights reserved.</p>
-                </div>
-            </footer>
+            {/* Trigger Button */}
+            {!isOpen && (
+                <button
+                    onClick={() => setIsOpen(true)}
+                    title="Open Kai AI Voice Assistant"
+                    className="w-16 h-16 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl shadow-cyan-500/20 hover:scale-110 active:scale-95 transition-all pointer-events-auto group relative"
+                >
+                    <div className="absolute inset-0 rounded-full bg-cyan-500 animate-ping opacity-20"></div>
+                    <MessageSquare className="text-white w-7 h-7 group-hover:rotate-12 transition-transform" />
+                </button>
+            )}
         </div>
     );
 };
