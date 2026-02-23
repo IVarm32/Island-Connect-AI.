@@ -1,0 +1,33 @@
+
+                        .gdpr-popup {
+                            position: fixed;
+                            bottom: 20px;
+                            left: 20px;
+                            max-width: 300px;
+                            background: #f0f0f0;
+                            padding: 15px;
+                            border-radius: 5px;
+                            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                            z-index: 1000;
+                            font-size: 14px;
+                            display: none;
+                        }
+                        .gdpr-popup p {
+                            margin-bottom: 10px;
+                        }
+                        .gdpr-popup button {
+                            background: #007bff;
+                            color: white;
+                            border: none;
+                            padding: 8px 15px;
+                            border-radius: 3px;
+                            cursor: pointer;
+                            margin-right: 10px;
+                            font-size: 12px;
+                        }
+                        .gdpr-popup button.decline {
+                            background: #f8f9fa;
+                            color: #212529;
+                            border: 1px solid #dee2e6;
+                        }
+                    
