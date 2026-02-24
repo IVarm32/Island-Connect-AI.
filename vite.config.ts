@@ -15,7 +15,8 @@ export default defineConfig({
         cssMinify: true,
         rollupOptions: {
             input: {
-                main: './index.html'
+                main: './index.html',
+                privatePolicy: './private-policy.html'
             }
         }
     }
