@@ -1,29 +1,34 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
+    <!-- Background Gradient: Deep Grey to avoid blue tint -->
     <linearGradient id="bg_grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0A0A0B"/>
-      <stop offset="1" stop-color="#1A1A1D"/>
+      <stop stop-color="#050505"/>
+      <stop offset="1" stop-color="#121212"/>
     </linearGradient>
-    <linearGradient id="gold_grad" x1="256" y1="150" x2="256" y2="362" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFD700"/>
-      <stop offset="1" stop-color="#B8860B"/>
+    
+    <!-- Brand Gold/Yellow Gradient -->
+    <linearGradient id="gold_grad" x1="256" y1="120" x2="256" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD700"/> <!-- Gold -->
+      <stop offset="1" stop-color="#DAA520"/> <!-- GoldenRod -->
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur" />
+    
+    <!-- Brand Green Glow -->
+    <filter id="green_glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
   
-  <!-- Circular Background (Apple Style) -->
-  <circle cx="256" cy="256" r="240" fill="url(#bg_grad)" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+  <!-- Circular Frame (Apple Style) -->
+  <circle cx="256" cy="256" r="248" fill="url(#bg_grad)" stroke="#FFD700" stroke-width="4" stroke-opacity="0.2"/>
   
-  <!-- Hexagon Icon -->
-  <path d="M256 150L360 210V330L256 390L152 330V210L256 150Z" fill="none" stroke="url(#gold_grad)" stroke-width="12" stroke-linejoin="round"/>
+  <!-- Outer Brand Hexagon (Yellow/Gold) -->
+  <path d="M256 120L380 190V322L256 392L132 322V190L256 120Z" fill="none" stroke="url(#gold_grad)" stroke-width="16" stroke-linejoin="round"/>
   
-  <!-- Inner Circuitry (Green) -->
-  <path d="M210 240H302M256 210V330" stroke="#00C853" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
-  <circle cx="256" cy="270" r="15" fill="#00C853" filter="url(#glow)"/>
+  <!-- Central Connectivity Symbol (Brand Green) -->
+  <circle cx="256" cy="256" r="40" fill="#00C853" filter="url(#green_glow)"/>
+  <path d="M190 256H322M256 190V322" stroke="#00C853" stroke-width="12" stroke-linecap="round" fill="none" filter="url(#green_glow)"/>
   
-  <!-- Glass Reflection Overlay -->
-  <path d="M100 150C150 100 350 100 412 150" stroke="white" stroke-opacity="0.1" stroke-width="40" stroke-linecap="round" filter="blur(20px)"/>
+  <!-- Subtle Polish: Brand Yellow Highlight -->
+  <path d="M180 160C220 130 300 130 332 160" stroke="#FFD700" stroke-opacity="0.3" stroke-width="8" stroke-linecap="round" filter="blur(10px)"/>
 </svg>
