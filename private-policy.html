@@ -169,9 +169,21 @@
             letter-spacing: 0.05em;
         }
 
-        .logo i {
-            color: var(--accent-gold);
-            font-size: 1.5rem;
+        /* Branding Overrides */
+        .logo-img {
+            width: 38px !important;
+            height: 38px !important;
+            object-fit: contain;
+            vertical-align: middle;
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+
+        .logo-icon {
+            background: none !important;
+            box-shadow: none !important;
+            width: auto !important;
+            height: auto !important;
         }
 
         .site-footer {
@@ -203,7 +215,7 @@
         <nav class="nav-content glass-panel"
             style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
             <a href="index.html" class="logo">
-                <img src="favicon.svg" alt="Island Connect AI" class="logo-img">
+                <img src="favicon.svg" alt="Island Connect AI" class="logo-img" width="32" height="32">
                 <span>ISLAND CONNECT <span>AI</span></span>
             </a>
             <div class="nav-links">
@@ -321,8 +333,7 @@
     <footer class="site-footer">
         <div class="container footer-content">
             <a href="index.html" class="logo">
-                <img src="favicon.svg" alt="Island Connect AI" class="logo-img"
-                    style="width: 32px; height: 32px; margin-right: 12px;">
+                <img src="favicon.svg" alt="Island Connect AI" class="logo-img" width="38" height="38">
                 <span>ISLAND CONNECT AI</span>
             </a>
             <p class="footer-copy">© 2026 Island Connect AI. Locally Rooted. Globally Competitive. | <a
