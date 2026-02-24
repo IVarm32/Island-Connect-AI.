@@ -2,7 +2,7 @@
   "name": "island-connect-ai",
   "compatibility_date": "2026-02-15",
   "assets": {
-    "directory": "./"
+    "directory": "./dist"
   },
   "observability": {
     "enabled": false,

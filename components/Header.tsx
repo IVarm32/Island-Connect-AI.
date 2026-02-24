@@ -18,9 +18,9 @@ const Header: React.FC = () => {
                     <a href="#" className="hover:text-white transition-colors">Agents</a>
                     <a href="#" className="hover:text-white transition-colors">About</a>
                     <a
-                        href="https://islandconnectai.com"
+                        href="https://islandconnectai.com/"
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noreferrer noopener"
                         className="px-4 py-2 bg-white text-zinc-950 rounded-full hover:bg-cyan-50 transition-colors font-semibold"
                     >
                         Book Consultation
