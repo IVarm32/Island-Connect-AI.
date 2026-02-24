@@ -24,13 +24,16 @@
     <meta property="facebook-domain-verification" content="your_verification_code_if_any" />
     <link rel="me" href="https://www.facebook.com/islandconnectai">
 
-    <!-- Performance Optimization: Preconnect to Font Servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"
         media="print" onload="this.media='all'">
+    <style>
+        @font-face {
+            font-family: 'Outfit';
+            font-display: swap;
+        }
+    </style>
 
     <!-- Chatbot Widget Dependencies -->
     <!-- Tailwind configured via index.css and Vite build -->
@@ -96,6 +99,13 @@
             z-index: 1000;
         }
 
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2.5rem;
+        }
+
         .glass-panel {
             background: var(--glass-bg);
             -webkit-backdrop-filter: blur(20px);
@@ -113,9 +123,44 @@
             overflow: hidden;
         }
 
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .mesh-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 70% 30%, rgba(0, 200, 83, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .hero-content {
             max-width: 800px;
             z-index: 10;
+        }
+
+        h1 {
+            font-size: Clamp(3.5rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
         }
 
         .text-gradient {
@@ -126,7 +171,6 @@
             display: inline-block;
         }
 
-        /* Branding Overrides */
         .logo-img {
             width: 38px !important;
             height: 38px !important;
@@ -142,9 +186,18 @@
             width: auto !important;
             height: auto !important;
         }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
     </style>
 
-    <!-- Defer Non-Critical Styles -->
     <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="css/style.css">
@@ -484,11 +537,11 @@
         </div>
     </section>
 
-    <!-- 1. Container for the Widget -->
+    <!-- Container for the Widget -->
     <div id="island-ai-widget"></div>
 
-    <!-- 2. Your Application Script (Point this to your built JS file) -->
-    <script type="module" src="/index.tsx"></script>
+    <!-- Application Scripts -->
+    <script type="module" src="/index.tsx" defer></script>
 
     <!-- Main Project Scripts (Deferred) -->
     <script src="js/main.js" defer></script>

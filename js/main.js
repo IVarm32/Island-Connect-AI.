@@ -53,20 +53,30 @@ function createParticles() {
     }
 }
 
-function animateParticles() {
+let lastTime = 0;
+const fpsLimit = 30;
+
+function animateParticles(currentTime) {
+    if (currentTime - lastTime < 1000 / fpsLimit) {
+        requestAnimationFrame(animateParticles);
+        return;
+    }
+    lastTime = currentTime;
+
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     particles.forEach(p => {
         p.update();
         p.draw();
 
-        // Connect particles
+        // Connect particles (Throttled further)
         particles.forEach(p2 => {
             const dx = p.x - p2.x;
             const dy = p.y - p2.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distanceSq = dx * dx + dy * dy;
 
-            if (distance < 100) { // Reduced connect distance from 150
-                ctx.strokeStyle = `rgba(255, 215, 0, ${0.1 * (1 - distance / 150)})`;
+            if (distanceSq < 6400) { // 80px squared (was 100px)
+                const distance = Math.sqrt(distanceSq);
+                ctx.strokeStyle = `rgba(255, 215, 0, ${0.08 * (1 - distance / 80)})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(p.x, p.y);
