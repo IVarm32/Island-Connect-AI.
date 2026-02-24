@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"
         media="print" onload="this.media='all'">
 
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="index.css">
 
 
 </head>
@@ -157,7 +157,7 @@
                 <span>ISLAND CONNECT <span class="ai-text">AI</span></span>
             </a>
             <p class="footer-copy">© 2026 Island Connect AI. Locally Rooted. Globally Competitive. | <a
-                    href="/private-policy">Privacy Policy</a></p>
+                    href="private-policy.html">Privacy Policy</a></p>
         </div>
     </footer>
 
@@ -165,7 +165,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('sw.js')
                     .then(reg => console.log('Service Worker registered', reg))
                     .catch(err => console.log('Service Worker registration failed', err));
             });
