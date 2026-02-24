@@ -3,6 +3,11 @@
     "name": "Island Connect AI - Intelligent Solutions",
     "icons": [
         {
+            "src": "favicon.svg",
+            "type": "image/svg+xml",
+            "sizes": "any"
+        },
+        {
             "src": "images/icon-192.png",
             "type": "image/png",
             "sizes": "192x192"
