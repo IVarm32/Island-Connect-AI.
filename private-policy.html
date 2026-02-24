@@ -7,6 +7,20 @@
     <title>Privacy Policy | Island Connect AI</title>
     <meta name="description" content="Privacy Policy for Island Connect AI - Jamaica's Premier AI Agency.">
 
+    <!-- Favicon & PWA Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0A0A0B">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.islandconnectai.com/private-policy.html">
+    <meta property="og:title" content="Privacy Policy | Island Connect AI">
+    <meta property="og:description" content="Privacy Policy for Island Connect AI - Jamaica's Premier AI Agency.">
+    <meta property="og:image" content="https://www.islandconnectai.com/images/logo.png">
+    <link rel="me" href="https://www.facebook.com/islandconnectai">
+
     <!-- Performance Optimization: Preconnect to Font Servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -214,7 +228,8 @@
                     collection and
                     use of information in accordance with this Privacy Policy. This Privacy Policy has been created with
                     the help of the
-                    <a href="https://www.termsfeed.com/privacy-policy-generator/" target="_blank">TermsFeed Privacy
+                    <a href="https://www.termsfeed.com/privacy-policy-generator/" target="_blank"
+                        rel="noopener">TermsFeed Privacy
                         Policy Generator</a>.
                 </p>
 
@@ -313,6 +328,17 @@
                     href="private-policy.html">Privacy Policy</a></p>
         </div>
     </footer>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registered', reg))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
 </body>
 
 </html>

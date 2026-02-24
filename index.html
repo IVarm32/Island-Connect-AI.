@@ -8,6 +8,22 @@
     <meta name="description"
         content="Revolutionize your Caribbean business with Island Connect AI - specializing in Tourism and Real Estate automation.">
 
+    <!-- Favicon & PWA Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0A0A0B">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.islandconnectai.com/">
+    <meta property="og:title" content="Island Connect AI | Jamaica's Premier AI Agency">
+    <meta property="og:description"
+        content="Merging advanced artificial intelligence with practical web solutions. Professional AI strategy and web development.">
+    <meta property="og:image" content="https://www.islandconnectai.com/images/logo.png">
+    <meta property="facebook-domain-verification" content="your_verification_code_if_any" />
+    <link rel="me" href="https://www.facebook.com/islandconnectai">
+
     <!-- Performance Optimization: Preconnect to Font Servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -479,6 +495,17 @@
             </div>
         </div>
     </footer>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registered', reg))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
 </body>
 
 </html>

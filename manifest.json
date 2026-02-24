@@ -1,0 +1,36 @@
+{
+    "short_name": "Island AI",
+    "name": "Island Connect AI - Intelligent Solutions",
+    "icons": [
+        {
+            "src": "images/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "images/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/index.html",
+    "background_color": "#0A0A0B",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#0A0A0B",
+    "shortcuts": [
+        {
+            "name": "Intelligent Solutions",
+            "short_name": "Solutions",
+            "description": "Explore our AI solutions",
+            "url": "/index.html#services",
+            "icons": [
+                {
+                    "src": "images/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ],
+    "description": "Jamaica's Premier AI Agency. Merging advanced artificial intelligence with practical web solutions."
+}
