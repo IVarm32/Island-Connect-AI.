@@ -1,27 +1,14 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Optimized for Small Scales and High-End Branding -->
-  <defs>
-    <!-- Solid Dark Background -->
-    <rect id="bg_rect" width="512" height="512" rx="256" fill="#0A0A0B"/>
-    
-    <!-- Bold Gold Gradient -->
-    <linearGradient id="gold_grad_v2" x1="256" y1="80" x2="256" y2="432" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFD700"/>
-      <stop offset="1" stop-color="#C5A000"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Circular Background -->
-  <use href="#bg_rect" />
-  
-  <!-- Outer Hexagon (Thicker for small scales) -->
-  <path d="M256 80L408 168V344L256 432L104 344V168L256 80Z" fill="none" stroke="url(#gold_grad_v2)" stroke-width="24" stroke-linejoin="round"/>
-  
-  <!-- Internal Connectivity Symbol (Bold Green) -->
-  <path d="M256 180V332M180 256H332" stroke="#00C853" stroke-width="20" stroke-linecap="round"/>
-  <circle cx="256" cy="256" r="50" stroke="#00C853" stroke-width="12" fill="none"/>
-  <circle cx="256" cy="256" r="25" fill="#00C853"/>
-
-  <!-- Aesthetic Polish: Subtle Gold Border -->
-  <circle cx="256" cy="256" r="240" stroke="#FFD700" stroke-width="4" stroke-opacity="0.3"/>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(60,60)">
+    <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2"/>
+    <polygon 
+      points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14"
+      fill="none"
+      stroke="#f4c430"
+      stroke-width="4"
+      stroke-linejoin="round"/>
+    <polygon
+      points="0,-14 10,0 0,14 -10,0"
+      fill="#00d084"/>
+  </g>
 </svg>
