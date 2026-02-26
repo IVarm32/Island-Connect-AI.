@@ -5,7 +5,8 @@ const ASSETS_TO_CACHE = [
     '/index.html',
     '/private-policy.html',
     '/index.css',
-    '/images/logo.png',
+    '/logo.svg',
+    '/favicon.svg',
     '/images/icon-192.png'
 ];
 

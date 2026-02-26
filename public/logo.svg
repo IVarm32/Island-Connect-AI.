@@ -1,0 +1,32 @@
+<svg width="650" height="120" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Logo Icon -->
+  <g transform="translate(60,60)">
+    
+    <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2"/>
+    
+    <polygon 
+      points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14"
+      fill="none"
+      stroke="#f4c430"
+      stroke-width="4"
+      stroke-linejoin="round"/>
+
+    <polygon
+      points="0,-14 10,0 0,14 -10,0"
+      fill="#00d084"/>
+  </g>
+
+  <!-- Text -->
+  <text x="130" y="68"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="42"
+        font-weight="700"
+        letter-spacing="2">
+
+    <tspan fill="#ffffff">ISLANDCONNECT</tspan>
+    <tspan dx="8" fill="#00d084">AI</tspan>
+
+  </text>
+
+</svg>
