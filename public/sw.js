@@ -5,8 +5,7 @@ const ASSETS_TO_CACHE = [
     '/index.html',
     '/private-policy.html',
     '/index.css',
-    '/images/logo.png',
-    '/images/icon-192.png'
+    '/favicon.svg'
 ];
 
 self.addEventListener('install', (event) => {

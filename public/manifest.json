@@ -8,12 +8,12 @@
             "sizes": "any"
         },
         {
-            "src": "images/icon-192.png",
+            "src": "/.netlify/images?url=/images/icon-192.png&w=192&h=192&fit=cover",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "images/icon-512.png",
+            "src": "/.netlify/images?url=/images/icon-512.png&w=512&h=512&fit=cover",
             "type": "image/png",
             "sizes": "512x512"
         }
@@ -31,7 +31,7 @@
             "url": "/index.html#services",
             "icons": [
                 {
-                    "src": "images/icon-192.png",
+                    "src": "/.netlify/images?url=/images/icon-192.png&w=192&h=192&fit=cover",
                     "sizes": "192x192"
                 }
             ]
