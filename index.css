@@ -231,54 +231,11 @@ section {
     flex-shrink: 0;
 }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
+.logo-svg {
+    height: 60px;
+    width: auto;
     flex-shrink: 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 215, 0, 0.15);
-}
-
-.logo-icon::before {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 28px;
-    border: 2px solid var(--accent-gold);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    z-index: 1;
-}
-
-.logo-icon::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background: var(--accent-green);
-    clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
-    filter: drop-shadow(0 0 8px var(--accent-green));
-    z-index: 2;
-    animation: glow-pulse 3s ease-in-out infinite;
-}
-
-@keyframes glow-pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 0.9;
-    }
-
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-        filter: drop-shadow(0 0 12px var(--accent-green));
-    }
+    display: block;
 }
 
 .logo .ai-text {
@@ -382,14 +339,16 @@ section {
 }
 
 .hero h1 {
-    font-size: clamp(3.5rem, 8vw, 6rem);
-    /* Fixed case sensitivity */
-    margin-bottom: 2rem;
+    font-size: clamp(4.5rem, 9vw, 6.5rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
     animation: fadeInUp 1s var(--transition);
 }
 
 .hero p {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+    line-height: 1.7;
+    max-width: 800px;
     color: var(--text-secondary);
     margin-bottom: 3rem;
     animation: fadeInUp 1s var(--transition) 0.2s backwards;
@@ -841,9 +800,70 @@ select.form-control option {
     }
 }
 
+/* Policy Legal Pages */
+.policy-section {
+    padding-top: 150px;
+}
+
+.policy-content {
+    padding: 3rem;
+    margin-top: 2rem;
+    color: var(--text-secondary);
+}
+
+.policy-content h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.policy-content h3 {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.policy-content h4 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.policy-content p {
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+}
+
+.policy-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.policy-content li {
+    margin-bottom: 0.5rem;
+    list-style-type: disc;
+}
+
+.policy-content a {
+    color: var(--accent-green);
+    text-decoration: underline;
+}
+
+.policy-content a:hover {
+    color: var(--accent-gold);
+}
+
 @media (max-width: 768px) {
     section {
         padding: 80px 0 100px 0;
+    }
+
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
     }
 
     .fixed-nav {
@@ -866,6 +886,10 @@ select.form-control option {
     .logo-icon {
         width: 32px;
         height: 32px;
+    }
+
+    .logo-svg {
+        height: 35px;
     }
 
     .nav-links {
@@ -904,8 +928,10 @@ select.form-control option {
     }
 
     .hero h1 {
-        font-size: 2.25rem;
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        line-height: 1.25;
         margin-bottom: 1.5rem;
+        word-break: break-word;
     }
 
     .hero h1 br {
@@ -973,5 +999,9 @@ select.form-control option {
 
     .contact-details {
         align-items: center;
+    }
+
+    .policy-content {
+        padding: 1.5rem;
     }
 }

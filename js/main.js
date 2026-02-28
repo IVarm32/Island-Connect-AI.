@@ -1,6 +1,6 @@
 // Particle Background Implementation
 const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas ? canvas.getContext('2d') : null;
 
 let particles = [];
 const particleCount = 40; // Reduced from 80 for better performance
@@ -295,9 +295,11 @@ if (track && slidesCount > 0) {
 }
 
 // Initialize
-window.addEventListener('resize', initCanvas);
-initCanvas();
-createParticles();
-animateParticles();
+if (canvas && ctx) {
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+    createParticles();
+    animateParticles();
+}
 
 console.log('Island Connect AI initialized successfully.');

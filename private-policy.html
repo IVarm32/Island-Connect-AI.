@@ -29,21 +29,37 @@
 
     <link rel="stylesheet" href="index.css">
 
-
+    <!-- Main Project Scripts (Deferred) for Nav logic -->
+    <script src="js/main.js" defer></script>
 </head>
 
 <body>
     <!-- Navigation -->
     <header class="fixed-nav">
         <nav class="nav-content glass-panel">
-            <a href="https://islandconnectai.com/" class="logo">
-                <div class="logo-icon"></div>
-                <span>ISLAND CONNECT <span class="ai-text">AI</span></span>
+            <a href="/" class="logo" aria-label="Island Connect AI Home">
+                <svg class="logo-svg" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(60,60)">
+                        <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2" />
+                        <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="none" stroke="#f4c430"
+                            stroke-width="4" stroke-linejoin="round" />
+                        <polygon points="0,-14 10,0 0,14 -10,0" fill="#00d084" />
+                    </g>
+                    <text x="130" y="68" font-family="'Outfit', sans-serif" font-size="42" font-weight="700"
+                        letter-spacing="2">
+                        <tspan fill="#ffffff">ISLAND CONNECT</tspan>
+                        <tspan dx="8" fill="#00d084">AI</tspan>
+                    </text>
+                </svg>
             </a>
             <div class="nav-links">
                 <a href="/#services">Services</a>
                 <a href="/#contact" class="btn btn-gold">Free Audit</a>
             </div>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu">
+                <i class="bi bi-list"></i>
+            </button>
         </nav>
     </header>
 
@@ -152,9 +168,20 @@
 
     <footer class="site-footer">
         <div class="container footer-content">
-            <a href="https://islandconnectai.com/" class="logo">
-                <div class="logo-icon"></div>
-                <span>ISLAND CONNECT <span class="ai-text">AI</span></span>
+            <a class="logo" aria-label="Island Connect AI Home">
+                <svg class="logo-svg" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <g transform="translate(60,60)">
+                        <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2" />
+                        <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="none" stroke="#f4c430"
+                            stroke-width="4" stroke-linejoin="round" />
+                        <polygon points="0,-14 10,0 0,14 -10,0" fill="#00d084" />
+                    </g>
+                    <text x="130" y="68" font-family="'Outfit', sans-serif" font-size="42" font-weight="700"
+                        letter-spacing="2">
+                        <tspan fill="#ffffff">ISLAND CONNECT</tspan>
+                        <tspan dx="8" fill="#00d084">AI</tspan>
+                    </text>
+                </svg>
             </a>
             <p class="footer-copy">© 2026 Island Connect AI. Locally Rooted. Globally Competitive. | <a
                     href="private-policy.html">Privacy Policy</a></p>
