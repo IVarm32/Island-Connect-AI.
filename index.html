@@ -10,25 +10,24 @@
 
     <!-- Favicon & PWA Icons -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="apple-touch-icon" href="images/icon-192.png">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0A0A0B">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://islandconnectai.com/">
-    <meta property="og:title" content="Island Connect AI | Jamaica's Premier AI Agency">
-    <meta property="og:description"
-        content="Merging advanced artificial intelligence with practical web solutions. Professional AI strategy and web development.">
-    <meta property="og:image" content="images/network.png">
-    <meta property="facebook-domain-verification" content="your_verification_code_if_any" />
-    <link rel="me" href="https://www.facebook.com/islandconnectai">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"
         media="print" onload="this.media='all'">
 
+    <!-- App Branding & Social Sharing -->
+    <link rel="apple-touch-icon"
+        href="https://pub-9492ccf38a894deea61da5ac42572f5f.r2.dev/images/Island%20Connect%20Logo.svg">
+    <meta property="og:title" content="Island Connect AI | Premium AI Solutions">
+    <meta property="og:description"
+        content="Jamaica's Premier AI Agency. Smart automation and ironclad security tailored for luxury Caribbean firms.">
+    <meta property="og:image"
+        content="https://pub-9492ccf38a894deea61da5ac42572f5f.r2.dev/images/Island%20Connect%20Logo.svg">
+    <meta property="og:url" content="https://islandconnectai.com/">
+    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="stylesheet" href="index.css">
 
@@ -151,37 +150,62 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Featured Projects Section -->
     <section id="portfolio" class="section-dark">
         <div class="container">
             <div class="section-header">
-                <h2>Previous <span class="text-gradient">Builds</span></h2>
-                <p>Showcasing our impact on luxury villas and tour operators.</p>
+                <h2>Featured <span class="text-gradient">Projects</span></h2>
+                <p>Explore a selection of my recent work showcasing innovative design and development solutions.</p>
             </div>
 
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="images/villa.png" alt="Ultra-modern luxury villa at sunset" class="portfolio-img"
-                        loading="lazy" decoding="async" width="800" height="1000">
-                    <div class="portfolio-overlay">
-                        <span>Tourism</span>
-                        <h3>The Booking Engine AI</h3>
+            <div class="project-slider">
+                <div class="project-track">
+                    <!-- Cake Planner AI -->
+                    <div class="project-card glass-panel">
+                        <div class="project-image">
+                            <img src="images/cake_planner.png" alt="Cake Planner AI" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <h3>Cake Planner AI</h3>
+                            <p>Our planner provides inspiration and allows you to tailor every detail, including
+                                flavors,
+                                fillings, decorations, and overall style.</p>
+                            <a href="#" class="btn btn-green">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Nexgen Radio Project -->
+                    <div class="project-card glass-panel">
+                        <div class="project-image">
+                            <img src="images/nexgen_radio.png" alt="Nexgen Radio Project" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <h3>Nexgen Radio Project</h3>
+                            <p>User-centered mobile application design with intuitive navigation and modern interface
+                                patterns.</p>
+                            <a href="#" class="btn btn-green">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Analytics -->
+                    <div class="project-card glass-panel">
+                        <div class="project-image">
+                            <img src="images/dashboard_analytics.png" alt="Dashboard Analytics" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <h3>Dashboard Analytics</h3>
+                            <p>Interactive data visualization dashboard with real-time metrics and customizable
+                                reporting features.</p>
+                            <a href="#" class="btn btn-green">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <img src="images/boat.png" alt="Caribbean tour boat in turquoise water" class="portfolio-img"
-                        loading="lazy" decoding="async" width="800" height="1000">
-                    <div class="portfolio-overlay">
-                        <span>Tourism</span>
-                        <h3>Vacation Planner AI</h3>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="images/hotel.png" alt="Serene boutique hotel interior" class="portfolio-img"
-                        loading="lazy" decoding="async" width="800" height="1000">
-                    <div class="portfolio-overlay">
-                        <span>Real Estate</span>
-                        <h3>Showcase Virtual Staging with AI</h3>
+
+                <div class="slider-controls project-controls">
+                    <div class="slider-dots project-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                     </div>
                 </div>
             </div>

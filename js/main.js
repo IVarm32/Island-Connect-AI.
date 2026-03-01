@@ -294,7 +294,52 @@ if (track && slidesCount > 0) {
     });
 }
 
-// Initialize
+// Featured Projects Slider
+const projectTrack = document.querySelector('.project-track');
+const projectCards = document.querySelectorAll('.project-card');
+const projectDots = document.querySelectorAll('.project-dots .dot');
+
+if (projectTrack && projectCards.length > 0) {
+    let currentProjectSlide = 0;
+    const totalProjects = projectCards.length;
+
+    const updateProjectSlider = (index) => {
+        if (index < 0) index = 0;
+        if (index >= totalProjects) index = totalProjects - 1;
+
+        const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth <= 1100;
+
+        let movePercent = 33.333;
+        if (isMobile) movePercent = 100;
+        else if (isTablet) movePercent = 50;
+
+        projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
+
+        projectDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        currentProjectSlide = index;
+    };
+
+    projectDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            updateProjectSlider(i);
+        });
+    });
+
+    // Simple touch support
+    let startX = 0;
+    projectTrack.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+    projectTrack.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        if (startX - endX > 50) updateProjectSlider(currentProjectSlide + 1);
+        if (startX - endX < -50) updateProjectSlider(currentProjectSlide - 1);
+    });
+
+    window.addEventListener('resize', () => updateProjectSlider(currentProjectSlide));
+}
+
 if (canvas && ctx) {
     window.addEventListener('resize', initCanvas);
     initCanvas();
