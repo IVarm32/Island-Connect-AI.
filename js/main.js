@@ -240,104 +240,131 @@ if (navToggle && navLinks) {
 
 
 // Testimonial Slider
-const track = document.querySelector('.testimonial-track');
-const slidesCount = document.querySelectorAll('.testimonial-card').length;
-const nextBtn = document.querySelector('.slider-arrow.next');
-const prevBtn = document.querySelector('.slider-arrow.prev');
-const dots = document.querySelectorAll('.dot');
+const testimonialSlider = document.querySelector('.testimonial-slider');
+if (testimonialSlider) {
+    const track = testimonialSlider.querySelector('.testimonial-track');
+    const slides = testimonialSlider.querySelectorAll('.testimonial-card');
+    const nextBtn = testimonialSlider.querySelector('.slider-arrow.next');
+    const prevBtn = testimonialSlider.querySelector('.slider-arrow.prev');
+    const dots = testimonialSlider.querySelectorAll('.dots .dot, .slider-dots .dot');
 
-let currentSlide = 0;
-let slideInterval;
+    let currentSlide = 0;
+    const slidesCount = slides.length;
+    let slideInterval;
 
-const updateSlider = (index) => {
-    if (track) {
-        track.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach(dot => dot.classList.remove('active'));
-        if (dots[index]) dots[index].classList.add('active');
-        currentSlide = index;
-    }
-};
+    const updateSlider = (index) => {
+        if (track) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlide = index;
+        }
+    };
 
-const nextSlide = () => {
-    let index = (currentSlide + 1) % slidesCount;
-    updateSlider(index);
-};
+    const nextSlide = () => {
+        let index = (currentSlide + 1) % slidesCount;
+        updateSlider(index);
+    };
 
-const prevSlide = () => {
-    let index = (currentSlide - 1 + slidesCount) % slidesCount;
-    updateSlider(index);
-};
+    const prevSlide = () => {
+        let index = (currentSlide - 1 + slidesCount) % slidesCount;
+        updateSlider(index);
+    };
 
-if (track && slidesCount > 0) {
     const startAutoSlide = () => {
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 5000);
     };
 
-    startAutoSlide();
-
-    nextBtn?.addEventListener('click', () => {
-        nextSlide();
+    if (slidesCount > 0) {
         startAutoSlide();
-    });
 
-    prevBtn?.addEventListener('click', () => {
-        prevSlide();
-        startAutoSlide();
-    });
-
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            updateSlider(i);
+        nextBtn?.addEventListener('click', () => {
+            nextSlide();
             startAutoSlide();
         });
-    });
+
+        prevBtn?.addEventListener('click', () => {
+            prevSlide();
+            startAutoSlide();
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                updateSlider(i);
+                startAutoSlide();
+            });
+        });
+
+        // Touch support for testimonials
+        let startX = 0;
+        testimonialSlider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, { passive: true });
+        testimonialSlider.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+                startAutoSlide();
+            }
+        }, { passive: true });
+    }
 }
 
 // Featured Projects Slider
-const projectTrack = document.querySelector('.project-track');
-const projectCards = document.querySelectorAll('.project-card');
-const projectDots = document.querySelectorAll('.project-dots .dot');
+const projectSlider = document.querySelector('.project-slider');
+if (projectSlider) {
+    const projectTrack = projectSlider.querySelector('.project-track');
+    const projectCards = projectSlider.querySelectorAll('.project-card');
+    const projectDots = projectSlider.querySelectorAll('.project-dots .dot');
 
-if (projectTrack && projectCards.length > 0) {
-    let currentProjectSlide = 0;
-    const totalProjects = projectCards.length;
+    if (projectTrack && projectCards.length > 0) {
+        let currentProjectSlide = 0;
+        const totalProjects = projectCards.length;
 
-    const updateProjectSlider = (index) => {
-        if (index < 0) index = 0;
-        if (index >= totalProjects) index = totalProjects - 1;
+        const updateProjectSlider = (index) => {
+            const isMobile = window.innerWidth <= 768;
+            const isTablet = window.innerWidth <= 1100;
 
-        const isMobile = window.innerWidth <= 768;
-        const isTablet = window.innerWidth <= 1100;
+            let itemsVisible = 3;
+            if (isMobile) itemsVisible = 1;
+            else if (isTablet) itemsVisible = 2;
 
-        let movePercent = 33.333;
-        if (isMobile) movePercent = 100;
-        else if (isTablet) movePercent = 50;
+            const maxIndex = Math.max(0, totalProjects - itemsVisible);
+            if (index < 0) index = 0;
+            if (index > maxIndex) index = maxIndex;
 
-        projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
+            let movePercent = 100 / itemsVisible;
+            projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
+
+            projectDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentProjectSlide = index;
+        };
 
         projectDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
+            dot.addEventListener('click', () => {
+                updateProjectSlider(i);
+            });
         });
-        currentProjectSlide = index;
-    };
 
-    projectDots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            updateProjectSlider(i);
-        });
-    });
+        // Touch support for projects
+        let startX = 0;
+        projectSlider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, { passive: true });
+        projectSlider.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) updateProjectSlider(currentProjectSlide + 1);
+                else updateProjectSlider(currentProjectSlide - 1);
+            }
+        }, { passive: true });
 
-    // Simple touch support
-    let startX = 0;
-    projectTrack.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
-    projectTrack.addEventListener('touchend', (e) => {
-        const endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50) updateProjectSlider(currentProjectSlide + 1);
-        if (startX - endX < -50) updateProjectSlider(currentProjectSlide - 1);
-    });
-
-    window.addEventListener('resize', () => updateProjectSlider(currentProjectSlide));
+        window.addEventListener('resize', () => updateProjectSlider(currentProjectSlide));
+        // Initial setup
+        updateProjectSlider(0);
+    }
 }
 
 if (canvas && ctx) {
