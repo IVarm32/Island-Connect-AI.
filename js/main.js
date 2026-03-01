@@ -254,6 +254,7 @@ if (testimonialSlider) {
 
     const updateSlider = (index) => {
         if (track) {
+            track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             track.style.transform = `translateX(-${index * 100}%)`;
             dots.forEach(dot => dot.classList.remove('active'));
             if (dots[index]) dots[index].classList.add('active');
@@ -321,6 +322,7 @@ if (projectSlider) {
     if (projectTrack && projectCards.length > 0) {
         let currentProjectSlide = 0;
         const totalProjects = projectCards.length;
+        let projectSlideInterval;
 
         const updateProjectSlider = (index) => {
             const isMobile = window.innerWidth <= 768;
@@ -331,10 +333,13 @@ if (projectSlider) {
             else if (isTablet) itemsVisible = 2;
 
             const maxIndex = Math.max(0, totalProjects - itemsVisible);
-            if (index < 0) index = 0;
-            if (index > maxIndex) index = maxIndex;
+
+            // Looping logic
+            if (index < 0) index = maxIndex;
+            if (index > maxIndex) index = 0;
 
             let movePercent = 100 / itemsVisible;
+            projectTrack.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
 
             projectDots.forEach((dot, i) => {
@@ -343,15 +348,29 @@ if (projectSlider) {
             currentProjectSlide = index;
         };
 
+        const nextProjectSlide = () => {
+            updateProjectSlider(currentProjectSlide + 1);
+        };
+
+        const startProjectAutoSlide = () => {
+            clearInterval(projectSlideInterval);
+            projectSlideInterval = setInterval(nextProjectSlide, 6000);
+        };
+
         projectDots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 updateProjectSlider(i);
+                startProjectAutoSlide();
             });
         });
 
         // Touch support for projects
         let startX = 0;
-        projectSlider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, { passive: true });
+        projectSlider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            clearInterval(projectSlideInterval);
+        }, { passive: true });
+
         projectSlider.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
             const diff = startX - endX;
@@ -359,11 +378,14 @@ if (projectSlider) {
                 if (diff > 0) updateProjectSlider(currentProjectSlide + 1);
                 else updateProjectSlider(currentProjectSlide - 1);
             }
+            startProjectAutoSlide();
         }, { passive: true });
 
         window.addEventListener('resize', () => updateProjectSlider(currentProjectSlide));
+
         // Initial setup
         updateProjectSlider(0);
+        startProjectAutoSlide();
     }
 }
 
