@@ -246,7 +246,7 @@ if (testimonialSlider) {
     const slides = testimonialSlider.querySelectorAll('.testimonial-card');
     const nextBtn = testimonialSlider.querySelector('.slider-arrow.next');
     const prevBtn = testimonialSlider.querySelector('.slider-arrow.prev');
-    const dots = testimonialSlider.querySelectorAll('.dots .dot, .slider-dots .dot');
+    const dots = testimonialSlider.querySelectorAll('.slider-dots .dot');
 
     let currentSlide = 0;
     const slidesCount = slides.length;
@@ -393,7 +393,7 @@ if (canvas && ctx) {
     window.addEventListener('resize', initCanvas);
     initCanvas();
     createParticles();
-    animateParticles();
+    animateParticles(0);
 }
 
 console.log('Island Connect AI initialized successfully.');
