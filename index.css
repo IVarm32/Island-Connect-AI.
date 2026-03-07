@@ -564,14 +564,17 @@ section {
 .h-scroll-container::-webkit-scrollbar {
     height: 8px;
 }
+
 .h-scroll-container::-webkit-scrollbar-track {
     background: #09090b;
     border-radius: 4px;
 }
+
 .h-scroll-container::-webkit-scrollbar-thumb {
     background: #27272a;
     border-radius: 4px;
 }
+
 .h-scroll-container::-webkit-scrollbar-thumb:hover {
     background: #3f3f46;
 }
@@ -646,6 +649,19 @@ section {
     margin: 0;
 }
 
+.h-card-dark {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.h-card-dark .h-card-content h3 {
+    color: #ffffff;
+}
+
+.h-card-dark .h-card-content p {
+    color: #999999;
+}
+
 @media (max-width: 991px) {
     .h-scroll-card {
         flex: 0 0 400px;
@@ -659,6 +675,7 @@ section {
         padding-bottom: 0;
         gap: 2rem;
     }
+
     .h-scroll-card {
         flex: 1 1 auto;
         width: 100%;
