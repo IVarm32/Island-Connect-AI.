@@ -255,7 +255,7 @@ if (testimonialSlider) {
     const updateSlider = (index) => {
         if (track) {
             track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            track.style.transform = `translateX(-${(index * 100) / slidesCount}%)`;
+            track.style.transform = `translateX(-${index * 100}%)`;
             dots.forEach(dot => dot.classList.remove('active'));
             if (dots[index]) dots[index].classList.add('active');
             currentSlide = index;
@@ -351,7 +351,17 @@ if (projectSlider) {
         };
 
         const nextProjectSlide = () => {
-            updateProjectSlider(currentProjectSlide + 1);
+            let nextIndex = currentProjectSlide + 1;
+            const isMobile = window.innerWidth <= 768;
+            const isTablet = window.innerWidth <= 1100;
+            let itemsVisible = 3;
+            if (isMobile) itemsVisible = 1;
+            else if (isTablet) itemsVisible = 2;
+
+            const maxIndex = Math.max(0, totalProjects - itemsVisible);
+            if (nextIndex > maxIndex) nextIndex = 0;
+
+            updateProjectSlider(nextIndex);
         };
 
         const startProjectAutoSlide = () => {
