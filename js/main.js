@@ -1,411 +1,308 @@
-// Particle Background Implementation
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas ? canvas.getContext('2d') : null;
+// Island Connect AI - Main JavaScript logic
+// Optimized for performance and responsiveness
 
-let particles = [];
-const particleCount = 40; // Reduced from 80 for better performance
+// --- Particle Background Implementation ---
+const initParticles = () => {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 40;
+    let lastTime = 0;
+    const fpsLimit = 30;
 
-let canvasWidth = window.innerWidth;
-let canvasHeight = window.innerHeight;
+    let canvasWidth = window.innerWidth;
+    let canvasHeight = window.innerHeight;
 
-function initCanvas() {
-    canvasWidth = window.innerWidth;
-    canvasHeight = window.innerHeight;
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-}
+    const resize = () => {
+        canvasWidth = window.innerWidth;
+        canvasHeight = window.innerHeight;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+    };
 
-class Particle {
-    constructor() {
-        this.reset();
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvasWidth;
+            this.y = Math.random() * canvasHeight;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.2;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvasWidth || this.y < 0 || this.y > canvasHeight) this.reset();
+        }
+        draw() {
+            ctx.fillStyle = `rgba(0, 200, 83, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 
-    reset() {
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.3; // Slower for less distraction
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.opacity = Math.random() * 0.5 + 0.2;
+    const animate = (currentTime) => {
+        if (currentTime - lastTime < 1000 / fpsLimit) {
+            requestAnimationFrame(animate);
+            return;
+        }
+        lastTime = currentTime;
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        particles.forEach((p, i) => {
+            p.update();
+            p.draw();
+            for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p.x - p2.x, dy = p.y - p2.y;
+                const distSq = dx * dx + dy * dy;
+                if (distSq < 5625) {
+                    const dist = Math.sqrt(distSq);
+                    ctx.strokeStyle = `rgba(255, 215, 0, ${0.1 * (1 - dist / 75)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                }
+            }
+        });
+        requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('resize', resize);
+    resize();
+    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+    requestAnimationFrame(animate);
+};
+
+// --- Slider Implementation ---
+class IslandSlider {
+    constructor(config) {
+        this.container = document.querySelector(config.container);
+        if (!this.container) return;
+
+        this.track = this.container.querySelector(config.track);
+        this.items = this.container.querySelectorAll(config.items);
+        this.dots = this.container.querySelectorAll(config.dots);
+        this.prevBtn = this.container.querySelector(config.prev);
+        this.nextBtn = this.container.querySelector(config.next);
+
+        this.interval = config.interval || 5000;
+        this.usePixels = config.usePixels || false;
+        this.currentIndex = 0;
+        this.timer = null;
+        this.startX = 0;
+
+        this.init();
+    }
+
+    init() {
+        if (this.items.length === 0) return;
+
+        this.nextBtn?.addEventListener('click', () => this.next());
+        this.prevBtn?.addEventListener('click', () => this.prev());
+
+        this.dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => this.goTo(i));
+        });
+
+        this.container.addEventListener('touchstart', (e) => {
+            this.startX = e.touches[0].clientX;
+            this.stopAuto();
+        }, { passive: true });
+
+        this.container.addEventListener('touchend', (e) => {
+            const diff = this.startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? this.next() : this.prev();
+            }
+            this.startAuto();
+        }, { passive: true });
+
+        window.addEventListener('resize', () => this.update());
+
+        this.update();
+        this.startAuto();
+    }
+
+    getVisibleItems() {
+        if (!this.usePixels) return 1;
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 1100) return 2;
+        return 3;
+    }
+
+    getMaxIndex() {
+        return Math.max(0, this.items.length - this.getVisibleItems());
     }
 
     update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+        if (!this.track) return;
 
-        if (this.x < 0 || this.x > canvasWidth || this.y < 0 || this.y > canvasHeight) {
-            this.reset();
+        const maxIdx = this.getMaxIndex();
+        if (this.currentIndex > maxIdx) this.currentIndex = 0;
+
+        let transformValue = '';
+        if (this.usePixels) {
+            const itemWidth = this.items[0].offsetWidth;
+            const gap = parseFloat(getComputedStyle(this.track).gap) || 0;
+            transformValue = `translateX(-${this.currentIndex * (itemWidth + gap)}px)`;
+        } else {
+            transformValue = `translateX(-${this.currentIndex * 100}%)`;
         }
+
+        this.track.style.transform = transformValue;
+
+        this.dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === this.currentIndex);
+        });
     }
 
-    draw() {
-        ctx.fillStyle = `rgba(0, 200, 83, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
+    next() {
+        const maxIdx = this.getMaxIndex();
+        this.currentIndex = this.currentIndex >= maxIdx ? 0 : this.currentIndex + 1;
+        this.update();
+        this.restartAuto();
+    }
+
+    prev() {
+        const maxIdx = this.getMaxIndex();
+        this.currentIndex = this.currentIndex <= 0 ? maxIdx : this.currentIndex - 1;
+        this.update();
+        this.restartAuto();
+    }
+
+    goTo(index) {
+        const maxIdx = this.getMaxIndex();
+        this.currentIndex = Math.min(index, maxIdx);
+        this.update();
+        this.restartAuto();
+    }
+
+    startAuto() {
+        this.stopAuto();
+        this.timer = setInterval(() => this.next(), this.interval);
+    }
+
+    stopAuto() {
+        if (this.timer) clearInterval(this.timer);
+    }
+
+    restartAuto() {
+        this.startAuto();
     }
 }
 
-function createParticles() {
-    particles = [];
-    for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-    }
-}
+// --- Initialization & Other Features ---
+document.addEventListener('DOMContentLoaded', () => {
+    initParticles();
 
-let lastTime = 0;
-const fpsLimit = 30;
-
-function animateParticles(currentTime) {
-    if (currentTime - lastTime < 1000 / fpsLimit) {
-        requestAnimationFrame(animateParticles);
-        return;
-    }
-    lastTime = currentTime;
-
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    particles.forEach((p, i) => {
-        p.update();
-        p.draw();
-
-        // Connect particles (optimized O(N^2))
-        for (let j = i + 1; j < particles.length; j++) {
-            const p2 = particles[j];
-            const dx = p.x - p2.x;
-            const dy = p.y - p2.y;
-            const distanceSq = dx * dx + dy * dy;
-
-            if (distanceSq < 5625) { // 75px squared (was 80px)
-                const distance = Math.sqrt(distanceSq);
-                ctx.strokeStyle = `rgba(255, 215, 0, ${0.1 * (1 - distance / 75)})`;
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
-            }
-        }
+    // Initialize Sliders
+    new IslandSlider({
+        container: '.project-slider',
+        track: '.project-track',
+        items: '.project-card',
+        dots: '.project-dots .dot',
+        interval: 6000,
+        usePixels: true
     });
-    requestAnimationFrame(animateParticles);
-}
 
-// FAQ Functionality
-const faqItems = document.querySelectorAll('.faq-item');
-faqItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        faqItems.forEach(i => i.classList.remove('active'));
-        if (!isActive) item.classList.add('active');
+    new IslandSlider({
+        container: '.testimonial-slider',
+        track: '.testimonial-track',
+        items: '.testimonial-card',
+        dots: '.slider-dots .dot',
+        prev: '.slider-arrow.prev',
+        next: '.slider-arrow.next',
+        interval: 5000,
+        usePixels: false
+    });
 
-        // Update icons
-        faqItems.forEach(i => {
-            const icon = i.querySelector('i');
-            if (i.classList.contains('active')) {
-                icon.className = 'bi bi-dash';
-            } else {
-                icon.className = 'bi bi-plus';
-            }
+    // FAQ Toggle
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            if (!wasActive) item.classList.add('active');
+
+            document.querySelectorAll('.faq-item i').forEach(icon => {
+                icon.className = icon.closest('.faq-item').classList.contains('active') ? 'bi bi-dash' : 'bi bi-plus';
+            });
         });
     });
-});
 
-// Scroll Reveal Animation (Simple version using Intersection Observer)
-const observerOptions = {
-    threshold: 0.1
-};
+    // Mobile Nav
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) {
+        const toggleMenu = () => {
+            navLinks.classList.toggle('active');
+            navToggle.querySelector('i').className = navLinks.classList.contains('active') ? 'bi bi-x-lg' : 'bi bi-list';
+        };
+        navToggle.addEventListener('click', toggleMenu);
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            navToggle.querySelector('i').className = 'bi bi-list';
+        }));
+    }
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-const revealElements = document.querySelectorAll('.service-card, .project-card, .glass-panel');
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    observer.observe(el);
-});
-
-// Form Submission handling
-const leadForm = document.getElementById('lead-form');
-if (leadForm) {
-    leadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = leadForm.querySelector('button');
-        const originalText = btn.innerHTML;
-
-        // Use FormData directly (more robust for Formspree)
-        const formData = new FormData(leadForm);
-
-        // Visual feedback
-        btn.innerHTML = '<i class="bi bi-send"></i> Sending...';
-        btn.disabled = true;
-
-        try {
-            const response = await fetch(leadForm.action, {
-                method: leadForm.method,
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            // Try to parse as JSON, but handle cases where it's not
-            let result;
-            const contentType = response.headers.get("content-type");
-            if (contentType && contentType.includes("application/json")) {
-                result = await response.json();
-            } else {
-                result = { message: await response.text() };
+    // Reveal Animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+                observer.unobserve(entry.target);
             }
+        });
+    }, { threshold: 0.1 });
 
-            if (response.ok) {
-                btn.innerHTML = '<i class="bi bi-check2-circle"></i> Request Sent';
-                btn.style.background = 'var(--accent-green)';
-                leadForm.reset();
+    document.querySelectorAll('.service-card, .project-card, .glass-panel').forEach(el => {
+        el.classList.add('reveal-item');
+        observer.observe(el);
+    });
 
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = 'var(--accent-gold)';
-                    btn.disabled = false;
-                    alert('Thank you! Your inquiry has been sent to Island Connect AI.');
-                }, 3000);
-            } else {
-                // Formspree error
-                console.error('Formspree Error Status:', response.status);
-                console.error('Formspree Result:', result);
+    // Lead Form
+    const leadForm = document.getElementById('lead-form');
+    if (leadForm) {
+        leadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = leadForm.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-send"></i> Sending...';
+            btn.disabled = true;
 
-                let errorMessage = 'Submission failed.';
-                if (result.errors) {
-                    errorMessage = result.errors.map(err => err.message).join(', ');
-                } else if (result.error) {
-                    errorMessage = result.error;
-                } else if (response.status === 404) {
-                    errorMessage = 'Form not found. Please check your Formspree ID.';
-                } else if (response.status === 401) {
-                    errorMessage = 'Form requires activation. Please check your email and confirm the form.';
+            try {
+                const response = await fetch(leadForm.action, {
+                    method: leadForm.method,
+                    body: new FormData(leadForm),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    btn.innerHTML = '<i class="bi bi-check2-circle"></i> Sent';
+                    btn.style.background = 'var(--accent-green)';
+                    leadForm.reset();
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error('Submission failed');
                 }
-
-                alert(`Submission Error (${response.status}): ${errorMessage}`);
-
+            } catch (err) {
+                alert('Submission failed. Please try again.');
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
-        } catch (error) {
-            console.error('Submission Exception:', error);
-
-            // Check if user is testing locally via file://
-            if (window.location.protocol === 'file:') {
-                alert('Local Testing Notice: Browsers often block form submissions when opening HTML files directly (file://). Please try using a local server (like Live Server in VS Code) or upload the files to a preview site to test the contact form.');
-            } else {
-                alert('Connection error. Please check your internet or Formspree setup and try again.');
-            }
-
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    });
-}
-
-// Mobile Menu Toggle
-const navToggle = document.getElementById('nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-const navLinksItems = document.querySelectorAll('.nav-links a');
-
-if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const icon = navToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.className = 'bi bi-x-lg';
-        } else {
-            icon.className = 'bi bi-list';
-        }
-    });
-
-    // Close menu when a link is clicked
-    navLinksItems.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            navToggle.querySelector('i').className = 'bi bi-list';
         });
-    });
-}
-
-
-// Testimonial Slider
-const testimonialSlider = document.querySelector('.testimonial-slider');
-if (testimonialSlider) {
-    const track = testimonialSlider.querySelector('.testimonial-track');
-    const slides = testimonialSlider.querySelectorAll('.testimonial-card');
-    const nextBtn = testimonialSlider.querySelector('.slider-arrow.next');
-    const prevBtn = testimonialSlider.querySelector('.slider-arrow.prev');
-    const dots = testimonialSlider.querySelectorAll('.slider-dots .dot');
-
-    let currentSlide = 0;
-    const slidesCount = slides.length;
-    let slideInterval;
-
-    const updateSlider = (index) => {
-        if (track) {
-            track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            track.style.transform = `translateX(-${index * 100}%)`;
-            dots.forEach(dot => dot.classList.remove('active'));
-            if (dots[index]) dots[index].classList.add('active');
-            currentSlide = index;
-        }
-    };
-
-    const nextSlide = () => {
-        let index = (currentSlide + 1) % slidesCount;
-        updateSlider(index);
-    };
-
-    const prevSlide = () => {
-        let index = (currentSlide - 1 + slidesCount) % slidesCount;
-        updateSlider(index);
-    };
-
-    const startAutoSlide = () => {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 5000);
-    };
-
-    if (slidesCount > 0) {
-        startAutoSlide();
-
-        nextBtn?.addEventListener('click', () => {
-            nextSlide();
-            startAutoSlide();
-        });
-
-        prevBtn?.addEventListener('click', () => {
-            prevSlide();
-            startAutoSlide();
-        });
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                updateSlider(i);
-                startAutoSlide();
-            });
-        });
-
-        // Touch support for testimonials
-        let startX = 0;
-        testimonialSlider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, { passive: true });
-        testimonialSlider.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextSlide();
-                else prevSlide();
-            }
-            startAutoSlide();
-        }, { passive: true });
     }
-}
+});
 
-// Featured Projects Slider
-const projectSlider = document.querySelector('.project-slider');
-if (projectSlider) {
-    const projectTrack = projectSlider.querySelector('.project-track');
-    const projectCards = projectSlider.querySelectorAll('.project-card');
-    const projectDots = projectSlider.querySelectorAll('.project-dots .dot');
+// Final Load Check (ensures dimensions are ready)
+window.addEventListener('load', () => {
+    // Force a slider update to ensure offsetWidth is captured
+    window.dispatchEvent(new Event('resize'));
+});
 
-    if (projectTrack && projectCards.length > 0) {
-        let currentProjectSlide = 0;
-        const totalProjects = projectCards.length;
-        let projectSlideInterval;
-
-        const updateProjectSlider = (index) => {
-            const isMobile = window.innerWidth <= 768;
-            const isTablet = window.innerWidth <= 1100;
-
-            let itemsVisible = 3;
-            if (isMobile) itemsVisible = 1;
-            else if (isTablet) itemsVisible = 2;
-
-            const maxIndex = Math.max(0, totalProjects - itemsVisible);
-
-            // Looping logic
-            if (index < 0) index = maxIndex;
-            if (index > maxIndex) index = 0;
-
-            const cardWidth = projectCards[0].offsetWidth;
-            const gap = parseFloat(getComputedStyle(projectTrack).gap) || 0;
-
-            projectTrack.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            projectTrack.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
-
-            projectDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-            currentProjectSlide = index;
-        };
-
-        const nextProjectSlide = () => {
-            let nextIndex = currentProjectSlide + 1;
-            const isMobile = window.innerWidth <= 768;
-            const isTablet = window.innerWidth <= 1100;
-            let itemsVisible = 3;
-            if (isMobile) itemsVisible = 1;
-            else if (isTablet) itemsVisible = 2;
-
-            const maxIndex = Math.max(0, totalProjects - itemsVisible);
-            if (nextIndex > maxIndex) nextIndex = 0;
-
-            updateProjectSlider(nextIndex);
-        };
-
-        const startProjectAutoSlide = () => {
-            clearInterval(projectSlideInterval);
-            projectSlideInterval = setInterval(nextProjectSlide, 6000);
-        };
-
-        projectDots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                updateProjectSlider(i);
-                startProjectAutoSlide();
-            });
-        });
-
-        // Touch support for projects
-        let startX = 0;
-        projectSlider.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            clearInterval(projectSlideInterval);
-        }, { passive: true });
-
-        projectSlider.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) updateProjectSlider(currentProjectSlide + 1);
-                else updateProjectSlider(currentProjectSlide - 1);
-            }
-            startProjectAutoSlide();
-        }, { passive: true });
-
-        window.addEventListener('resize', () => updateProjectSlider(currentProjectSlide));
-
-        // Initial setup
-        updateProjectSlider(0);
-        startProjectAutoSlide();
-    }
-}
-
-if (canvas && ctx) {
-    window.addEventListener('resize', initCanvas);
-    initCanvas();
-    createParticles();
-    animateParticles(0);
-}
-
-console.log('Island Connect AI initialized successfully.');
+console.log('Island Connect AI fully loaded.');

@@ -325,6 +325,19 @@ section {
     background: var(--bg-secondary) !important;
 }
 
+/* Reveal Animations */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -482,6 +495,7 @@ section {
 }
 
 .testimonial-card {
+    flex: 0 0 100%;
     min-width: 100%;
     padding: 3.5rem;
     position: relative;
