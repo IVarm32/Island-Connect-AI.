@@ -99,11 +99,20 @@ class IslandSlider {
     init() {
         if (this.items.length === 0) return;
 
-        this.nextBtn?.addEventListener('click', () => this.next());
-        this.prevBtn?.addEventListener('click', () => this.prev());
+        this.nextBtn?.addEventListener('click', () => {
+            this.next();
+            this.restartAuto();
+        });
+        this.prevBtn?.addEventListener('click', () => {
+            this.prev();
+            this.restartAuto();
+        });
 
         this.dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => this.goTo(i));
+            dot.addEventListener('click', () => {
+                this.goTo(i);
+                this.restartAuto();
+            });
         });
 
         this.container.addEventListener('touchstart', (e) => {
@@ -119,7 +128,12 @@ class IslandSlider {
             this.startAuto();
         }, { passive: true });
 
-        window.addEventListener('resize', () => this.update());
+        window.addEventListener('resize', () => {
+            // Keep index valid after resize
+            const maxIdx = this.getMaxIndex();
+            if (this.currentIndex > maxIdx) this.currentIndex = maxIdx;
+            this.update();
+        });
 
         this.update();
         this.startAuto();
@@ -138,9 +152,6 @@ class IslandSlider {
 
     update() {
         if (!this.track) return;
-
-        const maxIdx = this.getMaxIndex();
-        if (this.currentIndex > maxIdx) this.currentIndex = 0;
 
         let transformValue = '';
         if (this.usePixels) {
@@ -162,21 +173,18 @@ class IslandSlider {
         const maxIdx = this.getMaxIndex();
         this.currentIndex = this.currentIndex >= maxIdx ? 0 : this.currentIndex + 1;
         this.update();
-        this.restartAuto();
     }
 
     prev() {
         const maxIdx = this.getMaxIndex();
         this.currentIndex = this.currentIndex <= 0 ? maxIdx : this.currentIndex - 1;
         this.update();
-        this.restartAuto();
     }
 
     goTo(index) {
         const maxIdx = this.getMaxIndex();
         this.currentIndex = Math.min(index, maxIdx);
         this.update();
-        this.restartAuto();
     }
 
     startAuto() {

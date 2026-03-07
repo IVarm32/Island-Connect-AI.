@@ -587,7 +587,7 @@ section {
 
 .project-card {
     flex: 0 0 calc(33.333% - 1.35rem);
-    min-width: 0;
+    min-width: 33.333%;
     display: flex;
     flex-direction: column;
     border-radius: 24px;
@@ -602,12 +602,14 @@ section {
 @media (max-width: 1100px) {
     .project-card {
         flex: 0 0 calc(50% - 1rem);
+        min-width: 50%;
     }
 }
 
 @media (max-width: 768px) {
     .project-card {
         flex: 0 0 100%;
+        min-width: 100%;
     }
 }
 
