@@ -2,34 +2,40 @@
 
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-:root {
-    --bg-primary: #0A0A0B;
-    --bg-secondary: #121214;
-    --accent-gold: #FFD700;
-    --accent-green: #00C853;
-    --text-primary: #FFFFFF;
-    --text-secondary: #A1A1AA;
-    --glass-bg: rgba(255, 255, 255, 0.07);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --transition: cubic-bezier(0.4, 0, 0.2, 1);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@layer base {
+    :root {
+        --bg-primary: #0A0A0B;
+        --bg-secondary: #121214;
+        --accent-gold: #FFD700;
+        --accent-green: #00C853;
+        --text-primary: #FFFFFF;
+        --text-secondary: #A1A1AA;
+        --glass-bg: rgba(255, 255, 255, 0.07);
+        --glass-border: rgba(255, 255, 255, 0.12);
+        --transition: cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-html {
-    scroll-behavior: smooth;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    line-height: 1.6;
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Outfit', sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
 }
 
 /* Custom animations */
@@ -401,83 +407,59 @@ section {
 }
 
 /* Portfolio */
-/* Portfolio Slider Styles */
-.project-slider {
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+}
+
+.portfolio-item {
     position: relative;
+    border-radius: 32px;
     overflow: hidden;
-    padding: 2rem 0;
+    aspect-ratio: 4/5;
+    cursor: pointer;
 }
 
-.project-track {
-    display: flex;
-    gap: 2rem;
-    transition: transform 0.8s var(--transition);
-    user-select: none;
-    touch-action: pan-y;
-    will-change: transform;
-}
-
-.project-card {
-    flex: 0 0 calc(33.333% - 1.35rem);
-    display: flex;
-    flex-direction: column;
-    border-radius: 24px;
-    overflow: hidden;
-    transition: all 0.4s var(--transition);
-    height: auto;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-}
-
-@media (max-width: 1100px) {
-    .project-card {
-        flex: 0 0 calc(50% - 1rem);
-    }
-}
-
-@media (max-width: 768px) {
-    .project-card {
-        flex: 0 0 100%;
-    }
-}
-
-.project-image {
-    width: 100%;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-}
-
-.project-image img {
+.portfolio-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s var(--transition);
 }
 
-.project-card:hover .project-image img {
-    transform: scale(1.05);
+.portfolio-item:hover .portfolio-img {
+    transform: scale(1.1);
 }
 
-.project-info {
-    padding: 2rem;
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 60%);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    flex-grow: 1;
+    justify-content: flex-end;
+    padding: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.4s var(--transition);
 }
 
-.project-info h3 {
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-overlay span {
+    color: var(--accent-gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.portfolio-overlay h3 {
+    color: white;
     font-size: 1.5rem;
-    margin: 0;
-    color: #fff;
-}
-
-.project-info p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
+    margin-top: 0.5rem;
 }
 
 /* Testimonials */
@@ -498,13 +480,12 @@ section {
 }
 
 .testimonial-card {
-    flex: 0 0 100%;
     min-width: 100%;
     padding: 3.5rem;
     position: relative;
     border-bottom: 4px solid var(--accent-gold) !important;
     text-align: left;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
 }
 
 .stars {

@@ -240,86 +240,55 @@ if (navToggle && navLinks) {
 
 
 // Testimonial Slider
-console.log('Initializing Testimonial Slider...');
 const testimonialSlider = document.querySelector('.testimonial-slider');
-console.log('testimonialSlider found:', !!testimonialSlider);
 if (testimonialSlider) {
     const track = testimonialSlider.querySelector('.testimonial-track');
-    let slides = Array.from(testimonialSlider.querySelectorAll('.testimonial-card'));
+    const slides = testimonialSlider.querySelectorAll('.testimonial-card');
     const nextBtn = testimonialSlider.querySelector('.slider-arrow.next');
     const prevBtn = testimonialSlider.querySelector('.slider-arrow.prev');
-    const dots = Array.from(testimonialSlider.querySelectorAll('.dots .dot, .slider-dots .dot'));
-
-    // Clone slides if only a few exist to make looping seamless
-    if (slides.length > 0 && slides.length < 5) {
-        slides.forEach(slide => {
-            const clone = slide.cloneNode(true);
-            clone.classList.remove('active');
-            track.appendChild(clone);
-        });
-        slides = Array.from(testimonialSlider.querySelectorAll('.testimonial-card'));
-    }
+    const dots = testimonialSlider.querySelectorAll('.slider-dots .dot');
 
     let currentSlide = 0;
     const slidesCount = slides.length;
     let slideInterval;
 
-    if (slidesCount > 0) {
-        // Adjust track width dynamically if needed, though flex container adapts naturally
-        const updateSlider = (index) => {
+    const updateSlider = (index) => {
+        if (track) {
             track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             track.style.transform = `translateX(-${index * 100}%)`;
-
             dots.forEach(dot => dot.classList.remove('active'));
-            // Map the current index back to the original dots
-            const dotIndex = index % dots.length;
-            if (dots[dotIndex]) dots[dotIndex].classList.add('active');
-
-            slides.forEach((s, i) => s.classList.toggle('active', i === index));
+            if (dots[index]) dots[index].classList.add('active');
             currentSlide = index;
-        };
+        }
+    };
 
-        const nextSlide = () => {
-            let nextIndex = currentSlide + 1;
-            // If we reached the end of clones, reset instantly
-            if (nextIndex >= slidesCount) {
-                track.style.transition = 'none';
-                track.style.transform = `translateX(0%)`;
-                currentSlide = 0;
-                // Force reflow
-                track.offsetHeight;
-                nextIndex = 1;
-            }
-            updateSlider(nextIndex);
-        };
+    const nextSlide = () => {
+        let index = (currentSlide + 1) % slidesCount;
+        updateSlider(index);
+    };
 
-        const prevSlide = () => {
-            let prevIndex = currentSlide - 1;
-            if (prevIndex < 0) {
-                track.style.transition = 'none';
-                currentSlide = slidesCount - 1;
-                track.style.transform = `translateX(-${currentSlide * 100}%)`;
-                // Force reflow
-                track.offsetHeight;
-                prevIndex = currentSlide - 1;
-            }
-            updateSlider(prevIndex);
-        };
+    const prevSlide = () => {
+        let index = (currentSlide - 1 + slidesCount) % slidesCount;
+        updateSlider(index);
+    };
 
-        const startAutoSlide = () => {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 5000);
-        };
+    const startAutoSlide = () => {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+    };
 
-        // Initialize display
-        dots[0]?.classList.add('active');
+    if (slidesCount > 0) {
         startAutoSlide();
 
-        testimonialSlider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        testimonialSlider.addEventListener('mouseleave', startAutoSlide);
+        nextBtn?.addEventListener('click', () => {
+            nextSlide();
+            startAutoSlide();
+        });
 
-        nextBtn?.addEventListener('click', () => { nextSlide(); startAutoSlide(); });
-        prevBtn?.addEventListener('click', () => { prevSlide(); startAutoSlide(); });
+        prevBtn?.addEventListener('click', () => {
+            prevSlide();
+            startAutoSlide();
+        });
 
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
@@ -328,49 +297,29 @@ if (testimonialSlider) {
             });
         });
 
-        // Touch support
+        // Touch support for testimonials
         let startX = 0;
-        testimonialSlider.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            clearInterval(slideInterval);
-        }, { passive: true });
+        testimonialSlider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX, { passive: true });
         testimonialSlider.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
             const diff = startX - endX;
             if (Math.abs(diff) > 50) {
                 if (diff > 0) nextSlide();
                 else prevSlide();
+                startAutoSlide();
             }
-            startAutoSlide();
         }, { passive: true });
-
-        // Ensure auto slide restarts when window regains focus
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) clearInterval(slideInterval);
-            else startAutoSlide();
-        });
     }
 }
 
 // Featured Projects Slider
-console.log('Initializing Featured Projects Slider...');
 const projectSlider = document.querySelector('.project-slider');
-console.log('projectSlider found:', !!projectSlider);
 if (projectSlider) {
     const projectTrack = projectSlider.querySelector('.project-track');
-    let projectCards = Array.from(projectSlider.querySelectorAll('.project-card'));
-    const projectDots = Array.from(projectSlider.querySelectorAll('.project-dots .dot'));
+    const projectCards = projectSlider.querySelectorAll('.project-card');
+    const projectDots = projectSlider.querySelectorAll('.project-dots .dot');
 
     if (projectTrack && projectCards.length > 0) {
-        // Clone project cards to enable absolute seamless loop on large screens
-        if (projectCards.length <= 6) {
-            projectCards.forEach(card => {
-                const clone = card.cloneNode(true);
-                projectTrack.appendChild(clone);
-            });
-            projectCards = Array.from(projectSlider.querySelectorAll('.project-card'));
-        }
-
         let currentProjectSlide = 0;
         const totalProjects = projectCards.length;
         let projectSlideInterval;
@@ -383,36 +332,25 @@ if (projectSlider) {
             if (isMobile) itemsVisible = 1;
             else if (isTablet) itemsVisible = 2;
 
-            // Using pure continuous track instead of maxIndex stop
-            const maxScrollable = totalProjects - itemsVisible;
-            if (index > maxScrollable) {
-                // Instant snap to beginning
-                projectTrack.style.transition = 'none';
-                projectTrack.style.transform = `translateX(0%)`;
-                currentProjectSlide = 0;
-                projectTrack.offsetHeight; // reflow
-                index = 1;
-            } else if (index < 0) {
-                projectTrack.style.transition = 'none';
-                currentProjectSlide = maxScrollable;
-                projectTrack.style.transform = `translateX(-${maxScrollable * (100 / itemsVisible)}%)`;
-                projectTrack.offsetHeight;
-                index = maxScrollable - 1;
-            }
+            const maxIndex = Math.max(0, totalProjects - itemsVisible);
+
+            // Looping logic
+            if (index < 0) index = maxIndex;
+            if (index > maxIndex) index = 0;
 
             let movePercent = 100 / itemsVisible;
             projectTrack.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
 
             projectDots.forEach((dot, i) => {
-                const dotIndex = index % projectDots.length;
-                dot.classList.toggle('active', i === dotIndex);
+                dot.classList.toggle('active', i === index);
             });
             currentProjectSlide = index;
         };
 
-        const nextProjectSlide = () => updateProjectSlider(currentProjectSlide + 1);
-        const prevProjectSlide = () => updateProjectSlider(currentProjectSlide - 1);
+        const nextProjectSlide = () => {
+            updateProjectSlider(currentProjectSlide + 1);
+        };
 
         const startProjectAutoSlide = () => {
             clearInterval(projectSlideInterval);
@@ -426,10 +364,6 @@ if (projectSlider) {
             });
         });
 
-        // Add pause on hover
-        projectSlider.addEventListener('mouseenter', () => clearInterval(projectSlideInterval));
-        projectSlider.addEventListener('mouseleave', startProjectAutoSlide);
-
         // Touch support for projects
         let startX = 0;
         projectSlider.addEventListener('touchstart', (e) => {
@@ -441,27 +375,17 @@ if (projectSlider) {
             const endX = e.changedTouches[0].clientX;
             const diff = startX - endX;
             if (Math.abs(diff) > 50) {
-                if (diff > 0) nextProjectSlide();
-                else prevProjectSlide();
+                if (diff > 0) updateProjectSlider(currentProjectSlide + 1);
+                else updateProjectSlider(currentProjectSlide - 1);
             }
             startProjectAutoSlide();
         }, { passive: true });
 
-        window.addEventListener('resize', () => {
-            projectTrack.style.transition = 'none';
-            updateProjectSlider(currentProjectSlide);
-        });
+        window.addEventListener('resize', () => updateProjectSlider(currentProjectSlide));
 
-        // Initialize setup
-        projectDots[0]?.classList.add('active');
-        projectTrack.style.transition = 'none';
+        // Initial setup
         updateProjectSlider(0);
-        setTimeout(startProjectAutoSlide, 500);
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) clearInterval(projectSlideInterval);
-            else startProjectAutoSlide();
-        });
+        startProjectAutoSlide();
     }
 }
 
