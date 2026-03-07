@@ -351,118 +351,20 @@ if (testimonialSlider) {
     }
 }
 
-// Featured Projects Slider
-console.log('Initializing Featured Projects Slider...');
-const projectSlider = document.querySelector('.project-slider');
-console.log('projectSlider found:', !!projectSlider);
-if (projectSlider) {
-    const projectTrack = projectSlider.querySelector('.project-track');
-    let projectCards = Array.from(projectSlider.querySelectorAll('.project-card'));
-    const projectDots = Array.from(projectSlider.querySelectorAll('.project-dots .dot'));
-
-    if (projectTrack && projectCards.length > 0) {
-        // Clone project cards to enable absolute seamless loop on large screens
-        if (projectCards.length <= 6) {
-            projectCards.forEach(card => {
-                const clone = card.cloneNode(true);
-                projectTrack.appendChild(clone);
-            });
-            projectCards = Array.from(projectSlider.querySelectorAll('.project-card'));
-        }
-
-        let currentProjectSlide = 0;
-        const totalProjects = projectCards.length;
-        let projectSlideInterval;
-
-        const updateProjectSlider = (index) => {
-            const isMobile = window.innerWidth <= 768;
-            const isTablet = window.innerWidth <= 1100;
-
-            let itemsVisible = 3;
-            if (isMobile) itemsVisible = 1;
-            else if (isTablet) itemsVisible = 2;
-
-            // Using pure continuous track instead of maxIndex stop
-            const maxScrollable = totalProjects - itemsVisible;
-            if (index > maxScrollable) {
-                // Instant snap to beginning
-                projectTrack.style.transition = 'none';
-                projectTrack.style.transform = `translateX(0%)`;
-                currentProjectSlide = 0;
-                projectTrack.offsetHeight; // reflow
-                index = 1;
-            } else if (index < 0) {
-                projectTrack.style.transition = 'none';
-                currentProjectSlide = maxScrollable;
-                projectTrack.style.transform = `translateX(-${maxScrollable * (100 / itemsVisible)}%)`;
-                projectTrack.offsetHeight;
-                index = maxScrollable - 1;
-            }
-
-            let movePercent = 100 / itemsVisible;
-            projectTrack.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
-
-            projectDots.forEach((dot, i) => {
-                const dotIndex = index % projectDots.length;
-                dot.classList.toggle('active', i === dotIndex);
-            });
-            currentProjectSlide = index;
-        };
-
-        const nextProjectSlide = () => updateProjectSlider(currentProjectSlide + 1);
-        const prevProjectSlide = () => updateProjectSlider(currentProjectSlide - 1);
-
-        const startProjectAutoSlide = () => {
-            clearInterval(projectSlideInterval);
-            projectSlideInterval = setInterval(nextProjectSlide, 6000);
-        };
-
-        projectDots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                updateProjectSlider(i);
-                startProjectAutoSlide();
-            });
+// Horizontal Scroll Video Hover For Portfolio
+console.log('Initializing Featured Projects Hover Video...');
+const scrollCards = document.querySelectorAll('.h-scroll-card');
+scrollCards.forEach(card => {
+    const video = card.querySelector('.hover-video');
+    if (video) {
+        card.addEventListener('mouseenter', () => {
+            video.play().catch(e => console.log('Video play failed or interrupted:', e));
         });
-
-        // Add pause on hover
-        projectSlider.addEventListener('mouseenter', () => clearInterval(projectSlideInterval));
-        projectSlider.addEventListener('mouseleave', startProjectAutoSlide);
-
-        // Touch support for projects
-        let startX = 0;
-        projectSlider.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            clearInterval(projectSlideInterval);
-        }, { passive: true });
-
-        projectSlider.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) nextProjectSlide();
-                else prevProjectSlide();
-            }
-            startProjectAutoSlide();
-        }, { passive: true });
-
-        window.addEventListener('resize', () => {
-            projectTrack.style.transition = 'none';
-            updateProjectSlider(currentProjectSlide);
-        });
-
-        // Initialize setup
-        projectDots[0]?.classList.add('active');
-        projectTrack.style.transition = 'none';
-        updateProjectSlider(0);
-        setTimeout(startProjectAutoSlide, 500);
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) clearInterval(projectSlideInterval);
-            else startProjectAutoSlide();
+        card.addEventListener('mouseleave', () => {
+            video.pause();
         });
     }
-}
+});
 
 if (canvas && ctx) {
     window.addEventListener('resize', initCanvas);
