@@ -124,7 +124,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .glass-panel');
+const revealElements = document.querySelectorAll('.service-card, .project-card, .glass-panel');
 revealElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
@@ -255,7 +255,7 @@ if (testimonialSlider) {
     const updateSlider = (index) => {
         if (track) {
             track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            track.style.transform = `translateX(-${index * 100}%)`;
+            track.style.transform = `translateX(-${(index * 100) / slidesCount}%)`;
             dots.forEach(dot => dot.classList.remove('active'));
             if (dots[index]) dots[index].classList.add('active');
             currentSlide = index;
@@ -306,8 +306,8 @@ if (testimonialSlider) {
             if (Math.abs(diff) > 50) {
                 if (diff > 0) nextSlide();
                 else prevSlide();
-                startAutoSlide();
             }
+            startAutoSlide();
         }, { passive: true });
     }
 }
@@ -338,9 +338,11 @@ if (projectSlider) {
             if (index < 0) index = maxIndex;
             if (index > maxIndex) index = 0;
 
-            let movePercent = 100 / itemsVisible;
+            const cardWidth = projectCards[0].offsetWidth;
+            const gap = parseFloat(getComputedStyle(projectTrack).gap) || 0;
+
             projectTrack.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            projectTrack.style.transform = `translateX(-${index * movePercent}%)`;
+            projectTrack.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
 
             projectDots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
