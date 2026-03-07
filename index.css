@@ -325,6 +325,19 @@ section {
     background: var(--bg-secondary) !important;
 }
 
+/* Reveal Animations */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -473,6 +486,8 @@ section {
 
 .testimonial-track {
     display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     touch-action: pan-y;
@@ -480,6 +495,7 @@ section {
 }
 
 .testimonial-card {
+    flex: 0 0 100%;
     min-width: 100%;
     padding: 3.5rem;
     position: relative;
@@ -560,15 +576,18 @@ section {
 
 .project-track {
     display: flex;
+    flex-wrap: nowrap;
     gap: 2rem;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     touch-action: pan-y;
     will-change: transform;
+    width: 100%;
 }
 
 .project-card {
     flex: 0 0 calc(33.333% - 1.35rem);
+    min-width: 33.333%;
     display: flex;
     flex-direction: column;
     border-radius: 24px;
@@ -583,12 +602,14 @@ section {
 @media (max-width: 1100px) {
     .project-card {
         flex: 0 0 calc(50% - 1rem);
+        min-width: 50%;
     }
 }
 
 @media (max-width: 768px) {
     .project-card {
         flex: 0 0 100%;
+        min-width: 100%;
     }
 }
 
