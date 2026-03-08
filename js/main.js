@@ -153,6 +153,7 @@ class IslandSlider {
     update() {
         if (!this.track) return;
 
+        const maxIdx = this.getMaxIndex();
         let transformValue = '';
         if (this.usePixels) {
             const itemWidth = this.items[0].offsetWidth;
@@ -166,11 +167,23 @@ class IslandSlider {
 
         this.dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === this.currentIndex);
+            // Hide dots if they are beyond maxIdx
+            dot.style.display = i > maxIdx ? 'none' : 'block';
+        });
+
+        // Update active class on cards
+        this.items.forEach((item, i) => {
+            item.classList.toggle('active', i === this.currentIndex);
         });
     }
 
     next() {
         const maxIdx = this.getMaxIndex();
+        if (maxIdx === 0) {
+            // If everything is visible, we don't need to slide.
+            this.currentIndex = 0;
+            return;
+        }
         this.currentIndex = this.currentIndex >= maxIdx ? 0 : this.currentIndex + 1;
         this.update();
     }

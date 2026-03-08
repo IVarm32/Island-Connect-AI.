@@ -502,6 +502,8 @@ section {
     border-bottom: 4px solid var(--accent-gold) !important;
     text-align: left;
     margin-bottom: 1rem;
+    background: #000000 !important;
+    opacity: 1 !important;
 }
 
 .stars {
@@ -594,9 +596,10 @@ section {
     overflow: hidden;
     transition: all 0.4s var(--transition);
     height: auto;
-    background: var(--glass-bg);
+    background: #000000 !important;
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(10px);
+    opacity: 1 !important;
 }
 
 @media (max-width: 1100px) {
