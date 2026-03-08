@@ -4,7 +4,6 @@ const ctx = canvas ? canvas.getContext('2d') : null;
 
 let particles = [];
 const particleCount = 40;
-
 let canvasWidth = window.innerWidth;
 let canvasHeight = window.innerHeight;
 
@@ -84,33 +83,59 @@ function animateParticles(currentTime) {
     requestAnimationFrame(animateParticles);
 }
 
-// FAQ Functionality
-function initFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
+// Global Event Delegation for Interactivity
+document.addEventListener('click', (e) => {
+    // 1. FAQ Toggle Logic
+    const faqItem = e.target.closest('.faq-item');
+    if (faqItem) {
+        const isActive = faqItem.classList.contains('active');
 
-            // Close others
-            faqItems.forEach(i => i.classList.remove('active'));
-
-            // Toggle current
-            if (!isActive) {
-                item.classList.add('active');
-            }
-
-            // Update icons safely
-            faqItems.forEach(i => {
-                const icon = i.querySelector('i');
-                if (icon) {
-                    icon.className = i.classList.contains('active') ? 'bi bi-dash' : 'bi bi-plus';
-                }
-            });
+        // Close all other items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+            const icon = item.querySelector('i');
+            if (icon) icon.className = 'bi bi-plus';
         });
-    });
-}
 
-// Scroll Reveal Animation
+        // Toggle the clicked item
+        if (!isActive) {
+            faqItem.classList.add('active');
+            const icon = faqItem.querySelector('i');
+            if (icon) icon.className = 'bi bi-dash';
+        }
+        return;
+    }
+
+    // 2. Mobile Nav Toggle Logic
+    const navToggle = e.target.closest('#nav-toggle');
+    if (navToggle) {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) {
+            const isOpening = !navLinks.classList.contains('active');
+            navLinks.classList.toggle('active');
+
+            // Update Toggle Icon
+            const icon = navToggle.querySelector('i');
+            if (icon) {
+                icon.className = isOpening ? 'bi bi-x-lg' : 'bi bi-list';
+            }
+        }
+        return;
+    }
+
+    // 3. Close menu when clicking outside or on a link
+    if (e.target.closest('.nav-links a')) {
+        const navLinks = document.querySelector('.nav-links');
+        const navToggle = document.getElementById('nav-toggle');
+        if (navLinks) navLinks.classList.remove('active');
+        if (navToggle) {
+            const icon = navToggle.querySelector('i');
+            if (icon) icon.className = 'bi bi-list';
+        }
+    }
+});
+
+// Scroll Reveal Animation (Intersection Observer)
 function initReveal() {
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
@@ -123,8 +148,7 @@ function initReveal() {
         });
     }, observerOptions);
 
-    const revealElements = document.querySelectorAll('.service-card, .h-scroll-card, .glass-panel');
-    revealElements.forEach(el => {
+    document.querySelectorAll('.service-card, .h-scroll-card, .glass-panel').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -132,69 +156,9 @@ function initReveal() {
     });
 }
 
-// Form Submission handling
-function initForm() {
-    const leadForm = document.getElementById('lead-form');
-    if (!leadForm) return;
-    leadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = leadForm.querySelector('button');
-        const originalText = btn.innerHTML;
-        const formData = new FormData(leadForm);
-        btn.innerHTML = '<i class="bi bi-send"></i> Sending...';
-        btn.disabled = true;
-        try {
-            const response = await fetch(leadForm.action, {
-                method: leadForm.method,
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-            if (response.ok) {
-                btn.innerHTML = '<i class="bi bi-check2-circle"></i> Request Sent';
-                btn.style.background = 'var(--accent-green)';
-                leadForm.reset();
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = 'var(--accent-gold)';
-                    btn.disabled = false;
-                }, 3000);
-            } else {
-                alert('Submission failed. Please try again.');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }
-        } catch (error) {
-            alert('Connection error. Check your internet.');
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    });
-}
-
-// Mobile Menu Toggle
-function initNav() {
-    const navToggle = document.getElementById('nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const navLinksItems = document.querySelectorAll('.nav-links a');
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = navToggle.querySelector('i');
-            icon.className = navLinks.classList.contains('active') ? 'bi bi-x-lg' : 'bi bi-list';
-        });
-        navLinksItems.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                navToggle.querySelector('i').className = 'bi bi-list';
-            });
-        });
-    }
-}
-
 // Hover Video for Projects
 function initHoverVideos() {
-    const scrollCards = document.querySelectorAll('.h-scroll-card');
-    scrollCards.forEach(card => {
+    document.querySelectorAll('.h-scroll-card').forEach(card => {
         const video = card.querySelector('.hover-video');
         if (video) {
             card.addEventListener('mouseenter', () => video.play().catch(() => { }));
@@ -203,17 +167,15 @@ function initHoverVideos() {
     });
 }
 
-// Main Initialization
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize on Load
+window.addEventListener('load', () => {
     initCanvas();
     if (canvas && ctx) {
         createParticles();
         animateParticles(0);
         window.addEventListener('resize', initCanvas);
     }
-    initFAQ();
     initReveal();
-    initForm();
-    initNav();
     initHoverVideos();
+    console.log('Island Connect AI: All systems loaded.');
 });
