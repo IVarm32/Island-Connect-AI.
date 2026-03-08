@@ -3,12 +3,13 @@ const canvas = document.getElementById('particle-canvas');
 const ctx = canvas ? canvas.getContext('2d') : null;
 
 let particles = [];
-const particleCount = 40; // Reduced from 80 for better performance
+const particleCount = 40;
 
 let canvasWidth = window.innerWidth;
 let canvasHeight = window.innerHeight;
 
 function initCanvas() {
+    if (!canvas) return;
     canvasWidth = window.innerWidth;
     canvasHeight = window.innerHeight;
     canvas.width = canvasWidth;
@@ -19,26 +20,23 @@ class Particle {
     constructor() {
         this.reset();
     }
-
     reset() {
         this.x = Math.random() * canvasWidth;
         this.y = Math.random() * canvasHeight;
         this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.3; // Slower for less distraction
+        this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
         this.opacity = Math.random() * 0.5 + 0.2;
     }
-
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
         if (this.x < 0 || this.x > canvasWidth || this.y < 0 || this.y > canvasHeight) {
             this.reset();
         }
     }
-
     draw() {
+        if (!ctx) return;
         ctx.fillStyle = `rgba(0, 200, 83, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -57,25 +55,22 @@ let lastTime = 0;
 const fpsLimit = 30;
 
 function animateParticles(currentTime) {
+    if (!ctx) return;
     if (currentTime - lastTime < 1000 / fpsLimit) {
         requestAnimationFrame(animateParticles);
         return;
     }
     lastTime = currentTime;
-
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     particles.forEach((p, i) => {
         p.update();
         p.draw();
-
-        // Connect particles (optimized O(N^2))
         for (let j = i + 1; j < particles.length; j++) {
             const p2 = particles[j];
             const dx = p.x - p2.x;
             const dy = p.y - p2.y;
             const distanceSq = dx * dx + dy * dy;
-
-            if (distanceSq < 5625) { // 75px squared (was 80px)
+            if (distanceSq < 5625) {
                 const distance = Math.sqrt(distanceSq);
                 ctx.strokeStyle = `rgba(255, 215, 0, ${0.1 * (1 - distance / 75)})`;
                 ctx.lineWidth = 0.5;
@@ -90,123 +85,79 @@ function animateParticles(currentTime) {
 }
 
 // FAQ Functionality
-const faqItems = document.querySelectorAll('.faq-item');
-faqItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        faqItems.forEach(i => i.classList.remove('active'));
-        if (!isActive) item.classList.add('active');
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(i => i.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
 
-        // Update icons
-        faqItems.forEach(i => {
-            const icon = i.querySelector('i');
-            if (i.classList.contains('active')) {
-                icon.className = 'bi bi-dash';
-            } else {
-                icon.className = 'bi bi-plus';
-            }
+            faqItems.forEach(i => {
+                const icon = i.querySelector('i');
+                if (icon) {
+                    icon.className = i.classList.contains('active') ? 'bi bi-dash' : 'bi bi-plus';
+                }
+            });
         });
     });
-});
+}
 
-// Scroll Reveal Animation (Simple version using Intersection Observer)
-const observerOptions = {
-    threshold: 0.1
-};
+// Scroll Reveal Animation
+function initReveal() {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-        }
+    const revealElements = document.querySelectorAll('.service-card, .h-scroll-card, .glass-panel');
+    revealElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(el);
     });
-}, observerOptions);
-
-const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .glass-panel');
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    observer.observe(el);
-});
+}
 
 // Form Submission handling
-const leadForm = document.getElementById('lead-form');
-if (leadForm) {
+function initForm() {
+    const leadForm = document.getElementById('lead-form');
+    if (!leadForm) return;
     leadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = leadForm.querySelector('button');
         const originalText = btn.innerHTML;
-
-        // Use FormData directly (more robust for Formspree)
         const formData = new FormData(leadForm);
-
-        // Visual feedback
         btn.innerHTML = '<i class="bi bi-send"></i> Sending...';
         btn.disabled = true;
-
         try {
             const response = await fetch(leadForm.action, {
                 method: leadForm.method,
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
-
-            // Try to parse as JSON, but handle cases where it's not
-            let result;
-            const contentType = response.headers.get("content-type");
-            if (contentType && contentType.includes("application/json")) {
-                result = await response.json();
-            } else {
-                result = { message: await response.text() };
-            }
-
             if (response.ok) {
                 btn.innerHTML = '<i class="bi bi-check2-circle"></i> Request Sent';
                 btn.style.background = 'var(--accent-green)';
                 leadForm.reset();
-
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.style.background = 'var(--accent-gold)';
                     btn.disabled = false;
-                    alert('Thank you! Your inquiry has been sent to Island Connect AI.');
                 }, 3000);
             } else {
-                // Formspree error
-                console.error('Formspree Error Status:', response.status);
-                console.error('Formspree Result:', result);
-
-                let errorMessage = 'Submission failed.';
-                if (result.errors) {
-                    errorMessage = result.errors.map(err => err.message).join(', ');
-                } else if (result.error) {
-                    errorMessage = result.error;
-                } else if (response.status === 404) {
-                    errorMessage = 'Form not found. Please check your Formspree ID.';
-                } else if (response.status === 401) {
-                    errorMessage = 'Form requires activation. Please check your email and confirm the form.';
-                }
-
-                alert(`Submission Error (${response.status}): ${errorMessage}`);
-
+                alert('Submission failed. Please try again.');
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
         } catch (error) {
-            console.error('Submission Exception:', error);
-
-            // Check if user is testing locally via file://
-            if (window.location.protocol === 'file:') {
-                alert('Local Testing Notice: Browsers often block form submissions when opening HTML files directly (file://). Please try using a local server (like Live Server in VS Code) or upload the files to a preview site to test the contact form.');
-            } else {
-                alert('Connection error. Please check your internet or Formspree setup and try again.');
-            }
-
+            alert('Connection error. Check your internet.');
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
@@ -214,53 +165,49 @@ if (leadForm) {
 }
 
 // Mobile Menu Toggle
-const navToggle = document.getElementById('nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-const navLinksItems = document.querySelectorAll('.nav-links a');
-
-if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const icon = navToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.className = 'bi bi-x-lg';
-        } else {
-            icon.className = 'bi bi-list';
-        }
-    });
-
-    // Close menu when a link is clicked
-    navLinksItems.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            navToggle.querySelector('i').className = 'bi bi-list';
+function initNav() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links a');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = navToggle.querySelector('i');
+            icon.className = navLinks.classList.contains('active') ? 'bi bi-x-lg' : 'bi bi-list';
         });
-    });
-}
-
-
-// Testimonial JS functionality removed. Replaced by CSS-only fan slider styling.
-
-// Horizontal Scroll Video Hover For Portfolio
-console.log('Initializing Featured Projects Hover Video...');
-const scrollCards = document.querySelectorAll('.h-scroll-card');
-scrollCards.forEach(card => {
-    const video = card.querySelector('.hover-video');
-    if (video) {
-        card.addEventListener('mouseenter', () => {
-            video.play().catch(e => console.log('Video play failed or interrupted:', e));
-        });
-        card.addEventListener('mouseleave', () => {
-            video.pause();
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.querySelector('i').className = 'bi bi-list';
+            });
         });
     }
-});
-
-if (canvas && ctx) {
-    window.addEventListener('resize', initCanvas);
-    initCanvas();
-    createParticles();
-    animateParticles(0);
 }
 
-console.log('Island Connect AI initialized successfully.');
+// Hover Video for Projects
+function initHoverVideos() {
+    const scrollCards = document.querySelectorAll('.h-scroll-card');
+    scrollCards.forEach(card => {
+        const video = card.querySelector('.hover-video');
+        if (video) {
+            card.addEventListener('mouseenter', () => video.play().catch(() => { }));
+            card.addEventListener('mouseleave', () => video.pause());
+        }
+    });
+}
+
+// Main Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    initCanvas();
+    if (canvas && ctx) {
+        createParticles();
+        animateParticles(0);
+        window.addEventListener('resize', initCanvas);
+    }
+    initFAQ();
+    initReveal();
+    initForm();
+    initNav();
+    initHoverVideos();
+    console.log('Island Connect AI initialized successfully.');
+});
