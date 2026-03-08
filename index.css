@@ -1234,6 +1234,35 @@ select.form-control option {
         align-items: center;
     }
 
+    /* Vertical stacking for testimonials on mobile */
+    .testimonial-slider {
+        height: auto;
+        margin: 2rem 0;
+    }
+
+    .testimonial-track {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        gap: 1.5rem;
+    }
+
+    .testimonial-card {
+        position: relative;
+        width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 1 !important;
+        padding: 2rem;
+        transform-origin: center center !important;
+    }
+
+    .testimonial-content {
+        margin-bottom: 2rem;
+    }
+
     .policy-content {
         padding: 1.5rem;
     }
