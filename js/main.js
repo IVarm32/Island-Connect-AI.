@@ -89,6 +89,7 @@ class IslandSlider {
 
         this.interval = config.interval || 5000;
         this.usePixels = config.usePixels || false;
+        this.isFanStyle = config.isFanStyle || false;
         this.currentIndex = 0;
         this.timer = null;
         this.startX = 0;
@@ -154,16 +155,19 @@ class IslandSlider {
         if (!this.track) return;
 
         const maxIdx = this.getMaxIndex();
-        let transformValue = '';
-        if (this.usePixels) {
-            const itemWidth = this.items[0].offsetWidth;
-            const gap = parseFloat(getComputedStyle(this.track).gap) || 0;
-            transformValue = `translateX(-${this.currentIndex * (itemWidth + gap)}px)`;
-        } else {
-            transformValue = `translateX(-${this.currentIndex * 100}%)`;
-        }
+        const itemCount = this.items.length;
 
-        this.track.style.transform = transformValue;
+        if (!this.isFanStyle) {
+            let transformValue = '';
+            if (this.usePixels) {
+                const itemWidth = this.items[0].offsetWidth;
+                const gap = parseFloat(getComputedStyle(this.track).gap) || 0;
+                transformValue = `translateX(-${this.currentIndex * (itemWidth + gap)}px)`;
+            } else {
+                transformValue = `translateX(-${this.currentIndex * 100}%)`;
+            }
+            this.track.style.transform = transformValue;
+        }
 
         this.dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === this.currentIndex);
@@ -171,20 +175,30 @@ class IslandSlider {
             dot.style.display = i > maxIdx ? 'none' : 'block';
         });
 
-        // Update active class on cards
+        // Update classes for "Fan Style" and active states
+        const prevIdx = (this.currentIndex - 1 + itemCount) % itemCount;
+        const nextIdx = (this.currentIndex + 1) % itemCount;
+
         this.items.forEach((item, i) => {
-            item.classList.toggle('active', i === this.currentIndex);
+            item.classList.remove('active', 'prev', 'next');
+            if (i === this.currentIndex) item.classList.add('active');
+            if (i === prevIdx) item.classList.add('prev');
+            if (i === nextIdx) item.classList.add('next');
         });
     }
 
     next() {
         const maxIdx = this.getMaxIndex();
-        if (maxIdx === 0) {
-            // If everything is visible, we don't need to slide.
+        const itemCount = this.items.length;
+
+        if (maxIdx === 0 && itemCount > 1) {
+            // Still increment index for class rotation (fan style)
+            this.currentIndex = (this.currentIndex + 1) % itemCount;
+        } else if (maxIdx > 0) {
+            this.currentIndex = this.currentIndex >= maxIdx ? 0 : this.currentIndex + 1;
+        } else {
             this.currentIndex = 0;
-            return;
         }
-        this.currentIndex = this.currentIndex >= maxIdx ? 0 : this.currentIndex + 1;
         this.update();
     }
 
@@ -236,7 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
         prev: '.slider-arrow.prev',
         next: '.slider-arrow.next',
         interval: 5000,
-        usePixels: false
+        usePixels: false,
+        isFanStyle: true
     });
 
     // FAQ Toggle
