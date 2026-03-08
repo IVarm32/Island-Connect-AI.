@@ -778,7 +778,8 @@ section {
     transition: opacity 0.4s var(--transition);
 }
 
-.hover-video {
+.hover-video,
+.hover-img {
     position: absolute;
     top: 0;
     left: 0;
@@ -790,7 +791,8 @@ section {
     pointer-events: none;
 }
 
-.h-scroll-card:hover .hover-video {
+.h-scroll-card:hover .hover-video,
+.h-scroll-card:hover .hover-img {
     opacity: 1;
 }
 

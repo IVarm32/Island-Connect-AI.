@@ -156,17 +156,6 @@ function initReveal() {
     });
 }
 
-// Hover Video for Projects
-function initHoverVideos() {
-    document.querySelectorAll('.h-scroll-card').forEach(card => {
-        const video = card.querySelector('.hover-video');
-        if (video) {
-            card.addEventListener('mouseenter', () => video.play().catch(() => { }));
-            card.addEventListener('mouseleave', () => video.pause());
-        }
-    });
-}
-
 // Initialize on Load
 window.addEventListener('load', () => {
     initCanvas();
@@ -176,6 +165,5 @@ window.addEventListener('load', () => {
         window.addEventListener('resize', initCanvas);
     }
     initReveal();
-    initHoverVideos();
     console.log('Island Connect AI: All systems loaded.');
 });
