@@ -90,9 +90,16 @@ function initFAQ() {
     faqItems.forEach(item => {
         item.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
-            faqItems.forEach(i => i.classList.remove('active'));
-            if (!isActive) item.classList.add('active');
 
+            // Close others
+            faqItems.forEach(i => i.classList.remove('active'));
+
+            // Toggle current
+            if (!isActive) {
+                item.classList.add('active');
+            }
+
+            // Update icons safely
             faqItems.forEach(i => {
                 const icon = i.querySelector('i');
                 if (icon) {
@@ -209,5 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initForm();
     initNav();
     initHoverVideos();
-    console.log('Island Connect AI initialized successfully.');
 });
