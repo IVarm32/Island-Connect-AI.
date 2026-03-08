@@ -250,59 +250,38 @@ if (testimonialSlider) {
     const prevBtn = testimonialSlider.querySelector('.slider-arrow.prev');
     const dots = Array.from(testimonialSlider.querySelectorAll('.dots .dot, .slider-dots .dot'));
 
-    // Clone slides if only a few exist to make looping seamless
-    if (slides.length > 0 && slides.length < 5) {
-        slides.forEach(slide => {
-            const clone = slide.cloneNode(true);
-            clone.classList.remove('active');
-            track.appendChild(clone);
-        });
-        slides = Array.from(testimonialSlider.querySelectorAll('.testimonial-card'));
-    }
-
     let currentSlide = 0;
     const slidesCount = slides.length;
     let slideInterval;
 
     if (slidesCount > 0) {
-        const updateSlider = (index) => {
-            track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-            track.style.transform = `translateX(-${index * 100}%)`;
+        const updateSlider = () => {
+            // Reset classes
+            slides.forEach(slide => {
+                slide.className = 'testimonial-card glass-panel';
+            });
 
-            dots.forEach(dot => dot.classList.remove('active'));
-            // Map the current index back to the original dots
-            const dotIndex = index % dots.length;
-            if (dots[dotIndex]) dots[dotIndex].classList.add('active');
+            const activeIndex = currentSlide;
+            const prevIndex = (currentSlide - 1 + slidesCount) % slidesCount;
+            const nextIndex = (currentSlide + 1) % slidesCount;
 
-            slides.forEach((s, i) => s.classList.toggle('active', i === index));
-            currentSlide = index;
+            slides[activeIndex].classList.add('active');
+            if (slidesCount > 1) slides[prevIndex].classList.add('prev');
+            if (slidesCount > 2) slides[nextIndex].classList.add('next');
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeIndex % dots.length);
+            });
         };
 
         const nextSlide = () => {
-            let nextIndex = currentSlide + 1;
-            // If we reached the end of clones, reset instantly
-            if (nextIndex >= slidesCount) {
-                track.style.transition = 'none';
-                track.style.transform = `translateX(0%)`;
-                currentSlide = 0;
-                // Force reflow
-                track.offsetHeight;
-                nextIndex = 1;
-            }
-            updateSlider(nextIndex);
+            currentSlide = (currentSlide + 1) % slidesCount;
+            updateSlider();
         };
 
         const prevSlide = () => {
-            let prevIndex = currentSlide - 1;
-            if (prevIndex < 0) {
-                track.style.transition = 'none';
-                currentSlide = slidesCount - 1;
-                track.style.transform = `translateX(-${currentSlide * 100}%)`;
-                // Force reflow
-                track.offsetHeight;
-                prevIndex = currentSlide - 1;
-            }
-            updateSlider(prevIndex);
+            currentSlide = (currentSlide - 1 + slidesCount) % slidesCount;
+            updateSlider();
         };
 
         const startAutoSlide = () => {
@@ -311,19 +290,30 @@ if (testimonialSlider) {
         };
 
         // Initialize display
-        dots[0]?.classList.add('active');
+        updateSlider();
         startAutoSlide();
 
         testimonialSlider.addEventListener('mouseenter', () => clearInterval(slideInterval));
         testimonialSlider.addEventListener('mouseleave', startAutoSlide);
 
-        nextBtn?.addEventListener('click', () => { nextSlide(); startAutoSlide(); });
-        prevBtn?.addEventListener('click', () => { prevSlide(); startAutoSlide(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoSlide(); });
+        if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoSlide(); });
 
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
-                updateSlider(i);
+                currentSlide = i;
+                updateSlider();
                 startAutoSlide();
+            });
+        });
+
+        slides.forEach((slide, index) => {
+            slide.addEventListener('click', () => {
+                if (!slide.classList.contains('active')) {
+                    currentSlide = index;
+                    updateSlider();
+                    startAutoSlide();
+                }
             });
         });
 
