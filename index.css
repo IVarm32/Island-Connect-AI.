@@ -513,14 +513,14 @@ section {
 /* Base styles / Closed State */
 .testimonial-card:nth-child(1) {
     z-index: 1;
-    transform: rotate(-4deg);
-    opacity: 0;
+    transform: rotate(-8deg) translateX(-10px);
+    opacity: 0.2;
 }
 
 .testimonial-card:nth-child(2) {
     z-index: 2;
-    transform: rotate(-2deg);
-    opacity: 0.7;
+    transform: rotate(-4deg) translateX(-5px);
+    opacity: 0.8;
 }
 
 .testimonial-card:nth-child(3) {
@@ -531,50 +531,51 @@ section {
 
 .testimonial-card:nth-child(4) {
     z-index: 2;
-    transform: rotate(2deg);
-    opacity: 0.7;
+    transform: rotate(4deg) translateX(5px);
+    opacity: 0.8;
 }
 
 .testimonial-card:nth-child(5) {
     z-index: 1;
-    transform: rotate(4deg);
-    opacity: 0;
+    transform: rotate(8deg) translateX(10px);
+    opacity: 0.2;
 }
 
 /* Desktop hover - Fan Opens */
 @media (min-width: 1024px) {
     .testimonial-track:hover .testimonial-card:nth-child(1) {
-        transform: rotate(-24deg);
+        transform: rotate(-35deg) translateX(-80px);
         opacity: 0.4;
     }
 
     .testimonial-track:hover .testimonial-card:nth-child(2) {
-        transform: rotate(-12deg);
-        opacity: 0.8;
+        transform: rotate(-18deg) translateX(-40px);
+        opacity: 0.9;
     }
 
     .testimonial-track:hover .testimonial-card:nth-child(3) {
-        transform: rotate(0deg);
+        transform: rotate(0deg) translateY(-10px);
         opacity: 1;
         z-index: 5;
     }
 
     .testimonial-track:hover .testimonial-card:nth-child(4) {
-        transform: rotate(12deg);
-        opacity: 0.8;
+        transform: rotate(18deg) translateX(40px);
+        opacity: 0.9;
     }
 
     .testimonial-track:hover .testimonial-card:nth-child(5) {
-        transform: rotate(24deg);
+        transform: rotate(35deg) translateX(80px);
         opacity: 0.4;
     }
 
     /* Pull up individual card on hover */
     .testimonial-track .testimonial-card:hover {
-        transform: translateY(-20px) scale(1.05) !important;
-        z-index: 10 !important;
+        transform: translateY(-40px) scale(1.08) rotate(0deg) !important;
+        z-index: 20 !important;
         opacity: 1 !important;
-        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 215, 0, 0.3);
     }
 }
 
