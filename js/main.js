@@ -165,7 +165,8 @@ function initReveal() {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.service-card, .h-scroll-card, .contact-form, .testimonial-card').forEach(el => {
+    document.querySelectorAll('.service-card, .h-scroll-card, .contact-form, .testimonial-slider').forEach(el => {
+        if (!el) return;
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';

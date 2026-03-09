@@ -524,9 +524,9 @@ section {
 /* Testimonials */
 .testimonial-slider {
     position: relative;
-    max-width: 1000px;
+    max-width: 1200px; /* Slightly wider */
     margin: 4rem auto;
-    height: 450px;
+    min-height: 500px; /* Increased height and made it min-height */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -534,8 +534,8 @@ section {
 
 .testimonial-track {
     position: relative;
-    width: 400px;
-    height: 350px;
+    width: 600px; /* Increased from 400px for better spread */
+    height: 400px; /* Increased from 350px */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -569,16 +569,16 @@ section {
     display: block;
 }
 
-/* Base styles / Closed State */
+/* Base styles / Closed State - More distinct rotations to fix overlap */
 .testimonial-card:nth-child(1) {
     z-index: 1;
-    transform: rotate(-8deg) translateX(-10px);
-    opacity: 0.2;
+    transform: rotate(-15deg) translateX(-40px);
+    opacity: 0.3;
 }
 
 .testimonial-card:nth-child(2) {
     z-index: 2;
-    transform: rotate(-4deg) translateX(-5px);
+    transform: rotate(-7deg) translateX(-20px);
     opacity: 0.8;
 }
 
@@ -590,51 +590,52 @@ section {
 
 .testimonial-card:nth-child(4) {
     z-index: 2;
-    transform: rotate(4deg) translateX(5px);
+    transform: rotate(7deg) translateX(20px);
     opacity: 0.8;
 }
 
 .testimonial-card:nth-child(5) {
     z-index: 1;
-    transform: rotate(8deg) translateX(10px);
-    opacity: 0.2;
+    transform: rotate(15deg) translateX(40px);
+    opacity: 0.3;
 }
 
-/* Desktop hover - Fan Opens */
+/* Desktop hover - Fan Opens - Triggered by slider for better UX */
 @media (min-width: 1024px) {
-    .testimonial-track:hover .testimonial-card:nth-child(1) {
-        transform: rotate(-35deg) translateX(-80px);
-        opacity: 0.4;
+    .testimonial-slider:hover .testimonial-card:nth-child(1) {
+        transform: rotate(-40deg) translateX(-150px) translateY(-20px);
+        opacity: 0.5;
     }
 
-    .testimonial-track:hover .testimonial-card:nth-child(2) {
-        transform: rotate(-18deg) translateX(-40px);
+    .testimonial-slider:hover .testimonial-card:nth-child(2) {
+        transform: rotate(-20deg) translateX(-80px) translateY(-10px);
         opacity: 0.9;
     }
 
-    .testimonial-track:hover .testimonial-card:nth-child(3) {
-        transform: rotate(0deg) translateY(-10px);
+    .testimonial-slider:hover .testimonial-card:nth-child(3) {
+        transform: rotate(0deg) translateY(-30px);
         opacity: 1;
-        z-index: 5;
+        z-index: 10;
+        border-color: var(--accent-gold);
     }
 
-    .testimonial-track:hover .testimonial-card:nth-child(4) {
-        transform: rotate(18deg) translateX(40px);
+    .testimonial-slider:hover .testimonial-card:nth-child(4) {
+        transform: rotate(20deg) translateX(80px) translateY(-10px);
         opacity: 0.9;
     }
 
-    .testimonial-track:hover .testimonial-card:nth-child(5) {
-        transform: rotate(35deg) translateX(80px);
-        opacity: 0.4;
+    .testimonial-slider:hover .testimonial-card:nth-child(5) {
+        transform: rotate(40deg) translateX(150px) translateY(-20px);
+        opacity: 0.5;
     }
 
     /* Pull up individual card on hover */
-    .testimonial-track .testimonial-card:hover {
-        transform: translateY(-40px) scale(1.08) rotate(0deg) !important;
-        z-index: 20 !important;
+    .testimonial-card:hover {
+        transform: translateY(-80px) scale(1.1) rotate(0deg) !important;
+        z-index: 50 !important;
         opacity: 1 !important;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
-        border: 1px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
+        border: 2px solid var(--accent-gold) !important;
     }
 }
 
