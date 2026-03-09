@@ -229,7 +229,7 @@ class IslandSlider {
 }
 
 // --- Initialization & Other Features ---
-document.addEventListener('DOMContentLoaded', () => {
+const initAll = () => {
     initParticles();
 
     // Initialize Sliders
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card, .project-card, .glass-panel').forEach(el => {
+    document.querySelectorAll('.service-card, .project-card, .glass-panel:not(.nav-content)').forEach(el => {
         el.classList.add('reveal-item');
         observer.observe(el);
     });
@@ -333,7 +333,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+};
+
+// Use both DOMContentLoaded and immediate execution (since it's a module)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+} else {
+    initAll();
+}
 
 // Final Load Check (ensures dimensions are ready)
 window.addEventListener('load', () => {
