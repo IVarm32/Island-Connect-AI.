@@ -1,3 +1,32 @@
+// Utility Functions
+const throttle = (func, limit) => {
+    let inThrottle;
+    let lastArgs;
+    let lastContext;
+
+    const run = () => {
+        if (lastArgs) {
+            func.apply(lastContext, lastArgs);
+            lastArgs = null;
+            lastContext = null;
+            setTimeout(run, limit);
+        } else {
+            inThrottle = false;
+        }
+    };
+
+    return function (...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(run, limit);
+        } else {
+            lastArgs = args;
+            lastContext = this;
+        }
+    };
+};
+
 // Particle Background Implementation
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas ? canvas.getContext('2d') : null;
@@ -52,11 +81,26 @@ function createParticles() {
 
 let lastTime = 0;
 const fpsLimit = 30;
+let animationFrameId = null;
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        if (!animationFrameId) {
+            animationFrameId = requestAnimationFrame(animateParticles);
+        }
+    } else {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+    }
+});
 
 function animateParticles(currentTime) {
     if (!ctx) return;
+
     if (currentTime - lastTime < 1000 / fpsLimit) {
-        requestAnimationFrame(animateParticles);
+        animationFrameId = requestAnimationFrame(animateParticles);
         return;
     }
     lastTime = currentTime;
@@ -80,7 +124,7 @@ function animateParticles(currentTime) {
             }
         }
     });
-    requestAnimationFrame(animateParticles);
+    animationFrameId = requestAnimationFrame(animateParticles);
 }
 
 // Global Event Delegation for Interactivity
@@ -173,13 +217,15 @@ function initReveal() {
     });
 }
 
-// Initialize on Load
-window.addEventListener('load', () => {
+// Initialize on DOM Content Loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     initCanvas();
-    if (canvas && ctx) {
+    if (canvas && ctx && !prefersReducedMotion) {
         createParticles();
-        animateParticles(0);
-        window.addEventListener('resize', initCanvas);
+        animationFrameId = requestAnimationFrame(animateParticles);
+        window.addEventListener('resize', throttle(initCanvas, 200));
     }
     initReveal();
     console.log('Island Connect AI: All systems loaded.');
