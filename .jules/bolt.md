@@ -1,0 +1,3 @@
+## 2025-05-15 - [Optimization] Removed unused React bundle and optimized main loop
+**Learning:** The application was loading a full React environment and the Google Gemini SDK for a widget that currently returns null. Removing this reference saved ~200KB of uncompressed JS. Additionally, vanilla JS animations were starting only after the full page load (including images), delaying perceived interactivity.
+**Action:** Always check if dynamic components or experimental features are actually used before including them in the main bundle. Move from 'load' to 'DOMContentLoaded' for UI-critical scripts.
