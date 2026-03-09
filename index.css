@@ -1206,7 +1206,7 @@ select.form-control option {
     .nav-links {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         width: 100%;
         height: 100vh;
         background: rgba(10, 10, 11, 0.98);
@@ -1215,15 +1215,16 @@ select.form-control option {
         justify-content: center;
         align-items: center;
         padding: 4rem 2rem;
-        transition: 0.5s var(--transition);
         z-index: 1050;
-        visibility: hidden;
+        transform: translateX(100%);
+        transition: transform 0.4s var(--transition);
         pointer-events: none;
+        display: flex;
+        /* Ensure it's flex but off-screen */
     }
 
     .nav-links.active {
-        right: 0;
-        visibility: visible;
+        transform: translateX(0);
         pointer-events: all;
     }
 

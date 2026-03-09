@@ -88,6 +88,8 @@ document.addEventListener('click', (e) => {
     // 1. FAQ Toggle Logic
     const faqQuestion = e.target.closest('.faq-question');
     if (faqQuestion) {
+        console.log('FAQ Question Clicked');
+        e.stopImmediatePropagation();
         const faqItem = faqQuestion.closest('.faq-item');
         const isActive = faqItem.classList.contains('active');
 
@@ -110,6 +112,8 @@ document.addEventListener('click', (e) => {
     // 2. Mobile Nav Toggle Logic
     const navToggle = e.target.closest('#nav-toggle');
     if (navToggle) {
+        console.log('Nav Toggle Clicked');
+        e.stopImmediatePropagation();
         const navLinks = document.querySelector('.nav-links');
         if (navLinks) {
             const isOpening = !navLinks.classList.contains('active');
@@ -135,6 +139,8 @@ document.addEventListener('click', (e) => {
         const isClickOnLink = e.target.closest('.nav-links a');
 
         if (isClickOnLink || (!isClickInsideMenu && !isClickOnToggle)) {
+            console.log('Closing Nav Links');
+            e.stopImmediatePropagation();
             navLinks.classList.remove('active');
             document.body.style.overflow = '';
             const navToggleBtn = document.getElementById('nav-toggle');
@@ -144,7 +150,7 @@ document.addEventListener('click', (e) => {
             }
         }
     }
-});
+}, true); // Use capture phase to ensure we catch it before other things
 
 // Scroll Reveal Animation (Intersection Observer)
 function initReveal() {
