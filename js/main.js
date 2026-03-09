@@ -86,21 +86,22 @@ function animateParticles(currentTime) {
 // Global Event Delegation for Interactivity
 document.addEventListener('click', (e) => {
     // 1. FAQ Toggle Logic
-    const faqItem = e.target.closest('.faq-item');
-    if (faqItem) {
+    const faqQuestion = e.target.closest('.faq-question');
+    if (faqQuestion) {
+        const faqItem = faqQuestion.closest('.faq-item');
         const isActive = faqItem.classList.contains('active');
 
         // Close all other items
         document.querySelectorAll('.faq-item').forEach(item => {
             item.classList.remove('active');
-            const icon = item.querySelector('i');
+            const icon = item.querySelector('.faq-question i');
             if (icon) icon.className = 'bi bi-plus';
         });
 
         // Toggle the clicked item
         if (!isActive) {
             faqItem.classList.add('active');
-            const icon = faqItem.querySelector('i');
+            const icon = faqQuestion.querySelector('i');
             if (icon) icon.className = 'bi bi-dash';
         }
         return;
@@ -119,18 +120,28 @@ document.addEventListener('click', (e) => {
             if (icon) {
                 icon.className = isOpening ? 'bi bi-x-lg' : 'bi bi-list';
             }
+
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isOpening ? 'hidden' : '';
         }
         return;
     }
 
-    // 3. Close menu when clicking outside or on a link
-    if (e.target.closest('.nav-links a')) {
-        const navLinks = document.querySelector('.nav-links');
-        const navToggle = document.getElementById('nav-toggle');
-        if (navLinks) navLinks.classList.remove('active');
-        if (navToggle) {
-            const icon = navToggle.querySelector('i');
-            if (icon) icon.className = 'bi bi-list';
+    // 3. Close menu when clicking on a link or outside
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks && navLinks.classList.contains('active')) {
+        const isClickInsideMenu = navLinks.contains(e.target);
+        const isClickOnToggle = document.getElementById('nav-toggle').contains(e.target);
+        const isClickOnLink = e.target.closest('.nav-links a');
+
+        if (isClickOnLink || (!isClickInsideMenu && !isClickOnToggle)) {
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+            const navToggleBtn = document.getElementById('nav-toggle');
+            if (navToggleBtn) {
+                const icon = navToggleBtn.querySelector('i');
+                if (icon) icon.className = 'bi bi-list';
+            }
         }
     }
 });
@@ -148,7 +159,7 @@ function initReveal() {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.service-card, .h-scroll-card, .glass-panel').forEach(el => {
+    document.querySelectorAll('.service-card, .h-scroll-card, .contact-form, .testimonial-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';

@@ -256,41 +256,6 @@ section {
     }
 }
 
-/* FAQ Behavior Fix */
-.faq-item {
-    cursor: pointer;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.faq-question {
-    user-select: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    color: var(--text-secondary);
-}
-
-.faq-item.active .faq-answer {
-    max-height: 500px;
-    opacity: 1;
-    padding-bottom: 1.5rem;
-}
-
-.faq-item.active .faq-question i {
-    transform: rotate(45deg);
-    color: var(--accent-gold);
-}
-
 /* Navigation */
 .fixed-nav {
     position: fixed;
@@ -925,46 +890,63 @@ section {
     border-radius: 10px;
 }
 
-/* FAQ */
+/* FAQ Section Styles */
 .faq-list {
     max-width: 800px;
     margin: 4rem auto 0;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .faq-item {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    padding: 0;
     cursor: pointer;
     transition: all 0.3s var(--transition);
+    overflow: hidden;
 }
 
 .faq-item:hover {
     border-color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .faq-question {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
     font-weight: 600;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.faq-item.active .faq-question {
+    color: var(--accent-gold);
 }
 
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s var(--transition);
+    transition: all 0.4s var(--transition);
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1rem;
+    padding: 0 2rem;
+    opacity: 0;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 200px;
-    margin-top: 1rem;
+    max-height: 500px;
+    opacity: 1;
+    padding-bottom: 2rem;
+}
+
+.faq-question i {
+    transition: transform 0.3s ease;
 }
 
 /* Contact Form */
