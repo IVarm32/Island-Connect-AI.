@@ -54,7 +54,10 @@ let lastTime = 0;
 const fpsLimit = 30;
 
 function animateParticles(currentTime) {
-    if (!ctx) return;
+    if (!ctx || document.hidden) {
+        requestAnimationFrame(animateParticles);
+        return;
+    }
     if (currentTime - lastTime < 1000 / fpsLimit) {
         requestAnimationFrame(animateParticles);
         return;
@@ -152,6 +155,20 @@ document.addEventListener('click', (e) => {
     }
 }, true); // Use capture phase to ensure we catch it before other things
 
+// Utility: Throttle function to limit execution frequency
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
 // Scroll Reveal Animation (Intersection Observer)
 function initReveal() {
     const observerOptions = { threshold: 0.1 };
@@ -175,12 +192,12 @@ function initReveal() {
 }
 
 // Initialize on Load
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     initCanvas();
     if (canvas && ctx) {
         createParticles();
         animateParticles(0);
-        window.addEventListener('resize', initCanvas);
+        window.addEventListener('resize', throttle(initCanvas, 200));
     }
     initReveal();
     console.log('Island Connect AI: All systems loaded.');
