@@ -1,55 +1,43 @@
-// Island Connect AI - Main JavaScript logic
-// Optimized for performance and responsiveness
-
-// --- Particle Background Implementation ---
+// Particle Background System
 const initParticles = () => {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let particles = [];
     const particleCount = 40;
-    let lastTime = 0;
-    const fpsLimit = 30;
 
-    let canvasWidth = window.innerWidth;
-    let canvasHeight = window.innerHeight;
+    let canvasWidth, canvasHeight;
 
     const resize = () => {
-        canvasWidth = window.innerWidth;
-        canvasHeight = window.innerHeight;
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
+        canvasWidth = canvas.width = window.innerWidth;
+        canvasHeight = canvas.height = window.innerHeight;
     };
 
     class Particle {
-        constructor() { this.reset(); }
+        constructor() {
+            this.reset();
+        }
         reset() {
             this.x = Math.random() * canvasWidth;
             this.y = Math.random() * canvasHeight;
-            this.size = Math.random() * 2 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.3;
-            this.speedY = (Math.random() - 0.5) * 0.3;
-            this.opacity = Math.random() * 0.5 + 0.2;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.size = Math.random() * 2 + 1;
         }
         update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
+            this.x += this.vx;
+            this.y += this.vy;
             if (this.x < 0 || this.x > canvasWidth || this.y < 0 || this.y > canvasHeight) this.reset();
         }
         draw() {
-            ctx.fillStyle = `rgba(0, 200, 83, ${this.opacity})`;
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.3)';
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
     }
 
-    const animate = (currentTime) => {
-        if (currentTime - lastTime < 1000 / fpsLimit) {
-            requestAnimationFrame(animate);
-            return;
-        }
-        lastTime = currentTime;
+    const animate = () => {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         particles.forEach((p, i) => {
             p.update();
@@ -79,7 +67,8 @@ const initParticles = () => {
 class IslandSlider {
     constructor(config) {
         this.container = document.querySelector(config.container);
-        if (!this.container) return;
+        if (!this.container || this.container.dataset.sliderInit) return;
+        this.container.dataset.sliderInit = "true";
 
         this.track = this.container.querySelector(config.track);
         this.items = this.container.querySelectorAll(config.items);
@@ -130,7 +119,6 @@ class IslandSlider {
         }, { passive: true });
 
         window.addEventListener('resize', () => {
-            // Keep index valid after resize
             const maxIdx = this.getMaxIndex();
             if (this.currentIndex > maxIdx) this.currentIndex = maxIdx;
             this.update();
@@ -148,6 +136,7 @@ class IslandSlider {
     }
 
     getMaxIndex() {
+        if (this.isFanStyle) return this.items.length - 1;
         return Math.max(0, this.items.length - this.getVisibleItems());
     }
 
@@ -160,7 +149,7 @@ class IslandSlider {
         if (!this.isFanStyle) {
             let transformValue = '';
             if (this.usePixels) {
-                const itemWidth = this.items[0].offsetWidth;
+                const itemWidth = this.items[0].offsetWidth || 0;
                 const gap = parseFloat(getComputedStyle(this.track).gap) || 0;
                 transformValue = `translateX(-${this.currentIndex * (itemWidth + gap)}px)`;
             } else {
@@ -171,31 +160,30 @@ class IslandSlider {
 
         this.dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === this.currentIndex);
-            // Hide dots if they are beyond maxIdx
-            dot.style.display = i > maxIdx ? 'none' : 'block';
+            dot.style.display = (i > maxIdx && !this.isFanStyle) ? 'none' : 'block';
         });
 
-        // Update classes for "Fan Style" and active states
-        const prevIdx = (this.currentIndex - 1 + itemCount) % itemCount;
-        const nextIdx = (this.currentIndex + 1) % itemCount;
+        if (this.isFanStyle) {
+            const prevIdx = (this.currentIndex - 1 + itemCount) % itemCount;
+            const nextIdx = (this.currentIndex + 1) % itemCount;
 
-        this.items.forEach((item, i) => {
-            item.classList.remove('active', 'prev', 'next');
-            if (i === this.currentIndex) item.classList.add('active');
-            if (i === prevIdx) item.classList.add('prev');
-            if (i === nextIdx) item.classList.add('next');
-        });
+            this.items.forEach((item, i) => {
+                item.classList.remove('active', 'prev', 'next');
+                if (i === this.currentIndex) item.classList.add('active');
+                else if (i === prevIdx) item.classList.add('prev');
+                else if (i === nextIdx) item.classList.add('next');
+            });
+        }
     }
 
     next() {
         const maxIdx = this.getMaxIndex();
         const itemCount = this.items.length;
 
-        if (maxIdx === 0 && itemCount > 1) {
-            // Still increment index for class rotation (fan style)
+        if (this.isFanStyle) {
             this.currentIndex = (this.currentIndex + 1) % itemCount;
         } else if (maxIdx > 0) {
-            this.currentIndex = this.currentIndex >= maxIdx ? 0 : this.currentIndex + 1;
+            this.currentIndex = (this.currentIndex + 1) % (maxIdx + 1);
         } else {
             this.currentIndex = 0;
         }
@@ -204,13 +192,18 @@ class IslandSlider {
 
     prev() {
         const maxIdx = this.getMaxIndex();
-        this.currentIndex = this.currentIndex <= 0 ? maxIdx : this.currentIndex - 1;
+        const itemCount = this.items.length;
+        if (this.isFanStyle) {
+            this.currentIndex = (this.currentIndex - 1 + itemCount) % itemCount;
+        } else {
+            this.currentIndex = this.currentIndex <= 0 ? maxIdx : this.currentIndex - 1;
+        }
         this.update();
     }
 
     goTo(index) {
         const maxIdx = this.getMaxIndex();
-        this.currentIndex = Math.min(index, maxIdx);
+        this.currentIndex = Math.min(index, this.isFanStyle ? this.items.length - 1 : maxIdx);
         this.update();
     }
 
@@ -292,7 +285,7 @@ const initAll = () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card, .project-card, .glass-panel:not(.nav-content)').forEach(el => {
+    document.querySelectorAll('.service-card, .glass-panel:not(.nav-content):not(.testimonial-card):not(.project-card):not(.project-track):not(.testimonial-track)').forEach(el => {
         el.classList.add('reveal-item');
         observer.observe(el);
     });
