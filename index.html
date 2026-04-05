@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' https://esm.sh https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://static.cloudflareinsights.com https://*.whatsapp.com https://*.whatsapp.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://pub-9492ccf38a894deea61da5ac42572f5f.r2.dev https://*.jotform.com https://*.jotfor.ms https://*.cloudflare.com https://*.whatsapp.net; connect-src 'self' https://formspree.io https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://*.whatsapp.com; frame-src 'self' https://*.jotform.com https://*.whatsapp.com https://*.whatsapp.net;">
+        content="default-src 'self'; script-src 'self' https://esm.sh https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://static.cloudflareinsights.com https://*.whatsapp.com https://*.whatsapp.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://sspark.genspark.ai data: https://pub-9492ccf38a894deea61da5ac42572f5f.r2.dev https://*.jotform.com https://*.jotfor.ms https://*.cloudflare.com https://*.whatsapp.net; connect-src 'self' https://formspree.io https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://*.whatsapp.com; frame-src 'self' https://*.jotform.com https://*.whatsapp.com https://*.whatsapp.net;">
     <title>Island Connect AI | Automated Sales & Intelligent Property Chatbots</title>
     <meta name="description"
         content="Transform your business into a 24/7 sales machine. Island Connect AI provides smart websites, automated lead qualification, and AI chatbots for real estate and hospitality.">
@@ -313,7 +313,96 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="container">
+
+    <!-- Blog Section -->
+    <section id="blog" class="section-dark blog-section">
+        <canvas id="blog-particle-canvas"></canvas>
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    INSIGHTS & INNOVATION
+                </div>
+                <h2>Latest from <span class="text-gradient">Our Blog</span></h2>
+                <p>Discover how AI is transforming Jamaican real estate and tourism through our latest insights and case studies.</p>
+            </div>
+
+            <div class="blog-grid">
+                <div class="blog-card glass-panel reveal">
+                    <div class="blog-card-image">
+                        <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Innovative Smart Tourism Strategies in Jamaica" loading="lazy">
+                        <span class="blog-card-badge">General</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-date">April 12, 2024</div>
+                        <h3 class="blog-card-title">Innovative Smart Tourism Strategies in Jamaica</h3>
+                        <p class="blog-card-excerpt">Explore Jamaica's future with innovative smart tourism strategies. Learn how AI, digital transformation, and sustainable practices are reshaping travel.</p>
+                        <a href="blog.html?post=innovative-tourism-strategies" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card glass-panel reveal">
+                    <div class="blog-card-image">
+                        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80" alt="AI-Powered Property Matching in Jamaica" loading="lazy">
+                        <span class="blog-card-badge">General</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-date">March 22, 2024</div>
+                        <h3 class="blog-card-title">AI-Powered Property Matching in Jamaica</h3>
+                        <p class="blog-card-excerpt">Discover how our AI agents are revolutionizing property searches across Montego Bay, Kingston, and Ocho Rios with intelligent matching algorithms.</p>
+                        <a href="blog.html?post=ai-property-matching" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card glass-panel reveal">
+                    <div class="blog-card-image">
+                        <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Smart Tourism in Jamaica" loading="lazy">
+                        <span class="blog-card-badge">General</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-date">March 20, 2024</div>
+                        <h3 class="blog-card-title">Smart Tourism in Jamaica</h3>
+                        <p class="blog-card-excerpt">From Negril's beaches to Dunn's River Falls, see how AI is creating personalized experiences for visitors.</p>
+                        <a href="blog.html?post=smart-tourism" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card glass-panel reveal">
+                    <div class="blog-card-image">
+                        <img src="https://sspark.genspark.ai/cfimages?u1=v0ia9eh0iAYQCzb67b0H1%2F8LKLdAmkvOx0%2BAcoHNfuzqlczjE5GAETG4ynhcib8Dtx12hyogU9ijI8Ck5cpkjqVqg%2BBa4XJ5Pn4d9Wa4F9SQCjYyGrUop2Ew7juyCBdsRyKFbUXJbWZEMMmzwWRlvyXD5KfQ5x6Kz7B8O2M%3D&u2=%2BiC3TDDpG3T%2B3Rbp&width=2560" alt="Jamaican AI Revolution" loading="lazy">
+                        <span class="blog-card-badge">General</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-date">March 18, 2024</div>
+                        <h3 class="blog-card-title">Jamaican AI Revolution</h3>
+                        <p class="blog-card-excerpt">How Kingston's tech scene is leading the Caribbean AI revolution with smart websites and intelligent automation.</p>
+                        <a href="blog.html?post=ai-revolution" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card glass-panel reveal">
+                    <div class="blog-card-image">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="Luxury Property AI in Jamaica" loading="lazy">
+                        <span class="blog-card-badge">General</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-date">March 15, 2024</div>
+                        <h3 class="blog-card-title">Luxury Property AI in Jamaica</h3>
+                        <p class="blog-card-excerpt">Explore how AI is transforming luxury property sales in exclusive areas like Tryall Club and Round Hill.</p>
+                        <a href="blog.html?post=luxury-properties" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card glass-panel reveal">
+                    <div class="blog-card-image">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=80" alt="Jamaican Tourism Recovery" loading="lazy">
+                        <span class="blog-card-badge">General</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-date">March 12, 2024</div>
+                        <h3 class="blog-card-title">Jamaican Tourism Recovery</h3>
+                        <p class="blog-card-excerpt">How AI helped Jamaica's tourism industry recover and exceed pre-pandemic levels with smart booking systems.</p>
+                        <a href="blog.html?post=tourism-recovery" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><section id="faq" class="container">
         <div class="section-header">
             <h2>Common <span class="text-gradient">Questions</span></h2>
         </div>
