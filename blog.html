@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}} | Island Connect</title>
-    <meta name="description" content="{{excerpt}}">
+    <meta name="description" content="{{description}}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,38 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: #fff;
         }
 
         .blog-post-header {
@@ -99,100 +131,7 @@
 
         .blog-content p {
             margin-bottom: 24px;
-        }
-
-        /* CSS Overrides for injected HTML to ensure readability on dark background */
-        .blog-content * {
-            color: #ccc !important;
-            background-color: transparent !important;
-        }
-        .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content strong {
-            color: #fff !important;
-        }
-        .blog-content a {
-            color: var(--jamaica-gold) !important;
-            text-decoration: underline !important;
-        }
-        .blog-content .bg-white, .blog-content .bg-gray-100, .blog-content .bg-green-50, .blog-content .bg-yellow-50 {
-            background-color: rgba(255,255,255,0.05) !important;
-            border: 1px solid var(--glass-border) !important;
-            border-radius: 16px;
-        }
-        .blog-content .text-black, .blog-content .text-gray-800, .blog-content .text-green-600, .blog-content .text-green-700, .blog-content .text-yellow-800 {
-            color: #fff !important;
-        }
-        .blog-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 16px;
-            margin: 40px 0;
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            box-sizing: border-box;
-            z-index: 1000;
-            background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-        .nav-link:hover {
-            color: var(--jamaica-gold);
-        }
-
-        .related-posts {
-            max-width: 1000px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .related-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            text-decoration: none;
-            transition: transform 0.3s;
-        }
-        .related-card:hover {
-            transform: translateY(-5px);
-        }
-        .related-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .related-body {
-            padding: 20px;
-        }
-        .related-body h4 {
-            margin: 0;
-            color: #fff;
-            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         .share-section {
@@ -245,6 +184,10 @@
 
     <header class="blog-post-header">
         <div class="container">
+            <a href="index.html#blog" style="display: inline-flex; align-items: center; color: var(--jamaica-gold); text-decoration: none; margin-bottom: 24px; font-weight: 500; font-size: 0.9rem; transition: transform 0.3s;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">
+                <i class="bi bi-arrow-left mr-2"></i> Back to Blog
+            </a>
+            <br>
             <span class="blog-category">{{category}}</span>
             <h1 class="blog-post-title">{{title}}</h1>
             <div class="blog-meta">
@@ -280,13 +223,6 @@
             </div>
         </div>
     </article>
-
-    <section class="related-posts">
-        <h2 style="font-family: 'Space Grotesk', sans-serif; color: #fff;">Related Insights</h2>
-        <div class="related-grid">
-            {{related_posts}}
-        </div>
-    </section>
 
     <footer style="padding: 60px 0; background: #000; border-top: 1px solid var(--glass-border); text-align: center; color: #666;">
         <p>&copy; 2025 Island Connect AI. Locally Rooted. Globally Competitive.</p>
