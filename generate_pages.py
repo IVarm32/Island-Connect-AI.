@@ -34,6 +34,7 @@ def main():
 
         content = template
         content = content.replace('{{title}}', post['title'])
+        content = content.replace('{{description}}', post['excerpt'][:160])
         content = content.replace('{{excerpt}}', post['excerpt'])
         content = content.replace('{{image}}', post['image'])
         content = content.replace('{{category}}', post['category'])

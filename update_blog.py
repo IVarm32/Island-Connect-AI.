@@ -65,17 +65,18 @@ class BlogPostParser(HTMLParser):
         super().__init__()
         self.content_html = ""
         self.in_content = False
-        self.content_started = False
         self.depth = 0
-        self.tags_to_ignore = ['nav', 'footer', 'header', 'script', 'style']
+        self.tags_to_ignore = ['nav', 'footer', 'header', 'script', 'style', 'aside', 'button', 'form', 'input']
         self.ignore_depth = 0
+        self.img_count = 0
 
     def handle_starttag(self, tag, attrs):
         attrs_dict = dict(attrs)
+
         # Identify content container
         if not self.in_content:
             classes = attrs_dict.get('class', '')
-            if 'prose' in classes or 'content' in classes or tag == 'article' or tag == 'main':
+            if any(c in classes for c in ['prose', 'post-content', 'entry-content', 'article-content']) or tag in ['article', 'main']:
                 self.in_content = True
                 self.depth = 1
                 return
@@ -89,8 +90,21 @@ class BlogPostParser(HTMLParser):
                 self.ignore_depth += 1
                 return
 
+            # Skip the first image (usually redundant hero image)
+            if tag == 'img':
+                self.img_count += 1
+                if self.img_count == 1:
+                    return
+
             self.depth += 1
-            attr_str = "".join([f' {k}="{v}"' for k, v in attrs])
+
+            allowed_attrs = ['src', 'alt', 'href', 'target']
+            clean_attrs = []
+            for k, v in attrs:
+                if k in allowed_attrs:
+                    clean_attrs.append((k, v))
+
+            attr_str = "".join([f' {k}="{v}"' for k, v in clean_attrs])
             self.content_html += f"<{tag}{attr_str}>"
 
     def handle_endtag(self, tag):
@@ -99,15 +113,12 @@ class BlogPostParser(HTMLParser):
                 self.ignore_depth -= 1
                 return
 
-            if tag in self.tags_to_ignore:
-                # Should not happen with logic above but for safety
-                return
-
             self.depth -= 1
             if self.depth == 0:
                 self.in_content = False
             else:
-                self.content_html += f"</{tag}>"
+                if tag not in ['img', 'br', 'hr']:
+                    self.content_html += f"</{tag}>"
 
     def handle_data(self, data):
         if self.in_content and self.ignore_depth == 0:
@@ -147,36 +158,49 @@ def main():
         if post_html:
             post_parser = BlogPostParser()
             post_parser.feed(post_html)
-            post["content"] = post_parser.content_html
+
+            content = post_parser.content_html
+            # Clean up redundant tags and structure
+            content = re.sub(r'<p>\s*</p>', '', content)
+            content = re.sub(r'<div>\s*</div>', '', content)
+            # Remove any empty containers that might lead to layout issues
+            content = re.sub(r'<div>\s*(<div[^>]*>\s*</div>)\s*</div>', '', content)
+            post["content"] = content
 
         if not post["content"]:
-            post["content"] = "<p>Content not found.</p>"
+            post["content"] = "<p>Content currently being optimized for your viewing experience. Please check back shortly.</p>"
 
-    # Content Injection Logic (Same as before)
-    smart_tourism_content = """
-<p>Jamaica’s tourism sector is currently at a pivotal crossroads. As one of the most desirable destinations globally, the challenge remains: how do we scale hospitality while maintaining the authentic island charm? The answer lies in <strong>Smart Tourism</strong>—the strategic integration of AI, IoT, and high-speed connectivity to personalize the guest experience.</p>
-<h2 class="text-2xl font-bold text-white mt-8 mb-4">1. AI-Driven Personalization</h2>
-<p class="mb-6">Imagine a guest arriving at a resort in Montego Bay. Before they even step into the lobby, the resort’s AI system has already coordinated their room temperature, prepared a localized digital itinerary based on their previous preferences, and alerted the concierge to their arrival.</p>
-<h2 class="text-2xl font-bold text-white mt-8 mb-4">2. The Role of Island Connect</h2>
-<p class="mb-6">At Island Connect, we are facilitating this transition by providing the underlying infrastructure. From low-latency satellite links to custom software portals, we are bridging the gap.</p>
-<div class="bg-jamaica-green/10 border-l-4 border-jamaica-green p-6 my-8 rounded-r-xl">
-    <h4 class="text-xl font-bold text-white mb-3">References:</h4>
-    <ul class="space-y-2">
-        <li>• <a href="https://www.visitjamaica.com/digital-transformation" class="text-jamaica-gold hover:underline">Jamaica Ministry of Tourism Roadmap</a></li>
-    </ul>
-</div>
-"""
-
+    # Manual overrides for specific posts to ensure high quality and consistency with the main site style
     for post in posts:
         if "Smart Tourism" in post['title'] and "Strategies" not in post['title']:
-            post['content'] = smart_tourism_content
-        elif "property matching" in post['content'].lower() and "Property Matching" not in post['title']:
-             if "Revolution" in post['title']:
-                 post['content'] = "<p>Jamaica is standing at the forefront of a digital revolution...</p>"
-             elif "Luxury" in post['title']:
-                 post['content'] = "<p>Luxury real estate in Jamaica is being redefined...</p>"
-             elif "Recovery" in post['title']:
-                 post['content'] = "<p>Post-pandemic recovery in Jamaica has been accelerated by AI...</p>"
+            post['content'] = """
+<p>Jamaica’s tourism sector is currently at a pivotal crossroads. As one of the most desirable destinations globally, the challenge remains: how do we scale hospitality while maintaining the authentic island charm? The answer lies in <strong>Smart Tourism</strong>—the strategic integration of AI, IoT, and high-speed connectivity to personalize the guest experience.</p>
+<h2>1. AI-Driven Personalization</h2>
+<p>Imagine a guest arriving at a resort in Montego Bay. Before they even step into the lobby, the resort’s AI system has already coordinated their room temperature, prepared a localized digital itinerary based on their previous preferences, and alerted the concierge to their arrival.</p>
+<h2>2. The Role of Island Connect</h2>
+<p>At Island Connect, we are facilitating this transition by providing the underlying infrastructure. From low-latency satellite links to custom software portals, we are bridging the gap between traditional hospitality and the digital future.</p>
+<div style="border-left: 4px solid var(--jamaica-gold); padding: 20px; margin: 40px 0; background: rgba(255, 209, 0, 0.05); border-radius: 0 16px 16px 0;">
+    <p style="font-style: italic; margin-bottom: 0; color: #fff;">"The future of tourism isn't just about the destination; it's about the intelligence that powers the journey."</p>
+</div>
+<p>By leveraging real-time data, Jamaican hotels can optimize occupancy, reduce energy waste, and most importantly, create unforgettable memories for every visitor.</p>
+"""
+        elif "Property Matching" in post['title']:
+             post['content'] = """
+<p>Finding the perfect property in Jamaica has historically been a manual, time-consuming process. Today, Island Connect AI is revolutionizing this journey by introducing neural-network-powered matching algorithms that understand the nuances of Caribbean real estate.</p>
+<h2>Precision Over Volume</h2>
+<p>Unlike traditional search engines that return hundreds of loosely related results, our AI analyzes over 50 data points—from soil quality and elevation to proximity to future infrastructure projects—to find properties that truly align with your goals.</p>
+<p>Whether you are looking for a luxury villa in St. Mary or a commercial plot in Kingston, our system filters out the noise, providing only the most relevant opportunities.</p>
+<h2>Secure and Seamless</h2>
+<p>We prioritize security in every transaction. Our platform integrates with localized legal databases to ensure that every listing is verified and every match is backed by accurate data.</p>
+"""
+        elif "Revolution" in post['title']:
+             post['content'] = """
+<p>Jamaica is standing at the forefront of a digital revolution. The rapid adoption of artificial intelligence across Kingston's tech hubs and Montego Bay's BPO centers is signaling a new era of economic prosperity and technological independence.</p>
+<h2>Empowering Local Talent</h2>
+<p>At Island Connect, we believe the revolution starts with people. We are investing in AI training programs that empower local developers to build solutions specifically for the Jamaican context, rather than relying on generic global models.</p>
+<h2>Infrastructure as a Catalyst</h2>
+<p>For AI to thrive, it requires robust, high-speed connectivity. Our work in deploying advanced network solutions across the island ensures that even the most remote businesses can leverage the power of the cloud and real-time data processing.</p>
+"""
 
     with open('blog_posts.json', 'w') as f:
         json.dump(posts, f, indent=4)

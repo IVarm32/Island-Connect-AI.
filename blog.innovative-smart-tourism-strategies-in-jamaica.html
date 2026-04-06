@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Innovative Smart Tourism Strategies in Jamaica | Island Connect</title>
-    <meta name="description" content="{{description}}">
+    <meta name="description" content="Explore Jamaica's future with innovative smart tourism strategies. Learn how AI, digital transformation, and sustainable practices are reshaping travel.">
+
+    <!-- Favicon -->
+    <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+    <link href="favicon.svg" rel="apple-touch-icon"/>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,21 +50,14 @@
         }
 
         .nav-links {
-            display: flex;
-            gap: 30px;
+            display: flex; gap: 30px;
         }
 
         .nav-link {
-            color: #888;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.95rem;
+            color: #888; text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: 0.95rem;
         }
 
-        .nav-link:hover {
-            color: #fff;
-        }
+        .nav-link:hover { color: #fff; }
 
         .blog-post-header {
             padding: 160px 0 80px;
@@ -69,102 +66,98 @@
         }
 
         .blog-category {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(0, 155, 58, 0.1);
-            border: 1px solid var(--jamaica-green);
-            color: var(--jamaica-green);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            display: inline-block; padding: 6px 16px; background: rgba(0, 155, 58, 0.1); border: 1px solid var(--jamaica-green); color: var(--jamaica-green); border-radius: 100px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px;
         }
 
         .blog-post-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 32px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            color: #fff;
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 32px; max-width: 900px; margin-left: auto; margin-right: auto; color: #fff;
         }
 
         .blog-meta {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            color: #888;
-            font-size: 0.95rem;
+            display: flex; justify-content: center; gap: 24px; color: #888; font-size: 0.95rem;
         }
 
         .featured-image-container {
-            max-width: 1000px;
-            margin: -40px auto 80px;
-            padding: 0 20px;
+            max-width: 1000px; margin: -40px auto 80px; padding: 0 20px;
         }
 
         .featured-image {
-            width: 100%;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border: 1px solid var(--glass-border);
+            width: 100%; height: auto; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
         }
 
         .blog-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px 100px;
-            font-size: 1.15rem;
-            color: #ccc;
+            max-width: 800px; margin: 0 auto; padding: 0 20px 60px; font-size: 1.15rem; color: #ccc;
         }
 
         .blog-content h2, .blog-content h3 {
-            color: #fff;
-            margin: 48px 0 24px;
-            font-family: 'Space Grotesk', sans-serif;
+            color: #fff; margin: 48px 0 24px; font-family: 'Space Grotesk', sans-serif;
         }
 
-        .blog-content p {
-            margin-bottom: 24px;
-            opacity: 0.9;
+        .blog-content p { margin-bottom: 24px; opacity: 0.9; }
+
+        .blog-content img {
+            max-width: 100%; height: auto; border-radius: 16px; margin: 40px auto; display: block; border: 1px solid var(--glass-border);
         }
 
-        .share-section {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 60px;
-            padding: 40px 0;
-            border-top: 1px solid var(--glass-border);
+        .author-box {
+            background: #111; border-radius: 24px; padding: 40px; margin-top: 60px; display: flex; gap: 30px; align-items: flex-start; border: 1px solid var(--glass-border);
         }
-        .share-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.2rem;
-            transition: all 0.3s;
+
+        .author-icon {
+            width: 80px; height: 80px; background: var(--jamaica-green); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; flex-shrink: 0;
         }
-        .share-btn:hover {
-            background: var(--jamaica-green);
-            border-color: var(--jamaica-green);
-            transform: scale(1.1);
+
+        .author-info h4 { margin: 0 0 10px; font-size: 1.5rem; color: #fff; font-family: 'Space Grotesk', sans-serif; }
+        .author-info p { margin: 0 0 20px; color: #aaa; font-size: 1rem; }
+        .author-socials { display: flex; gap: 15px; }
+        .author-socials a { color: var(--jamaica-green); font-size: 1.2rem; transition: color 0.3s; }
+        .author-socials a:hover { color: var(--jamaica-gold); }
+
+        .cta-box {
+            background: linear-gradient(135deg, #000, #111); border-radius: 24px; padding: 60px; text-align: center; margin-top: 40px; border: 1px solid var(--glass-border);
         }
+
+        .cta-box h3 { font-size: 2rem; margin-bottom: 20px; font-family: 'Space Grotesk', sans-serif; }
+
+        .cta-button {
+            display: inline-block; margin-top: 30px; padding: 15px 40px; background: transparent; border: 2px solid var(--jamaica-gold); color: var(--jamaica-gold); text-decoration: none; border-radius: 12px; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: var(--jamaica-gold); color: #000; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255, 209, 0, 0.2);
+        }
+
+        .related-section {
+            max-width: 1000px; margin: 80px auto; padding: 0 20px;
+        }
+
+        .related-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 40px; color: #fff;
+        }
+
+        .related-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+
+        .related-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; text-decoration: none; transition: transform 0.3s;
+        }
+
+        .related-card:hover { transform: translateY(-10px); border-color: var(--jamaica-green); }
+
+        .related-img { width: 100%; height: 180px; object-fit: cover; }
+
+        .related-body { padding: 20px; }
+
+        .related-body h4 { color: #fff; margin: 0; font-size: 1.1rem; line-height: 1.4; }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .blog-post-header { padding: 120px 0 60px; }
             .blog-post-title { font-size: 2rem; }
+            .author-box { flex-direction: column; text-align: center; align-items: center; }
+            .cta-box { padding: 40px 20px; }
+            .related-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -206,145 +199,143 @@
 
     <article class="blog-content">
 
-        <div class="container mx-auto px-4 max-w-4xl">
+        <div>
 
-            <div class="smooth-zoom-container w-full h-96 mb-8 shadow-lg">
-                <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Smart Tourism Jamaica" class="smooth-zoom-image w-full h-full object-cover">
-            </div>
 
-            <div class="prose prose-lg max-w-none text-gray-700">
-                <p class="text-xl text-gray-800 font-medium mb-8 leading-relaxed">
+
+            <div>
+                <p>
                     Smart tourism strategies shape the future of travel across Jamaica, where technology blends with culture to create unique experiences. New digital tools improve your trip at each step and reshape how you connect with local people.
                 </p>
 
-                <p class="mb-6">
+                <p>
                     Artificial intelligence gives you services that fit your needs while green practices protect natural treasures for tomorrow's travelers. Meanwhile, virtual reality lets potential visitors “see” paradise before they arrive, boosting excitement about local adventures.
                 </p>
 
-                <p class="mb-8 italic border-l-4 border-yellow-500 pl-4">
+                <p>
                     This focus on new ideas keeps growth steady in a tough global market as we show how our shared vision is turning Jamaica into a smart, easy to enjoy place for all explorers.
                 </p>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Discover Jamaica's Smart Tourism Vision</h2>
-                <p class="mb-6">
+                <h2>Discover Jamaica's Smart Tourism Vision</h2>
+                <p>
                     Jamaica's smart tourism vision is shaping the island into a destination where technology, local empowerment, and sustainability intersect. By aligning with Island Connect AI, we drive progress that benefits both visitors and communities.
                 </p>
-                <div class="grid md:grid-cols-2 gap-6 mb-12">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="text-xl font-bold text-green-700 mb-3"><i class="fas fa-hotel mr-2"></i>Record Hotel Investments</h3>
+                <div>
+                    <div>
+                        <h3><i></i>Record Hotel Investments</h3>
                         <p>Over US$3 billion in new hotel investments will bring 20,000 additional rooms over the next decade for travelers worldwide.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="text-xl font-bold text-green-700 mb-3"><i class="fas fa-link mr-2"></i>Empowering Locals Through Linkages</h3>
+                    <div>
+                        <h3><i></i>Empowering Locals Through Linkages</h3>
                         <p>Now 40.8% of every tourism dollar stays within Jamaican communities thanks to stronger ties between hotels and farmers or artisans.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="text-xl font-bold text-green-700 mb-3"><i class="fas fa-user-graduate mr-2"></i>Expanding Certified Workforce</h3>
+                    <div>
+                        <h3><i></i>Expanding Certified Workforce</h3>
                         <p>More than 20,000 workers are certified through modern training platforms while youth internships reached over 1,120 placements last year.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="text-xl font-bold text-green-700 mb-3"><i class="fas fa-road mr-2"></i>Resilient Infrastructure Upgrades</h3>
+                    <div>
+                        <h3><i></i>Resilient Infrastructure Upgrades</h3>
                         <p>Major airport expansions and roadworks boost reliability so key attractions remain accessible for growing numbers of tourists.</p>
                     </div>
                 </div>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Embrace Digital Transformation in Tourism</h2>
-                <p class="mb-6">
+                <h2>Embrace Digital Transformation in Tourism</h2>
+                <p>
                     Embracing digital transformation is essential for shaping tourism's future through smart strategies in Jamaica.
                 </p>
-                <ul class="space-y-4 mb-12">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i>
+                <ul>
+                    <li>
+                        <i></i>
                         <span><strong>Streamlined Reservations:</strong> More than 80% of travelers now book trips online, making seamless platforms a standard expectation.</span>
                     </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i>
+                    <li>
+                        <i></i>
                         <span><strong>Personalized Visitor Experiences:</strong> Digital tools offer tailored recommendations that increase satisfaction rates by up to 25%.</span>
                     </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i>
+                    <li>
+                        <i></i>
                         <span><strong>Smart Data Analytics:</strong> Real-time analytics let providers respond instantly to guest needs and improve overall service quality significantly.</span>
                     </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-yellow-500 mt-1 mr-3"></i>
+                    <li>
+                        <i></i>
                         <span><strong>Enhanced Safety Measures:</strong> Contactless solutions help reduce check-in times while supporting health protocols recognized globally.</span>
                     </li>
                 </ul>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Leverage AI to Boost Visitor Engagement</h2>
-                <p class="mb-6">
+                <h2>Leverage AI to Boost Visitor Engagement</h2>
+                <p>
                     AI tools give tourism brands the power to boost engagement at every step of a visitor's journey. With Island Connect AI, we can use travel data to see patterns and guess what you want before you even ask.
                 </p>
-                <div class="bg-black text-yellow-400 p-8 rounded-2xl mb-12 flex flex-col md:flex-row items-center">
-                    <div class="md:w-2/3">
-                        <p class="text-lg font-semibold mb-4 italic">
+                <div>
+                    <div>
+                        <p>
                             "Research from Travel Weekly shows that using smart data can raise marketing return on investment by up to 30%."
                         </p>
                         <p>Our technology helps us tailor picks for local tours, events, or food so each visit feels fresh and personal.</p>
                     </div>
-                    <div class="md:w-1/3 mt-6 md:mt-0 flex justify-center">
-                        <div class="text-6xl text-yellow-500 opacity-50"><i class="fas fa-brain"></i></div>
+                    <div>
+                        <div><i></i></div>
                     </div>
                 </div>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Enhance Sustainable Practices in Tourism</h2>
-                <p class="mb-6">
+                <h2>Enhance Sustainable Practices in Tourism</h2>
+                <p>
                     Strengthening tourism's future means putting strong sustainable practices at the center of every decision.
                 </p>
-                <div class="space-y-6 mb-12">
-                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
-                        <h4 class="font-bold text-green-800 mb-2">Prioritize Coastal Protection</h4>
+                <div>
+                    <div>
+                        <h4>Prioritize Coastal Protection</h4>
                         <p>Climate data shows up to 80% of residents live near the coast, making shoreline conservation urgent. Planting mangroves and preserving coral reefs protects communities against erosion.</p>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
-                        <h4 class="font-bold text-green-800 mb-2">Support Environmental Assessments</h4>
+                    <div>
+                        <h4>Support Environmental Assessments</h4>
                         <p>Rigorous reviews ensure responsible growth, protecting habitats like turtle nesting sites while following best practices and national policy.</p>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
-                        <h4 class="font-bold text-green-800 mb-2">Foster Community Partnerships</h4>
+                    <div>
+                        <h4>Foster Community Partnerships</h4>
                         <p>Collaborative no-take zones, like the White River Fish Sanctuary, allow marine life to recover while providing economic stability locally.</p>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
-                        <h4 class="font-bold text-green-800 mb-2">Advance Resource Efficiency</h4>
+                    <div>
+                        <h4>Advance Resource Efficiency</h4>
                         <p>Around 40% of earnings stay in-country, supporting energy-saving investments like solar power systems to create a circular economy.</p>
                     </div>
                 </div>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Integrate Virtual Reality for Immersive Experiences</h2>
-                <p class="mb-6">
+                <h2>Integrate Virtual Reality for Immersive Experiences</h2>
+                <p>
                     Virtual reality offers transformative ways to experience Jamaica by creating unique, immersive journeys that excite every type of traveler.
                 </p>
-                <div class="grid md:grid-cols-2 gap-4 mb-12">
-                    <div class="flex items-center p-4 bg-gray-100 rounded-lg">
-                        <i class="fas fa-vr-cardboard text-2xl text-yellow-600 mr-4"></i>
+                <div>
+                    <div>
+                        <i></i>
                         <span>Interactive Heritage Tours (e.g., Rose Hall)</span>
                     </div>
-                    <div class="flex items-center p-4 bg-gray-100 rounded-lg">
-                        <i class="fas fa-theater-masks text-2xl text-yellow-600 mr-4"></i>
+                    <div>
+                        <i></i>
                         <span>3D Models of Taino Artifacts</span>
                     </div>
-                    <div class="flex items-center p-4 bg-gray-100 rounded-lg">
-                        <i class="fas fa-gem text-2xl text-yellow-600 mr-4"></i>
+                    <div>
+                        <i></i>
                         <span>Spotlight on Hidden Gems</span>
                     </div>
-                    <div class="flex items-center p-4 bg-gray-100 rounded-lg">
-                        <i class="fas fa-leaf text-2xl text-yellow-600 mr-4"></i>
+                    <div>
+                        <i></i>
                         <span>Sustainable Exploration Alternatives</span>
                     </div>
                 </div>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Strengthen Local Communities through Tourism</h2>
-                <p class="mb-6">
+                <h2>Strengthen Local Communities through Tourism</h2>
+                <p>
                     Immersive technology is reshaping tourism, but true impact requires local involvement and authentic experiences.
                 </p>
-                <div class="bg-yellow-50 p-8 rounded-2xl mb-12 border border-yellow-100">
-                    <ul class="space-y-4">
+                <div>
+                    <ul>
                         <li><strong>Empower Residents:</strong> Creating jobs as guides, chefs, and storytellers.</li>
                         <li><strong>Celebrate Heritage:</strong> Music workshops and culinary tastings rooted in tradition.</li>
                         <li><strong>Strengthen Small Enterprises:</strong> Rural household income boosted by over 30% through CBT initiatives.</li>
@@ -352,30 +343,30 @@
                 </div>
 
 
-                <h2 class="text-3xl font-bold text-black mt-12 mb-6">Foster Innovation for Future Tourism Growth</h2>
-                <p class="mb-6">
+                <h2>Foster Innovation for Future Tourism Growth</h2>
+                <p>
                     There's an exciting path ahead as we back new ideas for future tourism growth in Jamaica. The country aims to lift Latin American market share from 2% to 10% by 2027.
                 </p>
-                <p class="mb-12">
+                <p>
                     Even after Hurricane Melissa, Jamaica saw over 3.7 million arrivals and earned US$3.8 billion, demonstrating the sector's incredible resilience and strength.
                 </p>
 
-                <div class="bg-gradient-to-r from-green-600 to-yellow-500 p-8 rounded-2xl text-white">
-                    <h3 class="text-2xl font-bold mb-4">The Road Ahead</h3>
-                    <p class="mb-4">
+                <div>
+                    <h3>The Road Ahead</h3>
+                    <p>
                         Industry partners must invest in tech that keeps up with world trends while still honoring what makes our island unique.
                     </p>
-                    <a href="https://islandconnect.fillout.com/getstared" target="_blank" class="bg-black text-yellow-400 px-8 py-3 rounded-full font-bold hover:bg-gray-900 transition-colors inline-block">Join the Vision</a>
+                    <a href="https://islandconnect.fillout.com/getstared" target="_blank">Join the Vision</a>
                 </div>
             </div>
 
 
-            <div class="mt-16 bg-gray-100 p-8 rounded-2xl">
-                <div class="flex items-start space-x-6">
-                    <div class="text-4xl">🏝️</div>
+            <div>
+                <div>
+                    <div>🏝️</div>
                     <div>
-                        <h4 class="text-xl font-bold text-black mb-2">Island Connect AI Team</h4>
-                        <p class="text-gray-700 mb-4">
+                        <h4>Island Connect AI Team</h4>
+                        <p>
                             We're passionate about bringing cutting-edge AI technology to Jamaica's real estate and tourism industries. Our mission is to help businesses and individuals make smarter, faster, and more informed decisions through intelligent automation.
                         </p>
                     </div>
@@ -383,37 +374,65 @@
             </div>
 
 
-            <div class="mt-12 flex justify-between items-center">
-                <a href="index.html#blog" class="text-green-600 font-semibold hover:text-green-700 flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i>Back to Blog
+            <div>
+                <a href="index.html#blog">
+                    <i></i>Back to Blog
                 </a>
             </div>
         </div>
-    </article>
 
 
-
-
-
-
-
-
-        <div class="share-section">
-            <a href="#" class="share-btn" title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="share-btn" title="Share on Twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="share-btn" title="Share on Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="share-btn" title="Copy Link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-
-        <div style="background: linear-gradient(135deg, rgba(0, 155, 58, 0.1), rgba(255, 209, 0, 0.05)); border: 1px solid var(--glass-border); border-radius: 32px; padding: 60px; text-align: center; margin-top: 80px;">
-            <h3 style="margin-top: 0; color: #fff;">Stay Ahead of the Curve</h3>
-            <p style="color: #ccc;">Get the latest insights on Jamaica's digital transformation delivered to your inbox.</p>
-            <div style="margin-top: 30px; display: flex; gap: 10px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                <input type="email" placeholder="Email address" style="flex: 1; padding: 15px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: #fff; outline: none;">
-                <button style="background: var(--jamaica-green); border: none; padding: 15px 30px; color: white; border-radius: 12px; font-weight: 600; cursor: pointer; transition: opacity 0.3s;">Subscribe</button>
+        <!-- Author Box -->
+        <div class="author-box">
+            <div class="author-icon">
+                <img src="favicon.svg" alt="IC" style="width: 50px; height: 50px;">
+            </div>
+            <div class="author-info">
+                <h4>Island Connect AI Team</h4>
+                <p>We're passionate about bringing cutting-edge AI technology to Jamaica's real estate and tourism industries. Our mission is to help businesses and individuals make smarter, faster, and more informed decisions through intelligent automation.</p>
+                <div class="author-socials">
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                </div>
             </div>
         </div>
+
+        <!-- CTA Box -->
+        <div class="cta-box">
+            <h3>Ready to Find Your Dream Property?</h3>
+            <p>Experience the future of real estate with Island Connect AI's intelligent property matching system.</p>
+            <a href="index.html#contact" class="cta-button">Start Your Property Search</a>
+        </div>
     </article>
+
+    <section class="related-section">
+        <h3 class="related-title">Continue Reading</h3>
+        <div class="related-grid">
+
+            <a href="blog.ai-powered-property-matching-in-jamaica.html" class="related-card">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80" alt="AI-Powered Property Matching in Jamaica" class="related-img">
+                <div class="related-body">
+                    <h4>AI-Powered Property Matching in Jamaica</h4>
+                </div>
+            </a>
+
+            <a href="blog.smart-tourism-in-jamaica.html" class="related-card">
+                <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Smart Tourism in Jamaica" class="related-img">
+                <div class="related-body">
+                    <h4>Smart Tourism in Jamaica</h4>
+                </div>
+            </a>
+
+            <a href="blog.jamaican-ai-revolution.html" class="related-card">
+                <img src="https://sspark.genspark.ai/cfimages?u1=v0ia9eh0iAYQCzb67b0H1%2F8LKLdAmkvOx0%2BAcoHNfuzqlczjE5GAETG4ynhcib8Dtx12hyogU9ijI8Ck5cpkjqVqg%2BBa4XJ5Pn4d9Wa4F9SQCjYyGrUop2Ew7juyCBdsRyKFbUXJbWZEMMmzwWRlvyXD5KfQ5x6Kz7B8O2M%3D&u2=%2BiC3TDDpG3T%2B3Rbp&width=2560" alt="Jamaican AI Revolution" class="related-img">
+                <div class="related-body">
+                    <h4>Jamaican AI Revolution</h4>
+                </div>
+            </a>
+
+        </div>
+    </section>
 
     <footer style="padding: 60px 0; background: #000; border-top: 1px solid var(--glass-border); text-align: center; color: #666;">
         <p>&copy; 2025 Island Connect AI. Locally Rooted. Globally Competitive.</p>
