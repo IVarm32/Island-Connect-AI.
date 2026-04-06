@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
 
 function inlineCSS() {
     return {
@@ -29,6 +31,14 @@ function inlineCSS() {
     };
 }
 
+// Find all blog.*.html files
+const blogFiles = fs.readdirSync('.').filter(file => file.startsWith('blog.') && file.endsWith('.html') && file !== 'blog.html');
+const blogInputs = blogFiles.reduce((acc, file) => {
+    const name = file.replace('.html', '').replace(/\./g, '_');
+    acc[name] = `./${file}`;
+    return acc;
+}, {});
+
 // https://vitejs.dev/config/
 export default defineConfig({
     base: './',
@@ -46,7 +56,8 @@ export default defineConfig({
             input: {
                 main: './index.html',
                 privatePolicy: './private-policy.html',
-                blog: './blog.html'
+                blog: './blog.html',
+                ...blogInputs
             }
         }
     }
