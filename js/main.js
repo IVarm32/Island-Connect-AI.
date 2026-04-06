@@ -1,14 +1,16 @@
-// Particle System Class
+// Particle System & Floating Shapes Class
 class ParticleSystem {
     constructor(canvasId, options = {}) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
         this.ctx = this.canvas.getContext('2d');
         this.particles = [];
+        this.shapes = [];
         this.particleCount = options.count || 40;
         this.color = options.color || '0, 200, 83'; // Default Green
         this.lineColor = options.lineColor || '255, 215, 0'; // Default Gold
         this.opacity = options.opacity || 0.6;
+        this.showShapes = options.showShapes || false;
 
         this.width = window.innerWidth;
         this.height = window.innerHeight;
@@ -21,7 +23,6 @@ class ParticleSystem {
 
     init() {
         if (!this.canvas) return;
-        // For section-specific canvases, we might want their actual offsetHeight
         if (this.canvas.id === 'particle-canvas') {
             this.width = window.innerWidth;
             this.height = window.innerHeight;
@@ -38,6 +39,14 @@ class ParticleSystem {
         for (let i = 0; i < this.particleCount; i++) {
             this.particles.push(this.createParticle());
         }
+
+        if (this.showShapes) {
+            this.shapes = [];
+            const shapeCount = Math.min(5, Math.floor(this.width / 300));
+            for (let i = 0; i < shapeCount; i++) {
+                this.shapes.push(this.createShape());
+            }
+        }
     }
 
     createParticle() {
@@ -51,6 +60,20 @@ class ParticleSystem {
         };
     }
 
+    createShape() {
+        return {
+            x: Math.random() * this.width,
+            y: Math.random() * this.height,
+            size: Math.random() * 40 + 20,
+            speedX: (Math.random() - 0.5) * 0.2,
+            speedY: (Math.random() - 0.5) * 0.2,
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: (Math.random() - 0.5) * 0.01,
+            type: Math.floor(Math.random() * 3), // 0: Cube-ish, 1: Diamond, 2: Hexagon
+            opacity: Math.random() * 0.1 + 0.05
+        };
+    }
+
     updateParticle(p) {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -60,11 +83,68 @@ class ParticleSystem {
         if (p.y > this.height) p.y = 0;
     }
 
+    updateShape(s) {
+        s.x += s.speedX;
+        s.y += s.speedY;
+        s.rotation += s.rotationSpeed;
+        if (s.x < -s.size) s.x = this.width + s.size;
+        if (s.x > this.width + s.size) s.x = -s.size;
+        if (s.y < -s.size) s.y = this.height + s.size;
+        if (s.y > this.height + s.size) s.y = -s.size;
+    }
+
+    drawShape(s) {
+        this.ctx.save();
+        this.ctx.translate(s.x, s.y);
+        this.ctx.rotate(s.rotation);
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = `rgba(${this.lineColor}, ${s.opacity})`;
+        this.ctx.lineWidth = 1;
+
+        if (s.type === 0) { // Cube outline
+            this.ctx.strokeRect(-s.size/2, -s.size/2, s.size, s.size);
+            this.ctx.strokeRect(-s.size/3, -s.size/3, s.size, s.size);
+            this.ctx.moveTo(-s.size/2, -s.size/2); this.ctx.lineTo(-s.size/3, -s.size/3);
+            this.ctx.moveTo(s.size/2, -s.size/2); this.ctx.lineTo(2*s.size/3, -s.size/3);
+            this.ctx.moveTo(-s.size/2, s.size/2); this.ctx.lineTo(-s.size/3, 2*s.size/3);
+            this.ctx.moveTo(s.size/2, s.size/2); this.ctx.lineTo(2*s.size/3, 2*s.size/3);
+        } else if (s.type === 1) { // Diamond
+            this.ctx.moveTo(0, -s.size);
+            this.ctx.lineTo(s.size/2, 0);
+            this.ctx.lineTo(0, s.size);
+            this.ctx.lineTo(-s.size/2, 0);
+            this.ctx.closePath();
+        } else { // Hexagon
+            for (let i = 0; i < 6; i++) {
+                const angle = (i * Math.PI) / 3;
+                this.ctx.lineTo(Math.cos(angle) * s.size/2, Math.sin(angle) * s.size/2);
+            }
+            this.ctx.closePath();
+        }
+        this.ctx.stroke();
+
+        // Add a subtle glow
+        this.ctx.shadowBlur = 15;
+        this.ctx.shadowColor = `rgba(${this.lineColor}, 0.3)`;
+        this.ctx.stroke();
+
+        this.ctx.restore();
+    }
+
     draw(currentTime) {
         if (!this.ctx || document.hidden) return;
 
         this.ctx.clearRect(0, 0, this.width, this.height);
 
+        // Draw Shapes first (background)
+        if (this.showShapes) {
+            this.shapes.forEach(s => {
+                this.updateShape(s);
+                this.drawShape(s);
+            });
+        }
+
+        // Draw Particles
         this.particles.forEach((p, i) => {
             this.updateParticle(p);
 
@@ -203,7 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
             count: 30,
             color: '244, 196, 48', // Gold particles for blog
             lineColor: '0, 208, 132', // Green lines
-            opacity: 0.3
+            opacity: 0.3,
+            showShapes: true // Enable 3D-like shapes for blog section
         });
     }
 

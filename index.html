@@ -1,624 +1,1055 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://esm.sh https://fonts.googleapis.com https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://static.cloudflareinsights.com https://*.whatsapp.com https://*.whatsapp.net https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://pub-9492ccf38a894deea61da5ac42572f5f.r2.dev https://*.jotform.com https://*.jotfor.ms https://*.cloudflare.com https://*.whatsapp.net https://images.unsplash.com https://sspark.genspark.ai; connect-src 'self' https://formspree.io https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://*.whatsapp.com; frame-src 'self' https://*.jotform.com https://*.whatsapp.com https://*.whatsapp.net;">
-    <title>Island Connect AI | Automated Sales & Intelligent Property Chatbots</title>
-    <meta name="description"
-        content="Transform your business into a 24/7 sales machine. Island Connect AI provides smart websites, automated lead qualification, and AI chatbots for real estate and hospitality.">
-
-    <!-- Favicon & PWA Icons -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0A0A0B">
-
-    <link rel="preload" href="https://fonts.gstatic.com/s/outfit/v11/QGYsz_ueRMeGPrqEhcS6KPFV.woff2" as="font"
-        type="font/woff2" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"
-        media="print" onload="this.media='all'">
-
-    <!-- App Branding & Social Sharing -->
-    <link rel="apple-touch-icon" href="favicon.svg">
-    <meta property="og:title" content="Island Connect AI | Premium AI Solutions">
-    <meta property="og:description"
-        content="Jamaica's Premier AI Agency. Smart automation and ironclad security tailored for luxury Caribbean firms.">
-    <meta property="og:image" content="favicon.svg">
-    <meta property="og:url" content="https://islandconnectai.com/">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <link rel="stylesheet" href="index.css">
-
-
-
-
-</head>
-
-<body>
-
-    <!-- Particle Background -->
-    <canvas id="particle-canvas"></canvas>
-
-    <!-- Navigation -->
-    <header class="fixed-nav">
-        <nav class="nav-content glass-panel">
-            <a href="https://islandconnectai.com/" class="logo" aria-label="Island Connect AI Home">
-                <svg class="logo-svg" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Logo Icon -->
-                    <g transform="translate(60,60)">
-                        <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2" />
-                        <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="none" stroke="#f4c430"
-                            stroke-width="4" stroke-linejoin="round" />
-                        <polygon points="0,-14 10,0 0,14 -10,0" fill="#00d084" />
-                    </g>
-                    <!-- Text -->
-                    <text x="130" y="68" font-family="'Outfit', sans-serif" font-size="42" font-weight="700"
-                        letter-spacing="2">
-                        <tspan fill="#ffffff">ISLAND CONNECT</tspan>
-                        <tspan dx="8" fill="#00d084">AI</tspan>
-                    </text>
-                </svg>
-            </a>
-
-            <div class="nav-links">
-                <a href="#services" aria-label="Our Services">Services</a>
-                <a href="#portfolio" aria-label="Featured Projects">Featured</a>
-                <a href="#faq" aria-label="Frequently Asked Questions">FAQ</a>
-                <a href="https://islandconnect.fillout.com/getstared" target="_blank" rel="noopener noreferrer"
-                    class="btn-animated">START PROJECT
-                    <i class="bi bi-arrow-right"></i></a>
-            </div>
-
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu">
-                <i class="bi bi-list"></i>
-            </button>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-bg">
-            <div class="mesh-gradient"></div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="badge">
-                    <span class="badge-dot"></span>
-                    Jamaica's Premier AI Agency
-                </div>
-                <h1>Island Connect AI: <br>
-                    <span class="text-gradient">Business on Autopilot</span>
-                </h1>
-                <p>Smart automation and ironclad security tailored for luxury Caribbean firms. We're building the future
-                    of the island economy.</p>
-                <div class="hero-btns">
-                    <a href="#contact" class="btn btn-gold" aria-label="Get Started with Island Connect AI">Get Started
-                        <i class="bi bi-arrow-right"></i></a>
-                    <a href="#services" class="btn btn-outline" aria-label="Explore our AI Solutions">Explore
-                        Solutions</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Grid -->
-    <section id="services" class="container">
-        <div class="section-header">
-            <h2>Intelligent <span class="text-gradient">Solutions</span></h2>
-            <p>Specialized digital staff and automation tools designed specifically for Luxury Real Estate and Tropical
-                Tourism.</p>
-        </div>
-
-        <div class="services-grid">
-            <!-- Custom AI Agents -->
-            <div class="service-card glass-panel">
-                <div class="service-icon"><i class="bi bi-robot"></i></div>
-                <h3>Custom AI Agents</h3>
-                <p>Specialized digital staff trained on your business data to handle complex workflows and
-                    decision-making 24/7.</p>
-            </div>
-
-            <!-- Smart Websites -->
-            <div class="service-card glass-panel">
-                <div class="service-icon"><i class="bi bi-laptop"></i></div>
-                <h3>Smart Websites</h3>
-                <p>High-performance web design with integrated AI that adapts to user behavior and maximizes
-                    conversions.</p>
-            </div>
-
-            <!-- Business Automation -->
-            <div class="service-card glass-panel">
-                <div class="service-icon"><i class="bi bi-lightning-charge"></i></div>
-                <h3>Business Automation</h3>
-                <p>Streamline your internal operations by automating repetitive tasks, from invoicing to villa
-                    maintenance scheduling.</p>
-            </div>
-
-            <!-- AI Chatbots -->
-            <div class="service-card glass-panel">
-                <div class="service-icon"><i class="bi bi-chat-dots"></i></div>
-                <h3>AI Chatbots</h3>
-                <p>24/7 guest and lead engagement. Instant responses for travel agencies and real estate brokers across
-                    all platforms.</p>
-            </div>
-
-            <div class="service-card glass-panel">
-                <div class="service-icon service-icon-gold"><i class="bi bi-shield-lock"></i></div>
-                <h3>Fortress-Level Security</h3>
-                <p>Uncompromising data protection for your client's most sensitive information. Enterprise-grade
-                    encryption and monitoring.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Projects Section -->
-    <section id="portfolio" class="section-dark">
-        <div class="container">
-            <div class="section-header">
-                <h2>Featured <span class="text-gradient">Projects</span></h2>
-                <p>Explore a selection of my recent work showcasing innovative design and development solutions.</p>
-            </div>
-
-            <div class="h-scroll-container">
-                <!-- Cake Planner AI -->
-                <div class="h-scroll-card h-card-dark">
-                    <div class="h-card-media">
-                        <img src="images/MasterWest-Cake-Decor-02-09-2026_11_53_AM_11zon.png" alt="Cake Planner AI"
-                            loading="lazy" decoding="async">
-                        <img src="images/masterwestcakedecor-com-wedding-cake-planner-ai-03-01-2026_12_19_AM.png"
-                            alt="Cake Planner AI Preview" class="hover-img" loading="lazy" decoding="async">
-                    </div>
-                    <div class="h-card-content">
-                        <h3>Cake Planner AI</h3>
-                        <p>Our planner provides inspiration and allows you to tailor every detail, including flavors,
-                            fillings, decorations, and overall style.</p>
-                        <a href="https://masterwestcakedecor.com/wedding-cake-planner-ai" class="btn-green">View Project
-                            <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Nexgen Radio Project -->
-                <div class="h-scroll-card h-card-dark">
-                    <div class="h-card-media">
-                        <img src="images/nexgen_default.png" alt="Nexgen Radio Project" loading="lazy" decoding="async">
-                        <img src="images/nexgen_hover.png" alt="Nexgen Radio Project Preview" class="hover-img"
-                            loading="lazy" decoding="async">
-                    </div>
-                    <div class="h-card-content">
-                        <h3>Nexgen Radio Project</h3>
-                        <p>A full-scale custom internet radio dashboard supporting live AAC streaming, an automated
-                            request system, and dynamic listener metrics.</p>
-                        <a href="https://www.nexgengospelradio.com" target="_blank" rel="noopener noreferrer"
-                            class="btn-green">Visit Live Site <i class="bi bi-box-arrow-up-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Dashboard Analytics -->
-                <div class="h-scroll-card h-card-dark">
-                    <div class="h-card-media">
-                        <img src="images/Caribbean-Restaurant-Manager-Zite-03-08-2026_07_26_PM.png"
-                            alt="Dashboard Analytics" loading="lazy" decoding="async">
-                        <img src="images/Sign-in-03-08-2026_07_24_PM.png" alt="Dashboard Analytics Preview"
-                            class="hover-img" loading="lazy" decoding="async">
-                    </div>
-                    <div class="h-card-content">
-                        <h3>Dashboard Analytics</h3>
-                        <p>Interactive data visualization dashboard with real-time metrics and customizable reporting
-                            features.</p>
-                        <a href="https://restaurantflow.zite.so/dashboard" class="btn-green">View Project <i
-                                class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="section-dark">
-        <div class="container">
-            <div class="section-header">
-                <h2>Trusted by <span class="text-gradient">Caribbean Leaders</span></h2>
-                <p>Real results from real estate brokers and travel agencies</p>
-            </div>
-
-            <div class="testimonial-slider">
-                <div class="testimonial-track">
-                    <!-- Emily Carter -->
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="testimonial-content">"Our sales demos moved from pre-recorded videos to full live 3D
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="default-src 'self'; script-src 'self' 'unsafe-inline' https://esm.sh https://fonts.googleapis.com https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://static.cloudflareinsights.com https://*.whatsapp.com https://*.whatsapp.net https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://pub-9492ccf38a894deea61da5ac42572f5f.r2.dev https://*.jotform.com https://*.jotfor.ms https://*.cloudflare.com https://*.whatsapp.net https://images.unsplash.com https://sspark.genspark.ai; connect-src 'self' https://formspree.io https://*.jotform.com https://*.jotfor.ms https://*.jotform.net https://*.cloudflare.com https://*.whatsapp.com; frame-src 'self' https://*.jotform.com https://*.whatsapp.com https://*.whatsapp.net;" http-equiv="Content-Security-Policy"/>
+  <title>
+   Island Connect AI | Automated Sales &amp; Intelligent Property Chatbots
+  </title>
+  <meta content="Transform your business into a 24/7 sales machine. Island Connect AI provides smart websites, automated lead qualification, and AI chatbots for real estate and hospitality." name="description"/>
+  <!-- Favicon & PWA Icons -->
+  <link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="manifest.json" rel="manifest"/>
+  <meta content="#0A0A0B" name="theme-color"/>
+  <link as="font" crossorigin="" href="https://fonts.gstatic.com/s/outfit/v11/QGYsz_ueRMeGPrqEhcS6KPFV.woff2" rel="preload" type="font/woff2"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
+  <!-- App Branding & Social Sharing -->
+  <link href="favicon.svg" rel="apple-touch-icon"/>
+  <meta content="Island Connect AI | Premium AI Solutions" property="og:title"/>
+  <meta content="Jamaica's Premier AI Agency. Smart automation and ironclad security tailored for luxury Caribbean firms." property="og:description"/>
+  <meta content="favicon.svg" property="og:image"/>
+  <meta content="https://islandconnectai.com/" property="og:url"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <link href="index.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <!-- Particle Background -->
+  <canvas id="particle-canvas">
+  </canvas>
+  <!-- Navigation -->
+  <header class="fixed-nav">
+   <nav class="nav-content glass-panel">
+    <a aria-label="Island Connect AI Home" class="logo" href="https://islandconnectai.com/">
+     <svg class="logo-svg" viewbox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- Logo Icon -->
+      <g transform="translate(60,60)">
+       <circle fill="#0b0f14" r="45" stroke="#1f2a33" stroke-width="2">
+       </circle>
+       <polygon fill="none" points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" stroke="#f4c430" stroke-linejoin="round" stroke-width="4">
+       </polygon>
+       <polygon fill="#00d084" points="0,-14 10,0 0,14 -10,0">
+       </polygon>
+      </g>
+      <!-- Text -->
+      <text font-family="'Outfit', sans-serif" font-size="42" font-weight="700" letter-spacing="2" x="130" y="68">
+       <tspan fill="#ffffff">
+        ISLAND CONNECT
+       </tspan>
+       <tspan dx="8" fill="#00d084">
+        AI
+       </tspan>
+      </text>
+     </svg>
+    </a>
+    <div class="nav-links">
+     <a aria-label="Our Services" href="#services">
+      Services
+     </a>
+     <a aria-label="Featured Projects" href="#portfolio">
+      Featured
+     </a>
+     <a aria-label="Latest from Our Blog" href="#blog">
+      Blog
+     </a>
+     <a aria-label="Frequently Asked Questions" href="#faq">
+      FAQ
+     </a>
+     <a class="btn-animated" href="https://islandconnect.fillout.com/getstared" rel="noopener noreferrer" target="_blank">
+      START PROJECT
+      <i class="bi bi-arrow-right">
+      </i>
+     </a>
+    </div>
+    <button aria-label="Toggle Menu" class="nav-toggle" id="nav-toggle">
+     <i class="bi bi-list">
+     </i>
+    </button>
+   </nav>
+  </header>
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+   <div class="hero-bg">
+    <div class="mesh-gradient">
+    </div>
+   </div>
+   <div class="container">
+    <div class="hero-content">
+     <div class="badge">
+      <span class="badge-dot">
+      </span>
+      Jamaica's Premier AI Agency
+     </div>
+     <h1>
+      Island Connect AI:
+      <br/>
+      <span class="text-gradient">
+       Business on Autopilot
+      </span>
+     </h1>
+     <p>
+      Smart automation and ironclad security tailored for luxury Caribbean firms. We're building the future
+                    of the island economy.
+     </p>
+     <div class="hero-btns">
+      <a aria-label="Get Started with Island Connect AI" class="btn btn-gold" href="#contact">
+       Get Started
+       <i class="bi bi-arrow-right">
+       </i>
+      </a>
+      <a aria-label="Explore our AI Solutions" class="btn btn-outline" href="#services">
+       Explore
+                        Solutions
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Services Grid -->
+  <section class="container" id="services">
+   <div class="section-header">
+    <h2>
+     Intelligent
+     <span class="text-gradient">
+      Solutions
+     </span>
+    </h2>
+    <p>
+     Specialized digital staff and automation tools designed specifically for Luxury Real Estate and Tropical
+                Tourism.
+    </p>
+   </div>
+   <div class="services-grid">
+    <!-- Custom AI Agents -->
+    <div class="service-card glass-panel">
+     <div class="service-icon">
+      <i class="bi bi-robot">
+      </i>
+     </div>
+     <h3>
+      Custom AI Agents
+     </h3>
+     <p>
+      Specialized digital staff trained on your business data to handle complex workflows and
+                    decision-making 24/7.
+     </p>
+    </div>
+    <!-- Smart Websites -->
+    <div class="service-card glass-panel">
+     <div class="service-icon">
+      <i class="bi bi-laptop">
+      </i>
+     </div>
+     <h3>
+      Smart Websites
+     </h3>
+     <p>
+      High-performance web design with integrated AI that adapts to user behavior and maximizes
+                    conversions.
+     </p>
+    </div>
+    <!-- Business Automation -->
+    <div class="service-card glass-panel">
+     <div class="service-icon">
+      <i class="bi bi-lightning-charge">
+      </i>
+     </div>
+     <h3>
+      Business Automation
+     </h3>
+     <p>
+      Streamline your internal operations by automating repetitive tasks, from invoicing to villa
+                    maintenance scheduling.
+     </p>
+    </div>
+    <!-- AI Chatbots -->
+    <div class="service-card glass-panel">
+     <div class="service-icon">
+      <i class="bi bi-chat-dots">
+      </i>
+     </div>
+     <h3>
+      AI Chatbots
+     </h3>
+     <p>
+      24/7 guest and lead engagement. Instant responses for travel agencies and real estate brokers across
+                    all platforms.
+     </p>
+    </div>
+    <div class="service-card glass-panel">
+     <div class="service-icon service-icon-gold">
+      <i class="bi bi-shield-lock">
+      </i>
+     </div>
+     <h3>
+      Fortress-Level Security
+     </h3>
+     <p>
+      Uncompromising data protection for your client's most sensitive information. Enterprise-grade
+                    encryption and monitoring.
+     </p>
+    </div>
+   </div>
+  </section>
+  <!-- Featured Projects Section -->
+  <section class="section-dark" id="portfolio">
+   <div class="container">
+    <div class="section-header">
+     <h2>
+      Featured
+      <span class="text-gradient">
+       Projects
+      </span>
+     </h2>
+     <p>
+      Explore a selection of my recent work showcasing innovative design and development solutions.
+     </p>
+    </div>
+    <div class="h-scroll-container">
+     <!-- Cake Planner AI -->
+     <div class="h-scroll-card h-card-dark">
+      <div class="h-card-media">
+       <img alt="Cake Planner AI" decoding="async" loading="lazy" src="images/MasterWest-Cake-Decor-02-09-2026_11_53_AM_11zon.png"/>
+       <img alt="Cake Planner AI Preview" class="hover-img" decoding="async" loading="lazy" src="images/masterwestcakedecor-com-wedding-cake-planner-ai-03-01-2026_12_19_AM.png"/>
+      </div>
+      <div class="h-card-content">
+       <h3>
+        Cake Planner AI
+       </h3>
+       <p>
+        Our planner provides inspiration and allows you to tailor every detail, including flavors,
+                            fillings, decorations, and overall style.
+       </p>
+       <a class="btn-green" href="https://masterwestcakedecor.com/wedding-cake-planner-ai">
+        View Project
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <!-- Nexgen Radio Project -->
+     <div class="h-scroll-card h-card-dark">
+      <div class="h-card-media">
+       <img alt="Nexgen Radio Project" decoding="async" loading="lazy" src="images/nexgen_default.png"/>
+       <img alt="Nexgen Radio Project Preview" class="hover-img" decoding="async" loading="lazy" src="images/nexgen_hover.png"/>
+      </div>
+      <div class="h-card-content">
+       <h3>
+        Nexgen Radio Project
+       </h3>
+       <p>
+        A full-scale custom internet radio dashboard supporting live AAC streaming, an automated
+                            request system, and dynamic listener metrics.
+       </p>
+       <a class="btn-green" href="https://www.nexgengospelradio.com" rel="noopener noreferrer" target="_blank">
+        Visit Live Site
+        <i class="bi bi-box-arrow-up-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <!-- Dashboard Analytics -->
+     <div class="h-scroll-card h-card-dark">
+      <div class="h-card-media">
+       <img alt="Dashboard Analytics" decoding="async" loading="lazy" src="images/Caribbean-Restaurant-Manager-Zite-03-08-2026_07_26_PM.png"/>
+       <img alt="Dashboard Analytics Preview" class="hover-img" decoding="async" loading="lazy" src="images/Sign-in-03-08-2026_07_24_PM.png"/>
+      </div>
+      <div class="h-card-content">
+       <h3>
+        Dashboard Analytics
+       </h3>
+       <p>
+        Interactive data visualization dashboard with real-time metrics and customizable reporting
+                            features.
+       </p>
+       <a class="btn-green" href="https://restaurantflow.zite.so/dashboard">
+        View Project
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Testimonials Section -->
+  <section class="section-dark">
+   <div class="container">
+    <div class="section-header">
+     <h2>
+      Trusted by
+      <span class="text-gradient">
+       Caribbean Leaders
+      </span>
+     </h2>
+     <p>
+      Real results from real estate brokers and travel agencies
+     </p>
+    </div>
+    <div class="testimonial-slider">
+     <div class="testimonial-track">
+      <!-- Emily Carter -->
+      <div class="testimonial-card">
+       <i class="bi bi-quote quote-icon">
+       </i>
+       <p class="testimonial-content">
+        "Our sales demos moved from pre-recorded videos to full live 3D
                             scenes in the browser. Conversion rates instantly went up, and our team actually enjoys
-                            presenting now."</p>
-                        <div class="testimonial-footer">
-                            <div class="testimonial-avatar">
-                                <img src="images/simone_portrait.png" alt="Emily Carter" loading="lazy">
-                            </div>
-                            <div class="testimonial-meta">
-                                <h4>Emily Carter</h4>
-                                <span class="company">Revenue Operations</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Priya Nair -->
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="testimonial-content">"Our product walkthroughs feel completely different now. With
+                            presenting now."
+       </p>
+       <div class="testimonial-footer">
+        <div class="testimonial-avatar">
+         <img alt="Emily Carter" loading="lazy" src="images/simone_portrait.png"/>
+        </div>
+        <div class="testimonial-meta">
+         <h4>
+          Emily Carter
+         </h4>
+         <span class="company">
+          Revenue Operations
+         </span>
+        </div>
+       </div>
+      </div>
+      <!-- Priya Nair -->
+      <div class="testimonial-card">
+       <i class="bi bi-quote quote-icon">
+       </i>
+       <p class="testimonial-content">
+        "Our product walkthroughs feel completely different now. With
                             Island Connect AI, the interactive scenes we can iterate fast and ship an entirely scalable
-                            immersive experience."</p>
-                        <div class="testimonial-footer">
-                            <div class="testimonial-avatar">
-                                <img src="images/ricardo_portrait.png" alt="Priya Nair" loading="lazy">
-                            </div>
-                            <div class="testimonial-meta">
-                                <h4>Priya Nair</h4>
-                                <span class="company">Product Lead</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alex Chen -->
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="testimonial-content">"Island Connect AI has completely changed how we prototype
+                            immersive experience."
+       </p>
+       <div class="testimonial-footer">
+        <div class="testimonial-avatar">
+         <img alt="Priya Nair" loading="lazy" src="images/ricardo_portrait.png"/>
+        </div>
+        <div class="testimonial-meta">
+         <h4>
+          Priya Nair
+         </h4>
+         <span class="company">
+          Product Lead
+         </span>
+        </div>
+       </div>
+      </div>
+      <!-- Alex Chen -->
+      <div class="testimonial-card">
+       <i class="bi bi-quote quote-icon">
+       </i>
+       <p class="testimonial-content">
+        "Island Connect AI has completely changed how we prototype
                             marketing pages. Our team can now try three concepts in the time it used to take to ship
-                            one."</p>
-                        <div class="testimonial-footer">
-                            <div class="testimonial-avatar">
-                                <img src="images/michael_portrait.png" alt="Alex Chen" loading="lazy">
-                            </div>
-                            <div class="testimonial-meta">
-                                <h4>Alex Chen</h4>
-                                <span class="company">Lead Designer, Orbit Labs</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mark Johnson -->
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="testimonial-content">"It literally feels like a cheat code for spatial interfaces. The
-                            fact that they can export to standard web components is a game changer for our team."</p>
-                        <div class="testimonial-footer">
-                            <div class="testimonial-avatar">
-                                <img src="images/michael_portrait.png" alt="Mark Johnson" loading="lazy">
-                            </div>
-                            <div class="testimonial-meta">
-                                <h4>Mark Johnson</h4>
-                                <span class="company">Senior Engineer</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sarah Jenkins -->
-                    <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <p class="testimonial-content">"The level of optimization they've achieved in the browser is
-                            phenomenal. We are able to run complex scenes on mobile devices instantly without lag."</p>
-                        <div class="testimonial-footer">
-                            <div class="testimonial-avatar">
-                                <img src="images/simone_portrait.png" alt="Sarah Jenkins" loading="lazy">
-                            </div>
-                            <div class="testimonial-meta">
-                                <h4>Sarah Jenkins</h4>
-                                <span class="company">Technical Director</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            one."
+       </p>
+       <div class="testimonial-footer">
+        <div class="testimonial-avatar">
+         <img alt="Alex Chen" loading="lazy" src="images/michael_portrait.png"/>
         </div>
-    </section>
-
-    <!-- FAQ Section -->
-
-    <!-- Blog Section -->
-    <section id="blog" class="section-dark blog-section">
-        <canvas id="blog-particle-canvas"></canvas>
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="badge">
-                    <span class="badge-dot"></span>
-                    INSIGHTS & INNOVATION
-                </div>
-                <h2>Latest from <span class="text-gradient">Our Blog</span></h2>
-                <p>Discover how AI is transforming Jamaican real estate and tourism through our latest insights and case studies.</p>
-            </div>
-
-            <div class="blog-grid">
-                <div class="blog-card glass-panel reveal">
-                    <div class="blog-card-image">
-                        <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Innovative Smart Tourism Strategies in Jamaica" loading="lazy">
-                        <span class="blog-card-badge">General</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-date">April 12, 2024</div>
-                        <h3 class="blog-card-title">Innovative Smart Tourism Strategies in Jamaica</h3>
-                        <p class="blog-card-excerpt">Explore Jamaica's future with innovative smart tourism strategies. Learn how AI, digital transformation, and sustainable practices are reshaping travel.</p>
-                        <a href="/blog.innovative-tourism-strategies" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="blog-card glass-panel reveal">
-                    <div class="blog-card-image">
-                        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80" alt="AI-Powered Property Matching in Jamaica" loading="lazy">
-                        <span class="blog-card-badge">General</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-date">March 22, 2024</div>
-                        <h3 class="blog-card-title">AI-Powered Property Matching in Jamaica</h3>
-                        <p class="blog-card-excerpt">Discover how our AI agents are revolutionizing property searches across Montego Bay, Kingston, and Ocho Rios with intelligent matching algorithms.</p>
-                        <a href="/blog.ai-property-matching" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="blog-card glass-panel reveal">
-                    <div class="blog-card-image">
-                        <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Smart Tourism in Jamaica" loading="lazy">
-                        <span class="blog-card-badge">General</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-date">March 20, 2024</div>
-                        <h3 class="blog-card-title">Smart Tourism in Jamaica</h3>
-                        <p class="blog-card-excerpt">From Negril's beaches to Dunn's River Falls, see how AI is creating personalized experiences for visitors.</p>
-                        <a href="/blog.smart-tourism" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="blog-card glass-panel reveal">
-                    <div class="blog-card-image">
-                        <img src="https://sspark.genspark.ai/cfimages?u1=v0ia9eh0iAYQCzb67b0H1%2F8LKLdAmkvOx0%2BAcoHNfuzqlczjE5GAETG4ynhcib8Dtx12hyogU9ijI8Ck5cpkjqVqg%2BBa4XJ5Pn4d9Wa4F9SQCjYyGrUop2Ew7juyCBdsRyKFbUXJbWZEMMmzwWRlvyXD5KfQ5x6Kz7B8O2M%3D&u2=%2BiC3TDDpG3T%2B3Rbp&width=2560" alt="Jamaican AI Revolution" loading="lazy">
-                        <span class="blog-card-badge">General</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-date">March 18, 2024</div>
-                        <h3 class="blog-card-title">Jamaican AI Revolution</h3>
-                        <p class="blog-card-excerpt">How Kingston's tech scene is leading the Caribbean AI revolution with smart websites and intelligent automation.</p>
-                        <a href="/blog.ai-revolution" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="blog-card glass-panel reveal">
-                    <div class="blog-card-image">
-                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="Luxury Property AI in Jamaica" loading="lazy">
-                        <span class="blog-card-badge">General</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-date">March 15, 2024</div>
-                        <h3 class="blog-card-title">Luxury Property AI in Jamaica</h3>
-                        <p class="blog-card-excerpt">Explore how AI is transforming luxury property sales in exclusive areas like Tryall Club and Round Hill.</p>
-                        <a href="/blog.luxury-properties" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="blog-card glass-panel reveal">
-                    <div class="blog-card-image">
-                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=80" alt="Jamaican Tourism Recovery" loading="lazy">
-                        <span class="blog-card-badge">General</span>
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-date">March 12, 2024</div>
-                        <h3 class="blog-card-title">Jamaican Tourism Recovery</h3>
-                        <p class="blog-card-excerpt">How AI helped Jamaica's tourism industry recover and exceed pre-pandemic levels with smart booking systems.</p>
-                        <a href="/blog.tourism-recovery" class="blog-card-link">Read More <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+        <div class="testimonial-meta">
+         <h4>
+          Alex Chen
+         </h4>
+         <span class="company">
+          Lead Designer, Orbit Labs
+         </span>
         </div>
-    </section><section id="faq" class="container">
-        <div class="section-header">
-            <h2>Common <span class="text-gradient">Questions</span></h2>
+       </div>
+      </div>
+      <!-- Mark Johnson -->
+      <div class="testimonial-card">
+       <i class="bi bi-quote quote-icon">
+       </i>
+       <p class="testimonial-content">
+        "It literally feels like a cheat code for spatial interfaces. The
+                            fact that they can export to standard web components is a game changer for our team."
+       </p>
+       <div class="testimonial-footer">
+        <div class="testimonial-avatar">
+         <img alt="Mark Johnson" loading="lazy" src="images/michael_portrait.png"/>
         </div>
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-question">How long does a typical project take? <i class="bi bi-plus"></i></div>
-                <div class="faq-answer">
-                    <p><strong>Project duration and delivery timeline</strong></p>
-                    <p>Our standard project timeline is <strong>2 weeks from consultation to launch</strong>:</p>
-                    <ul>
-                        <li><strong>AI Chatbot:</strong> 7-10 days (training, integration, testing)</li>
-                        <li><strong>Website Development:</strong> 10-14 days (design, development, optimization)</li>
-                        <li><strong>Digital Marketing Campaign:</strong> 3-5 days setup + ongoing management</li>
-                    </ul>
-                    <p>Rush projects can be completed in 5-7 days for an additional fee. Complex enterprise projects may take 3-4 weeks.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">What kind of support do you provide after launch? <i class="bi bi-plus"></i></div>
-                <div class="faq-answer">
-                    <p><strong>Post-launch support and maintenance details</strong></p>
-                    <p>Every project includes <strong>30 days of free support</strong> covering:</p>
-                    <ul class="no-bullets">
-                        <li>✓ Bug fixes and technical issues</li>
-                        <li>✓ Training for you and your team</li>
-                        <li>✓ Content updates and minor adjustments</li>
-                        <li>✓ Performance monitoring and optimization</li>
-                    </ul>
-                    <p>After 30 days, we offer flexible maintenance plans starting at $5000/monthly for ongoing support, updates, and enhancements. Emergency support is available 24/7 for critical issues.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How many revisions are included in the project? <i class="bi bi-plus"></i></div>
-                <div class="faq-answer">
-                    <p><strong>Revision policy and adjustment process</strong></p>
-                    <p>We include <strong>unlimited revisions during the development phase</strong> to ensure you're completely satisfied:</p>
-                    <ul>
-                        <li><strong>Design Phase:</strong> Unlimited mockup revisions until approved</li>
-                        <li><strong>Development Phase:</strong> Regular check-ins with revision opportunities</li>
-                        <li><strong>Testing Phase:</strong> All feedback incorporated before launch</li>
-                    </ul>
-                    <p>After launch, the 30-day support period covers minor content updates and adjustments. Major feature additions or redesigns are quoted separately. Our goal is 100% satisfaction—we'll work with you until you love the result.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">What can your AI chatbots actually do? <i class="bi bi-plus"></i></div>
-                <div class="faq-answer">
-                    <p><strong>AI chatbot features and capabilities</strong></p>
-                    <p>Our AI chatbots are <strong>custom-trained for your business</strong> and can handle:</p>
-                    <ul class="no-bullets">
-                        <li>✓ Answer FAQs 24/7</li>
-                        <li>✓ Schedule appointments/bookings</li>
-                        <li>✓ Capture and qualify leads</li>
-                        <li>✓ Process simple orders</li>
-                        <li>✓ Understand Patois & English</li>
-                        <li>✓ Integrate with WhatsApp/SMS</li>
-                        <li>✓ Provide product recommendations</li>
-                        <li>✓ Escalate to human when needed</li>
-                    </ul>
-                    <p>Each chatbot learns from your business knowledge base, policies, and customer interactions. They get smarter over time and can handle 80-90% of routine inquiries without human intervention.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">What is your pricing structure? <i class="bi bi-plus"></i></div>
-                <div class="faq-answer">
-                    <p><strong>Project costs and payment terms</strong></p>
-                    <p>Our pricing is transparent with <strong>no hidden fees</strong>. Starting prices:</p>
-                    <ul>
-                        <li><strong>AI Chatbot:</strong> $10,000 - $100,000 (one-time setup)</li>
-                        <li><strong>Website Design:</strong> $35,000 - $180,000 (based on complexity)</li>
-                        <li><strong>Digital Marketing:</strong> $25,000 - $150,000/month (campaign management)</li>
-                    </ul>
-                    <p>Payment terms: 50% upfront, 50% upon completion. We accept JMD, USD, credit cards, and bank transfers. Custom packages available for multi-service projects with bundled pricing discounts.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I get started with a project? <i class="bi bi-plus"></i></div>
-                <div class="faq-answer">
-                    <p><strong>First steps and consultation process</strong></p>
-                    <ol>
-                        <li><strong>Book Free Consultation:</strong> Schedule a 30-minute call via our service request form or WhatsApp</li>
-                        <li><strong>Receive Proposal:</strong> Get a detailed proposal with mockups, timeline, and pricing within 24 hours</li>
-                        <li><strong>Review & Approve:</strong> Take your time reviewing—no pressure to sign immediately</li>
-                        <li><strong>Kickoff:</strong> Once approved, we start development with regular updates</li>
-                    </ol>
-                    <p><a href="https://islandconnect.fillout.com/getstared" target="_blank" rel="noopener noreferrer" class="highlighted-link">Submit Service Request <i class="bi bi-arrow-right"></i></a></p>
-                </div>
-            </div>
+        <div class="testimonial-meta">
+         <h4>
+          Mark Johnson
+         </h4>
+         <span class="company">
+          Senior Engineer
+         </span>
         </div>
-
-        <div class="faq-cta">
-            <h3>Still have questions?</h3>
-            <p>We're here to help! Reach out via WhatsApp or email for personalized answers.</p>
-            <div class="faq-cta-btns">
-                <a href="https://wa.me/+18764639209" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-                    <i class="bi bi-whatsapp"></i> WhatsApp Us
-                </a>
-                <a href="mailto:contact@islandconnectai.com" class="btn btn-outline">
-                    <i class="bi bi-envelope"></i> Email Us
-                </a>
-            </div>
+       </div>
+      </div>
+      <!-- Sarah Jenkins -->
+      <div class="testimonial-card">
+       <i class="bi bi-quote quote-icon">
+       </i>
+       <p class="testimonial-content">
+        "The level of optimization they've achieved in the browser is
+                            phenomenal. We are able to run complex scenes on mobile devices instantly without lag."
+       </p>
+       <div class="testimonial-footer">
+        <div class="testimonial-avatar">
+         <img alt="Sarah Jenkins" loading="lazy" src="images/simone_portrait.png"/>
         </div>
-    </section>
-
-    <!-- Final CTA & Form -->
-    <section id="contact" class="section-dark">
-        <div class="container contact-container">
-            <div class="contact-text">
-                <h2 class="contact-title">Ready to <span class="text-gradient">Get Started?</span></h2>
-                <p class="contact-subtitle">Join the elite Caribbean firms using AI to dominate the market. Our strategy
-                    sessions are local, professional, and globally competitive.</p>
-                <div class="contact-details">
-                    <div class="contact-detail-item"><i class="bi bi-geo-alt"></i> Montego Bay, Jamaica</div>
-                    <div class="contact-detail-item"><i class="bi bi-envelope"></i> shavar@islandconnectai.com</div>
-                    <div class="contact-detail-item"><i class="bi bi-telephone"></i> (876) 463 9209</div>
-                </div>
-            </div>
-            <div class="contact-form glass-panel">
-                <form id="lead-form" action="https://formspree.io/f/maqdogdw" method="POST">
-                    <!-- Formspree Config -->
-                    <input type="hidden" name="_subject" value="New Lead from Island Connect AI">
-
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Business Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="john@company.com" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="industry-service-grid">
-                            <div>
-                                <label>Industry</label>
-                                <select name="industry" class="form-control" title="Select Industry">
-                                    <option>Tourism</option>
-                                    <option>Real Estate</option>
-                                    <option>Other</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Desired Service</label>
-                                <select name="service" class="form-control" title="Select Desired Service">
-                                    <option>Custom AI Agents</option>
-                                    <option>Smart Website</option>
-                                    <option>Business Automation</option>
-                                    <option>AI Chatbots</option>
-                                    <option>Security Audit</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Your Message</label>
-                        <textarea name="message" class="form-control" rows="4"
-                            placeholder="How can we help your business?" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-gold form-submit-btn">Claim Your AI Audit</button>
-                </form>
-            </div>
+        <div class="testimonial-meta">
+         <h4>
+          Sarah Jenkins
+         </h4>
+         <span class="company">
+          Technical Director
+         </span>
         </div>
-    </section>
-
-    <!-- Container for the Widget -->
-    <div id="island-ai-widget"></div>
-
-    <!-- Application Scripts -->
-    <script type="module" src="index.tsx" defer></script>
-
-    <!-- Main Project Scripts (Deferred) -->
-    <script type="module" src="js/main.js" defer></script>
-
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <a class="logo" aria-label="Island Connect AI Home" style="cursor: pointer;" onclick="window.scrollTo(0,0)">
-                <svg class="logo-svg" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <g transform="translate(60,60)">
-                        <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2" />
-                        <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="none" stroke="#f4c430"
-                            stroke-width="4" stroke-linejoin="round" />
-                        <polygon points="0,-14 10,0 0,14 -10,0" fill="#00d084" />
-                    </g>
-                    <text x="130" y="68" font-family="'Outfit', sans-serif" font-size="42" font-weight="700"
-                        letter-spacing="2">
-                        <tspan fill="#ffffff">ISLAND CONNECT</tspan>
-                        <tspan dx="8" fill="#00d084">AI</tspan>
-                    </text>
-                </svg>
-            </a>
-            <p class="footer-copy">© 2026 Island Connect AI. Locally Rooted. Globally Competitive. | <a
-                    href="/private-policy" style="color: var(--text-secondary); text-decoration: none;">Privacy
-                    Policy</a></p>
-            <div class="socials">
-                <a href="https://www.facebook.com/islandconnectai/" target="_blank" rel="noopener" title="Facebook"><i
-                        class="bi bi-facebook"></i></a>
-                <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" title="Twitter"><i class="bi bi-twitter-x"></i></a>
-            </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- FAQ Section -->
+  <!-- Blog Section -->
+  <section class="section-dark blog-section" id="blog">
+   <canvas id="blog-particle-canvas">
+   </canvas>
+   <div class="container">
+    <div class="section-header reveal">
+     <div class="badge">
+      <span class="badge-dot">
+      </span>
+      INSIGHTS &amp; INNOVATION
+     </div>
+     <h2>
+      Latest from
+      <span class="text-gradient">
+       Our Blog
+      </span>
+     </h2>
+     <p>
+      Discover how AI is transforming Jamaican real estate and tourism through our latest insights and case studies.
+     </p>
+    </div>
+    <div class="blog-grid">
+     <div class="blog-card glass-panel reveal">
+      <div class="blog-card-image">
+       <img alt="Innovative Smart Tourism Strategies in Jamaica" loading="lazy" src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+       <span class="blog-card-badge">
+        Industry Insights
+       </span>
+      </div>
+      <div class="blog-card-content">
+       <div class="blog-card-date">
+        February 21, 2025
+       </div>
+       <h3 class="blog-card-title">
+        Innovative Smart Tourism Strategies in Jamaica
+       </h3>
+       <p class="blog-card-excerpt">
+        Explore Jamaica's future with innovative smart tourism strategies. Learn how AI, digital transformation, and sustainable practices are reshaping travel.
+       </p>
+       <a class="blog-card-link" href="blog.innovative-smart-tourism-strategies-in-jamaica.html">
+        Read More
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="blog-card glass-panel reveal">
+      <div class="blog-card-image">
+       <img alt="AI-Powered Property Matching in Jamaica" loading="lazy" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+       <span class="blog-card-badge">
+        Industry Insights
+       </span>
+      </div>
+      <div class="blog-card-content">
+       <div class="blog-card-date">
+        February 21, 2025
+       </div>
+       <h3 class="blog-card-title">
+        AI-Powered Property Matching in Jamaica
+       </h3>
+       <p class="blog-card-excerpt">
+        Discover how our AI agents are revolutionizing property searches across Montego Bay, Kingston, and Ocho Rios with intelligent matching algorithms.
+       </p>
+       <a class="blog-card-link" href="blog.ai-powered-property-matching-in-jamaica.html">
+        Read More
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="blog-card glass-panel reveal">
+      <div class="blog-card-image">
+       <img alt="Smart Tourism in Jamaica" loading="lazy" src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+       <span class="blog-card-badge">
+        Industry Insights
+       </span>
+      </div>
+      <div class="blog-card-content">
+       <div class="blog-card-date">
+        February 21, 2025
+       </div>
+       <h3 class="blog-card-title">
+        Smart Tourism in Jamaica
+       </h3>
+       <p class="blog-card-excerpt">
+        From Negril's beaches to Dunn's River Falls, see how AI is creating personalized experiences for visitors.
+       </p>
+       <a class="blog-card-link" href="blog.smart-tourism-in-jamaica.html">
+        Read More
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="blog-card glass-panel reveal">
+      <div class="blog-card-image">
+       <img alt="Jamaican AI Revolution" loading="lazy" src="https://sspark.genspark.ai/cfimages?u1=v0ia9eh0iAYQCzb67b0H1%2F8LKLdAmkvOx0%2BAcoHNfuzqlczjE5GAETG4ynhcib8Dtx12hyogU9ijI8Ck5cpkjqVqg%2BBa4XJ5Pn4d9Wa4F9SQCjYyGrUop2Ew7juyCBdsRyKFbUXJbWZEMMmzwWRlvyXD5KfQ5x6Kz7B8O2M%3D&amp;u2=%2BiC3TDDpG3T%2B3Rbp&amp;width=2560"/>
+       <span class="blog-card-badge">
+        Industry Insights
+       </span>
+      </div>
+      <div class="blog-card-content">
+       <div class="blog-card-date">
+        February 21, 2025
+       </div>
+       <h3 class="blog-card-title">
+        Jamaican AI Revolution
+       </h3>
+       <p class="blog-card-excerpt">
+        How Kingston's tech scene is leading the Caribbean AI revolution with smart websites and intelligent automation.
+       </p>
+       <a class="blog-card-link" href="blog.jamaican-ai-revolution.html">
+        Read More
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="blog-card glass-panel reveal">
+      <div class="blog-card-image">
+       <img alt="Luxury Property AI in Jamaica" loading="lazy" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+       <span class="blog-card-badge">
+        Industry Insights
+       </span>
+      </div>
+      <div class="blog-card-content">
+       <div class="blog-card-date">
+        February 21, 2025
+       </div>
+       <h3 class="blog-card-title">
+        Luxury Property AI in Jamaica
+       </h3>
+       <p class="blog-card-excerpt">
+        Explore how AI is transforming luxury property sales in exclusive areas like Tryall Club and Round Hill.
+       </p>
+       <a class="blog-card-link" href="blog.luxury-property-ai-in-jamaica.html">
+        Read More
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="blog-card glass-panel reveal">
+      <div class="blog-card-image">
+       <img alt="Jamaican Tourism Recovery" loading="lazy" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+       <span class="blog-card-badge">
+        Industry Insights
+       </span>
+      </div>
+      <div class="blog-card-content">
+       <div class="blog-card-date">
+        February 21, 2025
+       </div>
+       <h3 class="blog-card-title">
+        Jamaican Tourism Recovery
+       </h3>
+       <p class="blog-card-excerpt">
+        How AI helped Jamaica's tourism industry recover and exceed pre-pandemic levels with smart booking systems.
+       </p>
+       <a class="blog-card-link" href="blog.jamaican-tourism-recovery.html">
+        Read More
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="container" id="faq">
+   <div class="section-header">
+    <h2>
+     Common
+     <span class="text-gradient">
+      Questions
+     </span>
+    </h2>
+   </div>
+   <div class="faq-list">
+    <div class="faq-item">
+     <div class="faq-question">
+      How long does a typical project take?
+      <i class="bi bi-plus">
+      </i>
+     </div>
+     <div class="faq-answer">
+      <p>
+       <strong>
+        Project duration and delivery timeline
+       </strong>
+      </p>
+      <p>
+       Our standard project timeline is
+       <strong>
+        2 weeks from consultation to launch
+       </strong>
+       :
+      </p>
+      <ul>
+       <li>
+        <strong>
+         AI Chatbot:
+        </strong>
+        7-10 days (training, integration, testing)
+       </li>
+       <li>
+        <strong>
+         Website Development:
+        </strong>
+        10-14 days (design, development, optimization)
+       </li>
+       <li>
+        <strong>
+         Digital Marketing Campaign:
+        </strong>
+        3-5 days setup + ongoing management
+       </li>
+      </ul>
+      <p>
+       Rush projects can be completed in 5-7 days for an additional fee. Complex enterprise projects may take 3-4 weeks.
+      </p>
+     </div>
+    </div>
+    <div class="faq-item">
+     <div class="faq-question">
+      What kind of support do you provide after launch?
+      <i class="bi bi-plus">
+      </i>
+     </div>
+     <div class="faq-answer">
+      <p>
+       <strong>
+        Post-launch support and maintenance details
+       </strong>
+      </p>
+      <p>
+       Every project includes
+       <strong>
+        30 days of free support
+       </strong>
+       covering:
+      </p>
+      <ul class="no-bullets">
+       <li>
+        ✓ Bug fixes and technical issues
+       </li>
+       <li>
+        ✓ Training for you and your team
+       </li>
+       <li>
+        ✓ Content updates and minor adjustments
+       </li>
+       <li>
+        ✓ Performance monitoring and optimization
+       </li>
+      </ul>
+      <p>
+       After 30 days, we offer flexible maintenance plans starting at $5000/monthly for ongoing support, updates, and enhancements. Emergency support is available 24/7 for critical issues.
+      </p>
+     </div>
+    </div>
+    <div class="faq-item">
+     <div class="faq-question">
+      How many revisions are included in the project?
+      <i class="bi bi-plus">
+      </i>
+     </div>
+     <div class="faq-answer">
+      <p>
+       <strong>
+        Revision policy and adjustment process
+       </strong>
+      </p>
+      <p>
+       We include
+       <strong>
+        unlimited revisions during the development phase
+       </strong>
+       to ensure you're completely satisfied:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Design Phase:
+        </strong>
+        Unlimited mockup revisions until approved
+       </li>
+       <li>
+        <strong>
+         Development Phase:
+        </strong>
+        Regular check-ins with revision opportunities
+       </li>
+       <li>
+        <strong>
+         Testing Phase:
+        </strong>
+        All feedback incorporated before launch
+       </li>
+      </ul>
+      <p>
+       After launch, the 30-day support period covers minor content updates and adjustments. Major feature additions or redesigns are quoted separately. Our goal is 100% satisfaction—we'll work with you until you love the result.
+      </p>
+     </div>
+    </div>
+    <div class="faq-item">
+     <div class="faq-question">
+      What can your AI chatbots actually do?
+      <i class="bi bi-plus">
+      </i>
+     </div>
+     <div class="faq-answer">
+      <p>
+       <strong>
+        AI chatbot features and capabilities
+       </strong>
+      </p>
+      <p>
+       Our AI chatbots are
+       <strong>
+        custom-trained for your business
+       </strong>
+       and can handle:
+      </p>
+      <ul class="no-bullets">
+       <li>
+        ✓ Answer FAQs 24/7
+       </li>
+       <li>
+        ✓ Schedule appointments/bookings
+       </li>
+       <li>
+        ✓ Capture and qualify leads
+       </li>
+       <li>
+        ✓ Process simple orders
+       </li>
+       <li>
+        ✓ Understand Patois &amp; English
+       </li>
+       <li>
+        ✓ Integrate with WhatsApp/SMS
+       </li>
+       <li>
+        ✓ Provide product recommendations
+       </li>
+       <li>
+        ✓ Escalate to human when needed
+       </li>
+      </ul>
+      <p>
+       Each chatbot learns from your business knowledge base, policies, and customer interactions. They get smarter over time and can handle 80-90% of routine inquiries without human intervention.
+      </p>
+     </div>
+    </div>
+    <div class="faq-item">
+     <div class="faq-question">
+      What is your pricing structure?
+      <i class="bi bi-plus">
+      </i>
+     </div>
+     <div class="faq-answer">
+      <p>
+       <strong>
+        Project costs and payment terms
+       </strong>
+      </p>
+      <p>
+       Our pricing is transparent with
+       <strong>
+        no hidden fees
+       </strong>
+       . Starting prices:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         AI Chatbot:
+        </strong>
+        $10,000 - $100,000 (one-time setup)
+       </li>
+       <li>
+        <strong>
+         Website Design:
+        </strong>
+        $35,000 - $180,000 (based on complexity)
+       </li>
+       <li>
+        <strong>
+         Digital Marketing:
+        </strong>
+        $25,000 - $150,000/month (campaign management)
+       </li>
+      </ul>
+      <p>
+       Payment terms: 50% upfront, 50% upon completion. We accept JMD, USD, credit cards, and bank transfers. Custom packages available for multi-service projects with bundled pricing discounts.
+      </p>
+     </div>
+    </div>
+    <div class="faq-item">
+     <div class="faq-question">
+      How do I get started with a project?
+      <i class="bi bi-plus">
+      </i>
+     </div>
+     <div class="faq-answer">
+      <p>
+       <strong>
+        First steps and consultation process
+       </strong>
+      </p>
+      <ol>
+       <li>
+        <strong>
+         Book Free Consultation:
+        </strong>
+        Schedule a 30-minute call via our service request form or WhatsApp
+       </li>
+       <li>
+        <strong>
+         Receive Proposal:
+        </strong>
+        Get a detailed proposal with mockups, timeline, and pricing within 24 hours
+       </li>
+       <li>
+        <strong>
+         Review &amp; Approve:
+        </strong>
+        Take your time reviewing—no pressure to sign immediately
+       </li>
+       <li>
+        <strong>
+         Kickoff:
+        </strong>
+        Once approved, we start development with regular updates
+       </li>
+      </ol>
+      <p>
+       <a class="highlighted-link" href="https://islandconnect.fillout.com/getstared" rel="noopener noreferrer" target="_blank">
+        Submit Service Request
+        <i class="bi bi-arrow-right">
+        </i>
+       </a>
+      </p>
+     </div>
+    </div>
+   </div>
+   <div class="faq-cta">
+    <h3>
+     Still have questions?
+    </h3>
+    <p>
+     We're here to help! Reach out via WhatsApp or email for personalized answers.
+    </p>
+    <div class="faq-cta-btns">
+     <a class="btn btn-outline" href="https://wa.me/+18764639209" rel="noopener noreferrer" target="_blank">
+      <i class="bi bi-whatsapp">
+      </i>
+      WhatsApp Us
+     </a>
+     <a class="btn btn-outline" href="mailto:contact@islandconnectai.com">
+      <i class="bi bi-envelope">
+      </i>
+      Email Us
+     </a>
+    </div>
+   </div>
+  </section>
+  <!-- Final CTA & Form -->
+  <section class="section-dark" id="contact">
+   <div class="container contact-container">
+    <div class="contact-text">
+     <h2 class="contact-title">
+      Ready to
+      <span class="text-gradient">
+       Get Started?
+      </span>
+     </h2>
+     <p class="contact-subtitle">
+      Join the elite Caribbean firms using AI to dominate the market. Our strategy
+                    sessions are local, professional, and globally competitive.
+     </p>
+     <div class="contact-details">
+      <div class="contact-detail-item">
+       <i class="bi bi-geo-alt">
+       </i>
+       Montego Bay, Jamaica
+      </div>
+      <div class="contact-detail-item">
+       <i class="bi bi-envelope">
+       </i>
+       shavar@islandconnectai.com
+      </div>
+      <div class="contact-detail-item">
+       <i class="bi bi-telephone">
+       </i>
+       (876) 463 9209
+      </div>
+     </div>
+    </div>
+    <div class="contact-form glass-panel">
+     <form action="https://formspree.io/f/maqdogdw" id="lead-form" method="POST">
+      <!-- Formspree Config -->
+      <input name="_subject" type="hidden" value="New Lead from Island Connect AI"/>
+      <div class="form-group">
+       <label>
+        Full Name
+       </label>
+       <input class="form-control" name="name" placeholder="John Doe" required="" type="text"/>
+      </div>
+      <div class="form-group">
+       <label>
+        Business Email
+       </label>
+       <input class="form-control" name="email" placeholder="john@company.com" required="" type="email"/>
+      </div>
+      <div class="form-group">
+       <div class="industry-service-grid">
+        <div>
+         <label>
+          Industry
+         </label>
+         <select class="form-control" name="industry" title="Select Industry">
+          <option>
+           Tourism
+          </option>
+          <option>
+           Real Estate
+          </option>
+          <option>
+           Other
+          </option>
+         </select>
         </div>
-    </footer>
-
-    <!-- PWA Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
+        <div>
+         <label>
+          Desired Service
+         </label>
+         <select class="form-control" name="service" title="Select Desired Service">
+          <option>
+           Custom AI Agents
+          </option>
+          <option>
+           Smart Website
+          </option>
+          <option>
+           Business Automation
+          </option>
+          <option>
+           AI Chatbots
+          </option>
+          <option>
+           Security Audit
+          </option>
+         </select>
+        </div>
+       </div>
+      </div>
+      <div class="form-group">
+       <label>
+        Your Message
+       </label>
+       <textarea class="form-control" name="message" placeholder="How can we help your business?" required="" rows="4"></textarea>
+      </div>
+      <button class="btn btn-gold form-submit-btn" type="submit">
+       Claim Your AI Audit
+      </button>
+     </form>
+    </div>
+   </div>
+  </section>
+  <!-- Container for the Widget -->
+  <div id="island-ai-widget">
+  </div>
+  <!-- Application Scripts -->
+  <script defer="" src="index.tsx" type="module">
+  </script>
+  <!-- Main Project Scripts (Deferred) -->
+  <script defer="" src="js/main.js" type="module">
+  </script>
+  <footer class="site-footer">
+   <div class="container footer-content">
+    <a aria-label="Island Connect AI Home" class="logo" onclick="window.scrollTo(0,0)" style="cursor: pointer;">
+     <svg aria-hidden="true" class="logo-svg" viewbox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(60,60)">
+       <circle fill="#0b0f14" r="45" stroke="#1f2a33" stroke-width="2">
+       </circle>
+       <polygon fill="none" points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" stroke="#f4c430" stroke-linejoin="round" stroke-width="4">
+       </polygon>
+       <polygon fill="#00d084" points="0,-14 10,0 0,14 -10,0">
+       </polygon>
+      </g>
+      <text font-family="'Outfit', sans-serif" font-size="42" font-weight="700" letter-spacing="2" x="130" y="68">
+       <tspan fill="#ffffff">
+        ISLAND CONNECT
+       </tspan>
+       <tspan dx="8" fill="#00d084">
+        AI
+       </tspan>
+      </text>
+     </svg>
+    </a>
+    <p class="footer-copy">
+     © 2026 Island Connect AI. Locally Rooted. Globally Competitive. |
+     <a href="/private-policy" style="color: var(--text-secondary); text-decoration: none;">
+      Privacy
+                    Policy
+     </a>
+    </p>
+    <div class="socials">
+     <a href="https://www.facebook.com/islandconnectai/" rel="noopener" target="_blank" title="Facebook">
+      <i class="bi bi-facebook">
+      </i>
+     </a>
+     <a href="#" title="LinkedIn">
+      <i class="bi bi-linkedin">
+      </i>
+     </a>
+     <a href="#" title="Twitter">
+      <i class="bi bi-twitter-x">
+      </i>
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- PWA Service Worker Registration -->
+  <script>
+   if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
                     .then(reg => console.log('Service Worker registered', reg))
                     .catch(err => console.log('Service Worker registration failed', err));
             });
         }
-    </script>
-</body>
-
+  </script>
+ </body>
 </html>
