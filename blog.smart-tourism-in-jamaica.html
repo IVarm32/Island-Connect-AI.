@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Tourism in Jamaica | Island Connect</title>
-    <meta name="description" content="From Negril's beaches to Dunn's River Falls, see how AI is creating personalized experiences for visitors.">
+    <meta name="description" content="{{description}}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,38 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: #fff;
         }
 
         .blog-post-header {
@@ -99,100 +131,7 @@
 
         .blog-content p {
             margin-bottom: 24px;
-        }
-
-        /* CSS Overrides for injected HTML to ensure readability on dark background */
-        .blog-content * {
-            color: #ccc !important;
-            background-color: transparent !important;
-        }
-        .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content strong {
-            color: #fff !important;
-        }
-        .blog-content a {
-            color: var(--jamaica-gold) !important;
-            text-decoration: underline !important;
-        }
-        .blog-content .bg-white, .blog-content .bg-gray-100, .blog-content .bg-green-50, .blog-content .bg-yellow-50 {
-            background-color: rgba(255,255,255,0.05) !important;
-            border: 1px solid var(--glass-border) !important;
-            border-radius: 16px;
-        }
-        .blog-content .text-black, .blog-content .text-gray-800, .blog-content .text-green-600, .blog-content .text-green-700, .blog-content .text-yellow-800 {
-            color: #fff !important;
-        }
-        .blog-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 16px;
-            margin: 40px 0;
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            box-sizing: border-box;
-            z-index: 1000;
-            background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-        .nav-link:hover {
-            color: var(--jamaica-gold);
-        }
-
-        .related-posts {
-            max-width: 1000px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .related-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            text-decoration: none;
-            transition: transform 0.3s;
-        }
-        .related-card:hover {
-            transform: translateY(-5px);
-        }
-        .related-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .related-body {
-            padding: 20px;
-        }
-        .related-body h4 {
-            margin: 0;
-            color: #fff;
-            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         .share-section {
@@ -245,6 +184,10 @@
 
     <header class="blog-post-header">
         <div class="container">
+            <a href="index.html#blog" style="display: inline-flex; align-items: center; color: var(--jamaica-gold); text-decoration: none; margin-bottom: 24px; font-weight: 500; font-size: 0.9rem; transition: transform 0.3s;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">
+                <i class="bi bi-arrow-left mr-2"></i> Back to Blog
+            </a>
+            <br>
             <span class="blog-category">Industry Insights</span>
             <h1 class="blog-post-title">Smart Tourism in Jamaica</h1>
             <div class="blog-meta">
@@ -264,22 +207,14 @@
     <article class="blog-content">
 
 <p>Jamaica’s tourism sector is currently at a pivotal crossroads. As one of the most desirable destinations globally, the challenge remains: how do we scale hospitality while maintaining the authentic island charm? The answer lies in <strong>Smart Tourism</strong>—the strategic integration of AI, IoT, and high-speed connectivity to personalize the guest experience.</p>
-
 <h2 class="text-2xl font-bold text-white mt-8 mb-4">1. AI-Driven Personalization</h2>
-<p class="mb-6">Imagine a guest arriving at a resort in Montego Bay. Before they even step into the lobby, the resort’s AI system has already coordinated their room temperature, prepared a localized digital itinerary based on their previous preferences, and alerted the concierge to their arrival. This isn't science fiction; it's the new standard for luxury.</p>
-
+<p class="mb-6">Imagine a guest arriving at a resort in Montego Bay. Before they even step into the lobby, the resort’s AI system has already coordinated their room temperature, prepared a localized digital itinerary based on their previous preferences, and alerted the concierge to their arrival.</p>
 <h2 class="text-2xl font-bold text-white mt-8 mb-4">2. The Role of Island Connect</h2>
-<p class="mb-6">At Island Connect, we are facilitating this transition by providing the underlying infrastructure. From low-latency satellite links for remote eco-lodges to custom software portals that allow tourists to book local artisans and tours seamlessly, we are bridging the gap between traditional tourism and the digital nomad era.</p>
-
-<h2 class="text-2xl font-bold text-white mt-8 mb-4">3. Sustainable Growth</h2>
-<p class="mb-6">Technology also plays a key role in sustainability. Smart grids and IoT sensors help resorts reduce water and energy waste by up to 30%, ensuring that Jamaica's natural beauty is preserved for generations to come.</p>
-
+<p class="mb-6">At Island Connect, we are facilitating this transition by providing the underlying infrastructure. From low-latency satellite links to custom software portals, we are bridging the gap.</p>
 <div class="bg-jamaica-green/10 border-l-4 border-jamaica-green p-6 my-8 rounded-r-xl">
-    <h4 class="text-xl font-bold text-white mb-3">References & Further Reading:</h4>
+    <h4 class="text-xl font-bold text-white mb-3">References:</h4>
     <ul class="space-y-2">
-        <li>• <a href="https://www.visitjamaica.com/digital-transformation" class="text-jamaica-gold hover:underline">Jamaica Ministry of Tourism: Digital Transformation Roadmap</a></li>
-        <li>• <a href="#" class="text-jamaica-gold hover:underline">Caribbean Journal: How AI is Changing Resort Operations (2024)</a></li>
-        <li>• <a href="#" class="text-jamaica-gold hover:underline">Island Connect Whitepaper: Infrastructure for Smart Islands</a></li>
+        <li>• <a href="https://www.visitjamaica.com/digital-transformation" class="text-jamaica-gold hover:underline">Jamaica Ministry of Tourism Roadmap</a></li>
     </ul>
 </div>
 
@@ -300,34 +235,6 @@
             </div>
         </div>
     </article>
-
-    <section class="related-posts">
-        <h2 style="font-family: 'Space Grotesk', sans-serif; color: #fff;">Related Insights</h2>
-        <div class="related-grid">
-
-            <a href="blog.innovative-smart-tourism-strategies-in-jamaica.html" class="related-card">
-                <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80" alt="Innovative Smart Tourism Strategies in Jamaica" class="related-img">
-                <div class="related-body">
-                    <h4>Innovative Smart Tourism Strategies in Jamaica</h4>
-                </div>
-            </a>
-
-            <a href="blog.ai-powered-property-matching-in-jamaica.html" class="related-card">
-                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80" alt="AI-Powered Property Matching in Jamaica" class="related-img">
-                <div class="related-body">
-                    <h4>AI-Powered Property Matching in Jamaica</h4>
-                </div>
-            </a>
-
-            <a href="blog.jamaican-ai-revolution.html" class="related-card">
-                <img src="https://sspark.genspark.ai/cfimages?u1=v0ia9eh0iAYQCzb67b0H1%2F8LKLdAmkvOx0%2BAcoHNfuzqlczjE5GAETG4ynhcib8Dtx12hyogU9ijI8Ck5cpkjqVqg%2BBa4XJ5Pn4d9Wa4F9SQCjYyGrUop2Ew7juyCBdsRyKFbUXJbWZEMMmzwWRlvyXD5KfQ5x6Kz7B8O2M%3D&u2=%2BiC3TDDpG3T%2B3Rbp&width=2560" alt="Jamaican AI Revolution" class="related-img">
-                <div class="related-body">
-                    <h4>Jamaican AI Revolution</h4>
-                </div>
-            </a>
-
-        </div>
-    </section>
 
     <footer style="padding: 60px 0; background: #000; border-top: 1px solid var(--glass-border); text-align: center; color: #666;">
         <p>&copy; 2025 Island Connect AI. Locally Rooted. Globally Competitive.</p>
