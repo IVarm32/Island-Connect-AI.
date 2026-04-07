@@ -1,6 +1,7 @@
 import urllib.request
 import json
 import re
+import os
 from html.parser import HTMLParser
 from urllib.parse import urljoin
 
@@ -141,39 +142,43 @@ def get_html(url):
         return None
 
 def main():
+    manual_posts = []
+    if os.path.exists('manual_posts.json'):
+        with open('manual_posts.json', 'r') as f:
+            manual_posts = json.load(f)
+
     base_url = "https://blog-islandconnect.pages.dev/"
     print(f"Scraping {base_url}...")
 
     index_html = get_html(base_url)
     if not index_html:
-        return
+        # If scraping fails, use at least manual posts
+        all_posts = manual_posts
+    else:
+        index_parser = BlogIndexParser(base_url)
+        index_parser.feed(index_html)
+        posts = index_parser.posts
 
-    index_parser = BlogIndexParser(base_url)
-    index_parser.feed(index_html)
-    posts = index_parser.posts
+        for post in posts:
+            print(f"Scraping post: {post['title']} at {post['url']}")
+            post_html = get_html(post['url'])
+            if post_html:
+                post_parser = BlogPostParser()
+                post_parser.feed(post_html)
 
-    for post in posts:
-        print(f"Scraping post: {post['title']} at {post['url']}")
-        post_html = get_html(post['url'])
-        if post_html:
-            post_parser = BlogPostParser()
-            post_parser.feed(post_html)
+                content = post_parser.content_html
+                content = re.sub(r'<p>\s*</p>', '', content)
+                content = re.sub(r'<div>\s*</div>', '', content)
+                content = re.sub(r'<div>\s*(<div[^>]*>\s*</div>)\s*</div>', '', content)
+                post["content"] = content
 
-            content = post_parser.content_html
-            # Clean up redundant tags and structure
-            content = re.sub(r'<p>\s*</p>', '', content)
-            content = re.sub(r'<div>\s*</div>', '', content)
-            # Remove any empty containers that might lead to layout issues
-            content = re.sub(r'<div>\s*(<div[^>]*>\s*</div>)\s*</div>', '', content)
-            post["content"] = content
+            if not post["content"]:
+                post["content"] = "<p>Content currently being optimized for your viewing experience. Please check back shortly.</p>"
 
-        if not post["content"]:
-            post["content"] = "<p>Content currently being optimized for your viewing experience. Please check back shortly.</p>"
-
-    # Manual overrides for specific posts to ensure high quality and consistency with the main site style
-    for post in posts:
-        if "Smart Tourism" in post['title'] and "Strategies" not in post['title']:
-            post['content'] = """
+        # Manual overrides for specific posts to ensure high quality and consistency
+        for post in posts:
+            if "Smart Tourism" in post['title'] and "Strategies" not in post['title']:
+                post['content'] = """
 <p>Jamaica’s tourism sector is currently at a pivotal crossroads. As one of the most desirable destinations globally, the challenge remains: how do we scale hospitality while maintaining the authentic island charm? The answer lies in <strong>Smart Tourism</strong>—the strategic integration of AI, IoT, and high-speed connectivity to personalize the guest experience.</p>
 <h2>1. AI-Driven Personalization</h2>
 <p>Imagine a guest arriving at a resort in Montego Bay. Before they even step into the lobby, the resort’s AI system has already coordinated their room temperature, prepared a localized digital itinerary based on their previous preferences, and alerted the concierge to their arrival.</p>
@@ -184,8 +189,8 @@ def main():
 </div>
 <p>By leveraging real-time data, Jamaican hotels can optimize occupancy, reduce energy waste, and most importantly, create unforgettable memories for every visitor.</p>
 """
-        elif "Property Matching" in post['title']:
-             post['content'] = """
+            elif "Property Matching" in post['title'] and "Revolution" not in post['title']:
+                 post['content'] = """
 <p>Finding the perfect property in Jamaica has historically been a manual, time-consuming process. Today, Island Connect AI is revolutionizing this journey by introducing neural-network-powered matching algorithms that understand the nuances of Caribbean real estate.</p>
 <h2>Precision Over Volume</h2>
 <p>Unlike traditional search engines that return hundreds of loosely related results, our AI analyzes over 50 data points—from soil quality and elevation to proximity to future infrastructure projects—to find properties that truly align with your goals.</p>
@@ -193,8 +198,8 @@ def main():
 <h2>Secure and Seamless</h2>
 <p>We prioritize security in every transaction. Our platform integrates with localized legal databases to ensure that every listing is verified and every match is backed by accurate data.</p>
 """
-        elif "Revolution" in post['title']:
-             post['content'] = """
+            elif "Revolution" in post['title'] and "Smart Property" not in post['title']:
+                 post['content'] = """
 <p>Jamaica is standing at the forefront of a digital revolution. The rapid adoption of artificial intelligence across Kingston's tech hubs and Montego Bay's BPO centers is signaling a new era of economic prosperity and technological independence.</p>
 <h2>Empowering Local Talent</h2>
 <p>At Island Connect, we believe the revolution starts with people. We are investing in AI training programs that empower local developers to build solutions specifically for the Jamaican context, rather than relying on generic global models.</p>
@@ -202,9 +207,13 @@ def main():
 <p>For AI to thrive, it requires robust, high-speed connectivity. Our work in deploying advanced network solutions across the island ensures that even the most remote businesses can leverage the power of the cloud and real-time data processing.</p>
 """
 
+        # Merge manual posts at the beginning and keep 6 total if possible
+        all_posts = manual_posts + posts
+        all_posts = all_posts[:6]
+
     with open('blog_posts.json', 'w') as f:
-        json.dump(posts, f, indent=4)
-    print(f"Saved {len(posts)} posts to blog_posts.json")
+        json.dump(all_posts, f, indent=4)
+    print(f"Saved {len(all_posts)} posts to blog_posts.json")
 
 if __name__ == "__main__":
     main()

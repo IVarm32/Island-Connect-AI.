@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "python3 update_blog.py && python3 generate_pages.py && vite build",
+    "build": "python3 update_blog.py && python3 update_index.py && python3 generate_pages.py && vite build",
     "preview": "vite preview",
     "deploy": "npm run build && npx --yes wrangler deploy"
   },

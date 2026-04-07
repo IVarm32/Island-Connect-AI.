@@ -32,15 +32,26 @@ def main():
             </a>
             """
 
+        # Handle SEO and Schema
+        schema_html = ""
+        if 'schema_markup' in post:
+            schema_html = f'<script type="application/ld+json">{json.dumps(post["schema_markup"])}</script>'
+
+        faq_html = ""
+        if 'faq_markup' in post:
+            faq_html = f'<script type="application/ld+json">{json.dumps(post["faq_markup"])}</script>'
+
         content = template
         content = content.replace('{{title}}', post['title'])
-        content = content.replace('{{description}}', post['excerpt'][:160])
+        content = content.replace('{{description}}', post.get('meta_description', post['excerpt'][:160]))
         content = content.replace('{{excerpt}}', post['excerpt'])
         content = content.replace('{{image}}', post['image'])
         content = content.replace('{{category}}', post['category'])
         content = content.replace('{{date}}', post['date'])
         content = content.replace('{{{content}}}', post['content'])
         content = content.replace('{{related_posts}}', related_html)
+        content = content.replace('{{{schema_markup}}}', schema_html)
+        content = content.replace('{{{faq_markup}}}', faq_html)
 
         with open(filename, 'w') as f:
             f.write(content)
