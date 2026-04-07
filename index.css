@@ -180,9 +180,69 @@ section {
 }
 
 .btn-gold:hover {
+
+.btn-black-gold {
+    background: #000;
+    color: var(--accent-gold) !important;
+    border: 2px solid var(--accent-gold);
+}
+
+.btn-black-gold:hover {
+    background: var(--accent-gold);
+    color: #000 !important;
     transform: translateY(-5px);
+}
+    transform: translateY(-5px);
+
+.btn-black-gold {
+    background: #000;
+    color: var(--accent-gold) !important;
+    border: 2px solid var(--accent-gold);
+}
+
+.btn-black-gold:hover {
+    background: var(--accent-gold);
+    color: #000 !important;
+    transform: translateY(-5px);
+}
     box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+
+.btn-black-gold {
+    background: #000;
+    color: var(--accent-gold) !important;
+    border: 2px solid var(--accent-gold);
+}
+
+.btn-black-gold:hover {
+    background: var(--accent-gold);
+    color: #000 !important;
+    transform: translateY(-5px);
+}
     filter: brightness(1.1);
+
+.btn-black-gold {
+    background: #000;
+    color: var(--accent-gold) !important;
+    border: 2px solid var(--accent-gold);
+}
+
+.btn-black-gold:hover {
+    background: var(--accent-gold);
+    color: #000 !important;
+    transform: translateY(-5px);
+}
+}
+
+.btn-black-gold {
+    background: #000;
+    color: var(--accent-gold) !important;
+    border: 2px solid var(--accent-gold);
+}
+
+.btn-black-gold:hover {
+    background: var(--accent-gold);
+    color: #000 !important;
+    transform: translateY(-5px);
 }
 
 .btn-outline {
@@ -214,6 +274,7 @@ section {
     transition: all 0.3s ease;
     border: none;
     overflow: hidden;
+    color: #fff;
 }
 
 .btn-animated::before {
