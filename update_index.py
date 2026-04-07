@@ -1,56 +1,92 @@
 import json
-from bs4 import BeautifulSoup
+import os
+import re
 
 def main():
+    if not os.path.exists('blog_posts.json'):
+        print("Error: blog_posts.json not found")
+        return
+
     with open('blog_posts.json', 'r') as f:
         posts = json.load(f)
 
-    with open('index.html', 'r') as f:
-        soup = BeautifulSoup(f.read(), 'html.parser')
-
-    blog_grid = soup.find('div', class_='blog-grid')
-    if not blog_grid:
-        print("Error: .blog-grid not found in index.html")
+    if not os.path.exists('index.html'):
+        print("Error: index.html not found")
         return
 
-    blog_grid.clear()
+    with open('index.html', 'r') as f:
+        content = f.read()
 
+    # Generate the grid HTML
+    grid_html = ""
     for post in posts:
-        card = soup.new_tag('div', attrs={'class': 'blog-card glass-panel reveal'})
+        grid_html += f"""
+        <div class="blog-card glass-panel reveal">
+          <div class="blog-card-image">
+            <img src="{post['image']}" alt="{post['title']}" loading="lazy">
+            <span class="blog-card-badge">{post['category']}</span>
+          </div>
+          <div class="blog-card-content">
+            <div class="blog-card-date">{post['date']}</div>
+            <h3 class="blog-card-title">{post['title']}</h3>
+            <p class="blog-card-excerpt">{post['excerpt']}</p>
+            <a href="blog.{post['id']}.html" class="blog-card-link">
+              Read More <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>"""
 
-        # Image part
-        img_container = soup.new_tag('div', attrs={'class': 'blog-card-image'})
-        img = soup.new_tag('img', src=post['image'], alt=post['title'], loading="lazy")
-        badge = soup.new_tag('span', attrs={'class': 'blog-card-badge'})
-        badge.string = post['category']
-        img_container.append(img)
-        img_container.append(badge)
+    # Replace the existing blog-grid content
+    # Look for the grid container specifically
+    start_marker = '<div class="blog-grid">'
+    end_marker = '</div>' # First closing div after the grid
 
-        # Content part
-        content = soup.new_tag('div', attrs={'class': 'blog-card-content'})
-        date = soup.new_tag('div', attrs={'class': 'blog-card-date'})
-        date.string = post['date']
-        title = soup.new_tag('h3', attrs={'class': 'blog-card-title'})
-        title.string = post['title']
-        excerpt = soup.new_tag('p', attrs={'class': 'blog-card-excerpt'})
-        excerpt.string = post['excerpt']
-        link = soup.new_tag('a', attrs={'class': 'blog-card-link', 'href': f"blog.{post['id']}.html"})
-        link.string = "Read More "
-        icon = soup.new_tag('i', attrs={'class': 'bi bi-arrow-right'})
-        link.append(icon)
+    start_idx = content.find(start_marker)
+    if start_idx == -1:
+        print("Could not find blog-grid start")
+        return
 
-        content.append(date)
-        content.append(title)
-        content.append(excerpt)
-        content.append(link)
+    # Find the matching closing div for blog-grid
+    # We'll look for the end of the section instead as it's more reliable in this structure
+    section_end_marker = '</section>'
+    grid_end_idx = content.find(section_end_marker, start_idx)
 
-        card.append(img_container)
-        card.append(content)
-        blog_grid.append(card)
+    # We want to keep the closing container div of the section
+    # Let's find the second to last </div> before the section ends
+    # Or just replace everything between <div class="blog-grid"> and the container close
+
+    # A safer way: replace content of <div class="blog-grid">...</div>
+    # Using regex with non-greedy match across lines
+    pattern = r'(<div class="blog-grid">).*?(</div>\s*</div>\s*</section>)'
+    # We need to make sure we don't catch too much or too little.
+
+    # Let's try to find the end of the blog-grid div specifically.
+    # It usually ends right before </div> </div> </section>
+
+    # Simpler approach: find <div class="blog-grid"> and the next </div> that matches it.
+    # Given the known structure from the grep:
+    # <div class="blog-grid">
+    #   ...
+    # </div> <!-- this is the one we want to close -->
+    # </div> <!-- container -->
+    # </section>
+
+    # We will use a regex that looks for the blog-grid and captures until the closing div
+    # that is followed by the container closing div and the section close.
+
+    # Based on:
+    #    <div class="blog-grid">
+    #     ...
+    #    </div>
+    #   </div>
+    #  </section>
+
+    regex = r'(<div class="blog-grid">)(.*?)(?=\s*</div>\s*</div>\s*</section>)'
+    new_content = re.sub(regex, r'\1' + grid_html, content, flags=re.DOTALL)
 
     with open('index.html', 'w') as f:
-        f.write(soup.prettify())
-    print("Updated index.html with correct blog links.")
+        f.write(new_content)
+    print("Updated index.html with new blog posts")
 
 if __name__ == "__main__":
     main()
