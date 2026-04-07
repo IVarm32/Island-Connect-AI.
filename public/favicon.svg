@@ -1,5 +1,15 @@
-<svg width="120" height="120" viewBox="-60 -60 120 120" xmlns="http://www.w3.org/2000/svg">
-  <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2"/>
-  <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="none" stroke="#f4c430" stroke-width="4" stroke-linejoin="round"/>
-  <polygon points="0,-14 10,0 0,14 -10,0" fill="#00d084"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Outer Circle -->
+  <circle cx="50" cy="50" r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2"/>
+  <!-- Gold Hexagon -->
+  <polygon
+    points="50,22 72,36 72,64 50,78 28,64 28,36"
+    fill="none"
+    stroke="#d4af37"
+    stroke-width="4"
+    stroke-linejoin="round"/>
+  <!-- Green Inner Diamond -->
+  <polygon
+    points="50,36 60,50 50,64 40,50"
+    fill="#0f9d58"/>
 </svg>
