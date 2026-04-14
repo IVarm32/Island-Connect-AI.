@@ -63,7 +63,6 @@ export default defineConfig({
             input: {
                 main: './index.html',
                 privatePolicy: './private-policy/index.html',
-                blog: './blog/index.html',
                 ...blogInputs
             }
         }
