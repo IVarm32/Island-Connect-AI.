@@ -5,6 +5,51 @@ import os
 from html.parser import HTMLParser
 from urllib.parse import urljoin
 
+# Mapping for SEO friendly slugs
+SEO_MAPPING = {
+    "ai-real-estate-platforms-jamaica": "ai-real-estate-platform-jamaica",
+    "jamaican-tourism-recovery": "jamaica-travel-automation-services",
+    "jamaican-ai-revolution": "jamaica-ai-automation-revolution",
+    "innovative-smart-tourism-strategies-in-jamaica": "ai-tourism-solutions-jamaica",
+    "ai-powered-property-matching-in-jamaica": "smart-property-search-jamaica",
+    "smart-tourism-in-jamaica": "montegobay-ai-tourism-services"
+}
+
+KEYWORDS_MAPPING = {
+    "ai-real-estate-platform-jamaica": "AI real estate platform Jamaica",
+    "jamaica-travel-automation-services": "Jamaica travel automation services",
+    "jamaica-ai-automation-revolution": "Jamaica AI automation revolution",
+    "ai-tourism-solutions-jamaica": "AI tourism solutions Jamaica",
+    "smart-property-search-jamaica": "smart property search Jamaica",
+    "montegobay-ai-tourism-services": "Montego Bay AI tourism services"
+}
+
+BRAND_VOICE_TAGLINE = "Smart Solutions for a Smarter Jamaica 🇯🇲"
+BRAND_INTRO_TEMPLATE = """
+<div class="brand-voice-intro">
+    <p><strong>{tagline}</strong></p>
+    <p>We don’t just build AI—we create smart experiences that move Jamaica forward. Our {keyword} are designed with Caribbean warmth and a professional edge, focusing on real results for your business.</p>
+</div>
+"""
+
+def apply_brand_voice(post):
+    slug = post['id']
+    kw = KEYWORDS_MAPPING.get(slug, "AI solutions in Jamaica")
+    tagline = BRAND_VOICE_TAGLINE
+    intro = BRAND_INTRO_TEMPLATE.format(tagline=tagline, keyword=kw)
+
+    content = post.get('content', '')
+    if kw.lower() not in content.lower():
+        content = f"<p>When it comes to <strong>{kw}</strong>, Island Connect AI is at the forefront of innovation.</p>" + content
+
+    post['content'] = intro + content
+
+    if kw.lower() not in post['title'].lower():
+        post['title'] = f"{post['title']} - {kw}"
+
+    post['url'] = f"https://islandconnectai.com/{slug}/"
+    return post
+
 class BlogIndexParser(HTMLParser):
     def __init__(self, base_url):
         super().__init__()
@@ -41,7 +86,8 @@ class BlogIndexParser(HTMLParser):
     def handle_endtag(self, tag):
         if tag == 'article' and self.in_article:
             if self.current_post["title"]:
-                self.current_post["id"] = slugify(self.current_post["title"])
+                old_id = slugify(self.current_post["title"])
+                self.current_post["id"] = SEO_MAPPING.get(old_id, old_id)
                 self.posts.append(self.current_post)
             self.in_article = False
             self.current_post = None
@@ -159,8 +205,8 @@ def main():
 
         final_scraped = []
         for post in scraped_posts:
-            # Skip if ID conflicts with manual post OR if it's the scraped version of Tourism Recovery (we might have manual one)
-            if post['id'] in manual_ids or post['id'] == 'jamaican-tourism-recovery':
+            # Skip if ID conflicts with manual post
+            if post['id'] in manual_ids:
                 continue
 
             print(f"Scraping post: {post['title']} at {post['url']}")
@@ -176,6 +222,7 @@ def main():
             if not post["content"]:
                 post["content"] = "<p>Content currently being optimized.</p>"
 
+            post = apply_brand_voice(post)
             final_scraped.append(post)
 
         all_posts = manual_posts + final_scraped

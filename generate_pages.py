@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 
 def main():
     if not os.path.exists('blog_posts.json'):
@@ -17,15 +18,26 @@ def main():
         template = f.read()
 
     for i, post in enumerate(posts):
-        filename = f"blog.{post['id']}.html"
+        slug = post['id']
+        directory = slug
+
+        # Create directory for Clean URL (Option B)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        filename = os.path.join(directory, "index.html")
 
         # Calculate related posts (exclude current)
+        # We use relative links: ../slug/
         related = [p for p in posts if p['id'] != post['id']][:3]
         related_html = ""
         for r in related:
+            img_path = r['image']
+            if not img_path.startswith('http'):
+                img_path = '../' + img_path
             related_html += f"""
-            <a href="blog.{r['id']}.html" class="related-card">
-                <img src="{r['image']}" alt="{r['title']}" class="related-img">
+            <a href="../{r['id']}/" class="related-card">
+                <img src="{img_path}" alt="{r['title']}" class="related-img">
                 <div class="related-body">
                     <h4>{r['title']}</h4>
                 </div>
@@ -42,16 +54,41 @@ def main():
             faq_html = f'<script type="application/ld+json">{json.dumps(post["faq_markup"])}</script>'
 
         content = template
+
         content = content.replace('{{title}}', post['title'])
         content = content.replace('{{description}}', post.get('meta_description', post['excerpt'][:160]))
         content = content.replace('{{excerpt}}', post['excerpt'])
-        content = content.replace('{{image}}', post['image'])
+
+        # Adjust post image path if it's local
+        post_image = post['image']
+        if not post_image.startswith('http'):
+            post_image = '../' + post_image
+        content = content.replace('{{image}}', post_image)
+
         content = content.replace('{{category}}', post['category'])
         content = content.replace('{{date}}', post['date'])
         content = content.replace('{{{content}}}', post['content'])
         content = content.replace('{{related_posts}}', related_html)
         content = content.replace('{{{schema_markup}}}', schema_html)
         content = content.replace('{{{faq_markup}}}', faq_html)
+
+        # Fix navigation and assets in the header/body
+        # Replace index.html with ../ and index.html#... with ../#...
+        content = content.replace('href="index.html#', 'href="../#')
+        content = content.replace('href="index.html"', 'href="../"')
+
+        content = content.replace('href="blog.html"', 'href="../blog.html"')
+        content = content.replace('href="private-policy.html"', 'href="../private-policy.html"')
+        content = content.replace('href="nav_styles.css"', 'href="../nav_styles.css"')
+        content = content.replace('href="index.css"', 'href="../index.css"')
+        content = content.replace('src="js/', 'src="../js/')
+        content = content.replace('href="css/', 'href="../css/')
+        content = content.replace('href="favicon.svg"', 'href="../favicon.svg"')
+        content = content.replace('href="images/icon-192.png"', 'href="../images/icon-192.png"')
+
+        # Also fix any internal links that might use blog.slug.html
+        for p in posts:
+            content = content.replace(f'href="blog.{p["id"]}.html"', f'href="../{p["id"]}/"')
 
         with open(filename, 'w') as f:
             f.write(content)

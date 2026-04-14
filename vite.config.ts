@@ -31,13 +31,19 @@ function inlineCSS() {
     };
 }
 
-// Find all blog.*.html files
-const blogFiles = fs.readdirSync('.').filter(file => file.startsWith('blog.') && file.endsWith('.html') && file !== 'blog.html');
-const blogInputs = blogFiles.reduce((acc, file) => {
-    const name = file.replace('.html', '').replace(/\./g, '_');
-    acc[name] = `./${file}`;
-    return acc;
-}, {});
+// Find all blog post index.html files in their subdirectories
+const getBlogInputs = () => {
+    const inputs = {};
+    const items = fs.readdirSync('.', { withFileTypes: true });
+    for (const item of items) {
+        if (item.isDirectory() && fs.existsSync(path.join(item.name, 'index.html')) && !['public', 'node_modules', 'css', 'js', 'components', 'services', 'utils', 'dist'].includes(item.name)) {
+            inputs[item.name.replace(/-/g, '_')] = `./${item.name}/index.html`;
+        }
+    }
+    return inputs;
+};
+
+const blogInputs = getBlogInputs();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -49,6 +55,7 @@ export default defineConfig({
     },
     build: {
         outDir: 'dist',
+        emptyOutDir: true,
         target: 'esnext',
         minify: 'esbuild',
         cssMinify: true,
