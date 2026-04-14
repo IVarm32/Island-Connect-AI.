@@ -73,10 +73,8 @@ def main():
         content = content.replace('{{{faq_markup}}}', faq_html)
 
         # Fix navigation and assets in the header/body
-        # Replace index.html with ../ and index.html#... with ../#...
         content = content.replace('href="index.html#', 'href="../#')
         content = content.replace('href="index.html"', 'href="../"')
-
         content = content.replace('href="blog.html"', 'href="../blog.html"')
         content = content.replace('href="private-policy.html"', 'href="../private-policy.html"')
         content = content.replace('href="nav_styles.css"', 'href="../nav_styles.css"')
@@ -85,6 +83,9 @@ def main():
         content = content.replace('href="css/', 'href="../css/')
         content = content.replace('href="favicon.svg"', 'href="../favicon.svg"')
         content = content.replace('href="images/icon-192.png"', 'href="../images/icon-192.png"')
+
+        # Fix Author icon path
+        content = content.replace('src="favicon.svg"', 'src="../favicon.svg"')
 
         # Also fix any internal links that might use blog.slug.html
         for p in posts:
