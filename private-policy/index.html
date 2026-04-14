@@ -8,10 +8,10 @@
     <meta name="description" content="Privacy Policy for Island Connect AI - Jamaica's Premier AI Agency.">
 
     <!-- Favicon & PWA Icons -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png">
-    <link rel="apple-touch-icon" href="images/icon-192.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="../images/icon-192.png">
+    <link rel="apple-touch-icon" href="../images/icon-192.png">
+    <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#0A0A0B">
 
     <!-- Open Graph / Facebook -->
@@ -28,10 +28,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"
         media="print" onload="this.media='all'">
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../index.css">
 
     <!-- Main Project Scripts (Deferred) for Nav logic -->
-    <script type="module" src="js/main.js" defer></script>
+    <script type="module" src="../js/main.js" defer></script>
 </head>
 
 <body>
@@ -171,16 +172,17 @@
 
     <footer class="site-footer">
         <div class="container footer-content">
-            <a class="logo" aria-label="Island Connect AI Home">
-                <svg class="logo-svg" viewBox="0 0 650 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <a class="logo" aria-label="Island Connect AI Home" href="/">
+                <svg aria-hidden="true" class="logo-svg" viewbox="0 0 650 120" xmlns="http://www.w3.org/2000/svg">
                     <g transform="translate(60,60)">
-                        <circle r="45" fill="#0b0f14" stroke="#1f2a33" stroke-width="2" />
-                        <polygon points="0,-28 22,-14 22,14 0,28 -22,14 -22,-14" fill="none" stroke="#d4af37"
-                            stroke-width="4" stroke-linejoin="round" />
-                        <polygon points="0,-14 10,0 0,14 -10,0" fill="#0f9d58" />
+                        <circle fill="#0b0f14" r="45" stroke="#1f2a33" stroke-width="2">
+                        </circle>
+                        <polygon fill="none" points="0,-28 22,-14 22,14 0,28 -22,14 -22,-14" stroke="#d4af37" stroke-linejoin="round" stroke-width="4">
+                        </polygon>
+                        <polygon fill="#0f9d58" points="0,-14 10,0 0,14 -10,0">
+                        </polygon>
                     </g>
-                    <text x="130" y="68" font-family="'Outfit', sans-serif" font-size="42" font-weight="700"
-                        letter-spacing="2">
+                    <text font-family="'Outfit', sans-serif" font-size="42" font-weight="700" letter-spacing="2" x="130" y="68">
                         <tspan fill="#ffffff">ISLAND CONNECT</tspan>
                         <tspan dx="8" fill="#0f9d58">AI</tspan>
                     </text>
@@ -191,10 +193,7 @@
                 <a href="https://www.youtube.com/@IslandConnectAI" target="_blank" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                 <a href="https://www.instagram.com/islandconnectai/" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
             </div>
-
-
-            <p class="footer-copy">© 2026 Island Connect AI. Locally Rooted. Globally Competitive. | <a
-                    href="private-policy.html">Privacy Policy</a></p>
+            <p class="footer-copy">© 2026 Island Connect AI. Locally Rooted. Globally Competitive. | <a href="/private-policy" style="color: var(--text-secondary); text-decoration: none;">Privacy Policy</a></p>
         </div>
     </footer>
 
