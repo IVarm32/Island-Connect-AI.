@@ -1,15 +1,11 @@
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Project dependencies
-node_modules/
-dist/
+node_modules
+dist
 .env
-
-# Agent artifacts
-.gemini/
-.agent/
-tmp/
-*.zip
 *.log
+# Blog generated directories
+ai-real-estate-platform-jamaica
+ai-tourism-solutions-jamaica
+jamaica-ai-automation-revolution
+jamaica-travel-automation-services
+montegobay-ai-tourism-services
+smart-property-search-jamaica
