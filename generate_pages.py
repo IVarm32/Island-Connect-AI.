@@ -1,6 +1,6 @@
 import json
 import os
-import shutil
+import re
 
 def main():
     if not os.path.exists('blog_posts.json'):
@@ -17,18 +17,16 @@ def main():
     with open('blog.html', 'r') as f:
         template = f.read()
 
-    for i, post in enumerate(posts):
+    for post in posts:
         slug = post['id']
         directory = slug
 
-        # Create directory for Clean URL (Option B)
         if not os.path.exists(directory):
             os.makedirs(directory)
 
         filename = os.path.join(directory, "index.html")
 
-        # Calculate related posts (exclude current)
-        # We use relative links: ../slug/
+        # Related posts
         related = [p for p in posts if p['id'] != post['id']][:3]
         related_html = ""
         for r in related:
@@ -44,14 +42,9 @@ def main():
             </a>
             """
 
-        # Handle SEO and Schema
-        schema_html = ""
-        if 'schema_markup' in post:
-            schema_html = f'<script type="application/ld+json">{json.dumps(post["schema_markup"])}</script>'
-
-        faq_html = ""
-        if 'faq_markup' in post:
-            faq_html = f'<script type="application/ld+json">{json.dumps(post["faq_markup"])}</script>'
+        # Markup
+        schema_html = f'<script type="application/ld+json">{json.dumps(post.get("schema_markup", {}))}</script>'
+        faq_html = f'<script type="application/ld+json">{json.dumps(post.get("faq_markup", {}))}</script>'
 
         content = template
 
@@ -59,7 +52,7 @@ def main():
         content = content.replace('{{description}}', post.get('meta_description', post['excerpt'][:160]))
         content = content.replace('{{excerpt}}', post['excerpt'])
 
-        # Adjust post image path if it's local
+        # Image
         post_image = post['image']
         if not post_image.startswith('http'):
             post_image = '../' + post_image
@@ -72,24 +65,20 @@ def main():
         content = content.replace('{{{schema_markup}}}', schema_html)
         content = content.replace('{{{faq_markup}}}', faq_html)
 
-        # Fix navigation and assets in the header/body
-        content = content.replace('href="index.html#', 'href="../#')
-        content = content.replace('href="index.html"', 'href="../"')
-        content = content.replace('href="blog.html"', 'href="../blog.html"')
-        content = content.replace('href="private-policy.html"', 'href="../private-policy.html"')
-        content = content.replace('href="nav_styles.css"', 'href="../nav_styles.css"')
-        content = content.replace('href="index.css"', 'href="../index.css"')
-        content = content.replace('src="js/', 'src="../js/')
-        content = content.replace('href="css/', 'href="../css/')
-        content = content.replace('href="favicon.svg"', 'href="../favicon.svg"')
-        content = content.replace('href="images/icon-192.png"', 'href="../images/icon-192.png"')
+        # Universal relative path fixes
+        # Look for src="..." and href="..." and inject ../ if it doesn't have http, /, or already have ../
+        def fix_path(match):
+            attr = match.group(1)
+            path = match.group(2)
+            if path.startswith(('http', '/', '#', 'mailto:', 'tel:', '../')):
+                return f'{attr}="{path}"'
+            return f'{attr}="../{path}"'
 
-        # Fix Author icon path
-        content = content.replace('src="favicon.svg"', 'src="../favicon.svg"')
+        content = re.sub(r'(href|src)="([^"]*)"', fix_path, content)
 
-        # Also fix any internal links that might use blog.slug.html
-        for p in posts:
-            content = content.replace(f'href="blog.{p["id"]}.html"', f'href="../{p["id"]}/"')
+        # Specialized fixes for anchor links to index.html sections
+        content = content.replace('href="../index.html#', 'href="../#')
+        content = content.replace('href="../index.html"', 'href="../"')
 
         with open(filename, 'w') as f:
             f.write(content)

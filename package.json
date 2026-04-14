@@ -13,6 +13,7 @@
     "@google/genai": "^1.40.0",
     "bootstrap-icons": "^1.13.1",
     "lucide-react": "^0.563.0",
+    "playwright": "^1.59.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
